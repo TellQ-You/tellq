@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TellQ | 100 years of craft, made for your now</title>
+
+    <meta name="description"
+        content="TellQ - 捨てられるはずの物を美しく生まれ変わらせる。100年のものづくりを、今のあなたへ。">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Lora:wght@400;500;600&family=Noto+Serif+JP:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="side-background side-background-left" aria-hidden="true"></div>
+    <div class="side-background side-background-right" aria-hidden="true"></div>
+
+    <!-- =========================================
+         FIXED SIDE BACKGROUNDS / PARALLAX
+
+         左右の背景は固定され、中央のコンテンツだけが
+         その上をスクロールするように見えます。
+         画像は test0001.jpg を使用しています。
+    ========================================== -->
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a href="#top" class="logo">
+                TellQ
+            </a>
+
+            <nav class="nav">
+
+                <a href="#top">TOP</a>
+                <a href="#about">ABOUT</a>
+                <a href="#products">PRODUCTS</a>
+                <a href="#news">NEWS</a>
+                <a href="#contact">CONTACT</a>
+
+            </nav>
+
+            <button class="menu-button" aria-label="メニュー">
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MOBILE MENU
+    ========================== -->
+
+    <div class="mobile-menu">
+
+        <a href="#top">TOP</a>
+        <a href="#about">ABOUT</a>
+        <a href="#products">PRODUCTS</a>
+        <a href="#news">NEWS</a>
+        <a href="#contact">CONTACT</a>
+
+    </div>
+
+
+    <main>
+
+        <!-- =========================
+             HERO / TOP
+        ========================== -->
+
+        <section id="top" class="hero">
+
+            <div class="hero-image">
+
+                <!-- =========================================
+                     HERO SLIDESHOW IMAGE INSERT HERE
+
+                     初期状態は5枚とも test0001.jpg です。
+                     後から script.js の HERO_IMAGES を変更すると
+                     5枚の画像を自由に差し替えられます。
+                ========================================== -->
+                <div class="hero-slides" aria-hidden="true">
+                    <img class="hero-slide active" src="test0001.jpg" alt="TellQ">
+                    <img class="hero-slide" src="test0001.jpg" alt="TellQ">
+                    <img class="hero-slide" src="test0001.jpg" alt="TellQ">
+                    <img class="hero-slide" src="test0001.jpg" alt="TellQ">
+                    <img class="hero-slide" src="test0001.jpg" alt="TellQ">
+                </div>
+
+            </div>
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <p class="hero-small">TELLQ</p>
+
+                <h1>
+                    100 years of craft,<br>
+                    <em>made for your now.</em>
+                </h1>
+
+                <p class="hero-japanese">
+                    100年のものづくりを、<br>
+                    今のあなたへ。
+                </p>
+
+                <a href="#about" class="hero-button">
+                    DISCOVER TELLQ
+                    <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="hero-scroll">
+                <span>SCROLL</span>
+                <div></div>
+            </div>
+
+            <!-- 風をイメージした装飾 -->
+            <div class="wind-line wind-01"></div>
+            <div class="wind-line wind-02"></div>
+            <div class="wind-line wind-03"></div>
+
+        </section>
+
+
+        <!-- =========================
+             INTRO
+        ========================== -->
+
+        <section class="intro section-padding">
+
+            <div class="intro-inner reveal">
+
+                <p class="section-label">OUR PHILOSOPHY</p>
+
+                <h2>
+                    捨てられるはずの物を<br>
+                    <span>美しく生まれ変わらせる。</span>
+                </h2>
+
+                <p class="intro-text">
+                    「可愛いから選びたい。」
+                    そんな気持ちから始まる選択が、
+                    いつか環境にもつながっていく。
+                </p>
+
+                <p class="intro-concept">
+                    自信を持って、あなたらしく。
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ABOUT
+        ========================== -->
+
+        <section id="about" class="about">
+
+            <div class="about-heading reveal">
+
+                <p class="section-label">ABOUT TELLQ</p>
+
+                <h2>
+                    BEAUTY<br>
+                    <span>FROM WHAT REMAINS.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="about-story">
+
+                <div class="about-image reveal">
+
+                    <!-- =========================================
+                         ABOUT IMAGE INSERT HERE
+
+                         ファイル名：test0001.jpg
+                         後から src のファイル名を変更できます。
+                    ========================================== -->
+                    <div class="image-frame">
+                        <img src="image/mono.JPG" alt="TellQのものづくり">
+                    </div>
+
+                </div>
+
+
+                <div class="about-text reveal">
+
+                    <span class="hand-frame frame-1" aria-hidden="true"></span>
+                    <span class="hand-frame frame-2" aria-hidden="true"></span>
+
+                    <p class="lead">
+                        リメイクは、環境のためだけのものではありません。
+                        まず「可愛い」と思って手に取ってもらいたい。
+                    </p>
+
+                    <p>
+                        TellQは、残布や行き場を失った素材を、
+                        美しいデザインへ生まれ変わらせます。
+                    </p>
+
+                    <p>
+                        このアクセサリーも、バッグづくりで生まれた
+                        小さな残布や切れ端から生まれました。
+                    </p>
+
+                    <p>
+                        残布だからといって、デザインを妥協したくない。
+                        私は、ギャザーのように素材に少し手を加えることで、
+                        新しい表情が生まれることが好きです。
+                    </p>
+
+                    <p>
+                        残布も、人も、小さなきっかけで魅力が引き出される。
+                        そんな想いを、このデザインにも込めています。
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-second">
+
+                <div class="about-second-text reveal">
+
+                    <span class="hand-frame frame-1" aria-hidden="true"></span>
+                    <span class="hand-frame frame-2" aria-hidden="true"></span>
+
+                    <p class="section-label">MY STORY</p>
+
+                    <h3>
+                        “これが私らしい。”
+                    </h3>
+
+                    <p>
+                        私は昔、周りと比べて自信をなくし、
+                        自分が何を好きだったのかさえ
+                        分からなくなった時期がありました。
+                    </p>
+
+                    <p>
+                        でも、自分に似合う服を着た日は、
+                        自分を肯定してあげられた。
+                    </p>
+
+                    <p>
+                        「これが私らしい。」
+                        そう思えた瞬間、
+                        服はただ着るものじゃなく、
+                        自分を表現するものになりました。
+                    </p>
+
+                    <p>
+                        だからこそ、
+                        ブランドコンセプトは
+                        <strong>「自信を持って、あなたらしく。」</strong>
+                    </p>
+
+                </div>
+
+
+                <div class="about-second-quote reveal">
+
+                    <p>
+                        あなたらしさを<br>
+                        引き出すブランド。
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-final reveal">
+
+                <div class="about-final-inner">
+
+                    <p>
+                        TellQという名前は、フランス語の
+                        「Tel que tu es」、
+                        「ありのままのあなた」が由来です。
+                    </p>
+
+                    <p>
+                        100年続いたニット会社で
+                        受け継がれてきた高級ニット素材。
+                    </p>
+
+                    <p>
+                        捨てられるはずの素材を
+                        美しく生まれ変わらせる。
+                    </p>
+
+                    <p>
+                        そして、身につけるたび、
+                        背中を押してくれるような
+                        自信を届けたい。
+                    </p>
+
+                    <h3>
+                        100年のものづくりを、<br>
+                        <em>今のあなたへ。</em>
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PRODUCTS
+        ========================== -->
+
+        <section id="products" class="products section-padding">
+
+            <div class="section-title reveal">
+
+                <p class="section-label">PRODUCTS</p>
+
+                <h2>
+                    A NEW LIFE,<br>
+                    <span>BEAUTIFULLY MADE.</span>
+                </h2>
+
+            </div>
+
+            <!-- PRODUCT SLIDER -->
+            <!-- 商品画像は script.js の PRODUCT_DATA から変更できます。 -->
+            <div class="product-showcase reveal">
+
+                <div class="product-main">
+
+                    <button class="product-arrow product-prev" id="productPrev" aria-label="前の商品">←</button>
+
+                    <div class="product-image">
+                        <img id="productMainImage" src="test0001.jpg" alt="TellQトートバッグ">
+                        <div class="product-number" id="productNumber">01</div>
+                    </div>
+
+                    <button class="product-arrow product-next" id="productNext" aria-label="次の商品">→</button>
+
+                </div>
+
+                <div class="product-info">
+                    <p class="product-category" id="productCategory">TELLQ / UPCYCLED COLLECTION</p>
+
+                    <h3 id="productName">TellQ<br>トートバッグ</h3>
+
+                    <p class="product-price" id="productPrice">¥2,400 <small>(tax included)</small></p>
+
+                    <div class="product-line"></div>
+
+                    <p class="product-description" id="productDescription">
+                        TellQブランドのトートバッグです。
+                        ニットを使った温かみのあるデザインで
+                        冬物の洋服に合わせやすく、
+                        上品な雰囲気と触り心地の良さを楽しめます。
+                    </p>
+
+                    <div class="product-detail">
+                        <div>
+                            <span>MATERIAL</span>
+                            <strong id="productMaterial">UPCYCLING KNIT</strong>
+                        </div>
+
+                        <div>
+                            <span>PRICE</span>
+                            <strong id="productDetailPrice">¥2,400</strong>
+                        </div>
+                    </div>
+
+                    <button class="buy-button" id="buyButton">
+                        PURCHASE
+                        <span>→</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- 商品一覧の小さいアイコン -->
+            <div class="product-thumbnails" id="productThumbnails" aria-label="商品一覧"></div>
+
+            <!-- =========================
+                 STAFF SNAP
+            ========================== -->
+            <div class="staff-snap">
+
+                <div class="staff-heading reveal">
+                    <p class="section-label">STAFF SNAP</p>
+                    <h3>TellQ <span>STYLE.</span></h3>
+                </div>
+
+                <div class="staff-slider reveal">
+                    <button class="staff-arrow staff-prev" id="staffPrev" aria-label="前のスタッフスナップ">←</button>
+
+                    <div class="staff-track-window">
+                        <div class="staff-track" id="staffTrack">
+                            <button class="staff-slide active" data-index="0" aria-label="スタッフスナップ1">
+                                <img src="image/staffsnap1.jpg" alt="スタッフスナップ 1">
+                            </button>
+                            <button class="staff-slide" data-index="1" aria-label="スタッフスナップ2">
+                                <img src="image/staffsnap2.jpg" alt="スタッフスナップ 2">
+                            </button>
+                            <button class="staff-slide" data-index="2" aria-label="スタッフスナップ3">
+                                <img src="image/staffsnap3.jpg" alt="スタッフスナップ 3">
+                            </button>
+                            <button class="staff-slide" data-index="3" aria-label="スタッフスナップ4">
+                                <img src="image/staffsnap4.jpg" alt="スタッフスナップ 4">
+                            </button>
+                            <button class="staff-slide" data-index="4" aria-label="スタッフスナップ5">
+                                <img src="image/staffsnap5.jpg" alt="スタッフスナップ 5">
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="staff-arrow staff-next" id="staffNext" aria-label="次のスタッフスナップ">→</button>
+                </div>
+
+                <div class="staff-dots" id="staffDots" aria-label="スタッフスナップ選択"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             NEWS
+        ========================== -->
+
+        <section id="news" class="news">
+
+            <div class="news-inner">
+
+                <div class="section-title reveal">
+
+                    <p class="section-label">NEWS</p>
+
+                    <h2>
+                        JOURNAL &<br>
+                        <span>NEWS.</span>
+                    </h2>
+
+                </div>
+
+
+                <article class="news-item reveal">
+
+                    <div class="news-date">
+
+                        <span class="day">03</span>
+
+                        <span class="month">
+                            JUN<br>
+                            2026
+                        </span>
+
+                    </div>
+
+
+                    <div class="news-content">
+
+                        <span class="hand-frame frame-1" aria-hidden="true"></span>
+                        <span class="hand-frame frame-2" aria-hidden="true"></span>
+
+                        <p class="news-category">
+                            BRAND LAUNCH <span class="news-category-line"></span>  STORY 02
+                        </p>
+
+                        <h3>
+                            TellQを始めます。
+                        </h3>
+
+                        <p>
+                            捨てられるはずだった素材に、
+                            もう一度命を吹き込むブランドを始めます。
+                        </p>
+
+                        <p>
+                            実家は100年続いたニット工場でした。
+                            倉庫には、百貨店品質のカシミヤ生地や
+                            高級ニット素材が、使われないまま眠っています。
+                        </p>
+
+                        <p>
+                            幼い頃から、
+                            「こんなに綺麗な素材を捨ててしまうのはもったいない」
+                            そう思っていました。
+                        </p>
+
+                        <p>
+                            だからこそ私は、
+                            残布を活用した服を美しく生まれ変わらせたい。
+                        </p>
+
+                        <p>
+                            前回の投稿へのたくさんのコメント、
+                            本当にありがとうございました。
+                            皆さんの言葉に背中を押され、
+                            もっと頑張ろうと思えました。
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INSTAGRAM
+        ========================== -->
+
+        <section class="instagram">
+
+            <div class="instagram-content reveal">
+
+                <p class="section-label">FOLLOW OUR STORY</p>
+
+                <h2>
+                    TellQ on<br>
+                    <em>Instagram.</em>
+                </h2>
+
+                <p>
+                    日々のものづくりや、
+                    TellQの最新情報をお届けします。
+                </p>
+
+                <!-- 仮リンク -->
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+                    class="instagram-button">
+                    <span class="instagram-icon" aria-hidden="true"><span class="instagram-icon-dot"></span></span>
+                    <span>@TELLQ</span>
+                    <span class="instagram-arrow">↗</span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section id="contact" class="contact section-padding">
+
+            <div class="contact-inner">
+
+                <div class="section-title reveal">
+
+                    <p class="section-label">CONTACT</p>
+
+                    <h2>
+                        LET'S TALK<br>
+                        <span>WITH TELLQ.</span>
+                    </h2>
+
+                    <p class="contact-lead">
+                        商品についてのお問い合わせや、
+                        ブランドに関するご質問など、
+                        お気軽にお問い合わせください。
+                    </p>
+
+                </div>
+
+
+                <form id="contactForm" class="contact-form reveal">
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="お名前"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            EMAIL
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="メールアドレス"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            CATEGORY
+                        </label>
+
+                        <select id="category" name="category">
+
+                            <option value="product">
+                                商品について
+                            </option>
+
+                            <option value="brand">
+                                ブランドについて
+                            </option>
+
+                            <option value="other">
+                                その他
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            MESSAGE
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="お問い合わせ内容をご入力ください"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button type="submit" class="submit-button">
+                        SEND MESSAGE
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+                    TellQ
+                </div>
+
+                <p>
+                    100 years of craft,<br>
+                    made for your now.
+                </p>
+
+            </div>
+
+
+            <div class="footer-nav">
+
+                <a href="#top">TOP</a>
+                <a href="#about">ABOUT</a>
+                <a href="#products">PRODUCTS</a>
+                <a href="#news">NEWS</a>
+                <a href="#contact">CONTACT</a>
+
+            </div>
+
+
+            <div class="footer-social">
+
+                <a href="https://www.instagram.com/" target="_blank"
+                    rel="noopener noreferrer">
+                    Instagram ↗
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 TellQ. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         PURCHASE MODAL
+    ========================== -->
+
+    <!-- STAFF SNAP IMAGE LIGHTBOX -->
+    <div class="staff-lightbox" id="staffLightbox" aria-hidden="true">
+        <button class="staff-lightbox-close" id="staffLightboxClose" aria-label="閉じる">×</button>
+        <img id="staffLightboxImage" src="test0001.jpg" alt="スタッフスナップ拡大画像">
+    </div>
+
+    <div class="modal" id="purchaseModal">
+
+        <div class="modal-overlay"></div>
+
+        <div class="modal-content">
+
+            <button class="modal-close" id="modalClose">
+                ×
+            </button>
+
+            <p class="section-label">
+                PURCHASE
+            </p>
+
+            <h2>
+                TellQ<br>
+                トートバッグ
+            </h2>
+
+            <p class="modal-price">
+                ¥2,400
+            </p>
+
+            <p>
+                現在はデモページのため、
+                実際の決済機能は実装されていません。
+            </p>
+
+            <button class="modal-button" id="modalOk">
+                CLOSE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         BACK TO TOP
+    ========================== -->
+
+    <button class="back-to-top" id="backToTop">
+        ↑
+    </button>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,2259 @@
+/* =========================================================
+   TELLQ WEBSITE
+   STYLE CSS
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #e8dfd2;
+    color: #302a26;
+    font-family: "Noto Serif JP", serif;
+    overflow-x: hidden;
+}
+
+.lora-number {
+    font-family: var(--lora);
+    font-weight: 400;
+}
+
+/* =========================================================
+   FIXED SIDE BACKGROUNDS / PARALLAX
+========================================================= */
+
+.side-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: max(0px, calc((100vw - 1200px) / 2));
+    z-index: 0;
+    background: url("image/haikei.jpg") center center / cover no-repeat;
+    filter: saturate(0.7);
+}
+
+.side-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(40, 32, 27, 0.22);
+}
+
+.side-background-left { left: 0; }
+.side-background-right { right: 0; }
+
+main,
+.footer {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1200px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-inner {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --beige: #e8dfd2;
+    --light-beige: #f2ece4;
+    --cream: #f8f5f0;
+
+    --brown: #756256;
+    --dark-brown: #3c332e;
+
+    --black: #282421;
+
+    --red: #b9867b;
+    --light-red: #d8b2a8;
+
+    --white: #fffdf9;
+
+    --serif: "Noto Serif JP", serif;
+    --english: "Cormorant Garamond", serif;
+    --lora: "Lora", serif;
+    --sans: "Montserrat", sans-serif;
+}
+
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.section-padding {
+    padding: 150px 8%;
+}
+
+.section-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--brown);
+    margin-bottom: 28px;
+}
+
+.section-title h2 {
+    font-family: var(--english);
+    font-size: clamp(55px, 7vw, 105px);
+    line-height: 0.88;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.section-title h2 span {
+    color: var(--brown);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 25px 5%;
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    position: relative;
+    z-index: 2;
+    width: 100px;
+    font-family: var(--english);
+    font-size: 34px;
+    letter-spacing: 0.05em;
+}
+
+.nav {
+    display: flex;
+    gap: 42px;
+}
+
+.nav a {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    transition: opacity 0.3s ease;
+}
+
+.nav a:hover {
+    opacity: 0.55;
+}
+
+.menu-button {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: var(--beige);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.mobile-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-menu a {
+    font-family: var(--english);
+    font-size: 42px;
+    color: var(--dark-brown);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    overflow: hidden;
+    background: #a9998b;
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.hero-slides {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(0.75);
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 2.4s ease-in-out, transform 8s ease-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(30,24,20,0.45),
+            rgba(30,24,20,0.05)
+        );
+}
+
+.hero-content {
+    position: absolute;
+    z-index: 2;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: white;
+}
+
+.hero-small {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-family: var(--lora);
+    font-size: clamp(48px, 5.8vw, 86px);
+    line-height: 1.04;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    max-width: 780px;
+}
+
+.hero h1 em {
+    font-weight: 300;
+}
+
+.hero-japanese {
+    margin-top: 35px;
+
+    font-size: 13px;
+    line-height: 2.1;
+    letter-spacing: 0.12em;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+
+    margin-top: 40px;
+    padding-bottom: 10px;
+
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+
+    border-bottom: 1px solid rgba(255,255,255,0.7);
+
+    transition:
+        gap 0.4s ease,
+        opacity 0.3s ease;
+}
+
+.hero-button:hover {
+    gap: 45px;
+    opacity: 0.7;
+}
+
+.hero-scroll {
+    position: absolute;
+    z-index: 2;
+    bottom: 35px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    color: white;
+}
+
+.hero-scroll span {
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.4em;
+}
+
+.hero-scroll div {
+    width: 1px;
+    height: 50px;
+    background: rgba(255,255,255,0.6);
+}
+
+
+/* =========================================================
+   WIND
+========================================================= */
+
+.wind-line {
+    position: absolute;
+    z-index: 1;
+
+    height: 1px;
+    width: 300px;
+
+    background: rgba(255,255,255,0.35);
+
+    transform: rotate(-18deg);
+
+    animation: windMove 8s ease-in-out infinite;
+}
+
+.wind-01 {
+    top: 25%;
+    right: -50px;
+}
+
+.wind-02 {
+    top: 55%;
+    right: 15%;
+    width: 180px;
+    animation-delay: 2s;
+}
+
+.wind-03 {
+    top: 70%;
+    right: -100px;
+    width: 400px;
+    animation-delay: 4s;
+}
+
+@keyframes windMove {
+
+    0% {
+        transform:
+            translateX(0)
+            rotate(-18deg);
+        opacity: 0.1;
+    }
+
+    50% {
+        transform:
+            translateX(-80px)
+            rotate(-18deg);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform:
+            translateX(0)
+            rotate(-18deg);
+        opacity: 0.1;
+    }
+
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro {
+    background: var(--cream);
+    text-align: center;
+}
+
+.intro-inner {
+    max-width: 900px;
+    margin: auto;
+}
+
+.intro h2 {
+    font-size: clamp(35px, 5vw, 65px);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.intro h2 span {
+    color: var(--brown);
+}
+
+.intro-text {
+    max-width: 550px;
+    margin: 45px auto 0;
+
+    font-size: 14px;
+    line-height: 2.4;
+}
+
+.intro-concept {
+    margin-top: 55px;
+
+    font-family: var(--english);
+    font-size: 32px;
+    font-style: italic;
+
+    color: var(--red);
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about {
+    background: var(--beige);
+    padding-top: 150px;
+}
+
+.about-heading {
+    padding: 0 8% 120px;
+}
+
+/* ABOUT見出し：PRODUCTS / NEWS と同じ見出し設計 */
+.about-heading h2 {
+    font-family: var(--english);
+    font-size: clamp(55px, 7vw, 105px);
+    line-height: 0.88;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.about-heading h2 span {
+    color: var(--brown);
+}
+
+.about-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+}
+
+.about-image {
+    height: 700px;
+    overflow: hidden;
+}
+
+.image-frame {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.about-text {
+    height: 700px;
+    padding: 62px 11%;
+    background: var(--light-beige);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-text p {
+    font-size: 12px;
+    line-height: 1.9;
+    margin-bottom: 13px;
+}
+
+.about-text .lead {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--brown);
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   ABOUT SECOND
+========================================================= */
+
+.about-second {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    padding: 180px 8%;
+    gap: 80px;
+}
+
+.about-second-text {
+    position: relative;
+    padding-left: 58px;
+}
+
+.about-second-text::before {
+    content: "01";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-family: var(--lora);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--brown);
+}
+
+.about-second-text::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 31px;
+    width: 1px;
+    height: calc(100% - 31px);
+    background: linear-gradient(to bottom, rgba(118,91,73,0.55), rgba(118,91,73,0));
+}
+
+.about-second-text .section-label {
+    margin-bottom: 22px;
+    letter-spacing: 0.42em;
+}
+
+.about-second-text h3 {
+    position: relative;
+    display: inline-block;
+    font-family: var(--lora);
+    font-size: clamp(34px, 3.5vw, 48px);
+    line-height: 1.25;
+    font-weight: 400;
+    margin-bottom: 48px;
+    color: var(--brown);
+}
+
+.about-second-text h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -17px;
+    width: 58px;
+    height: 1px;
+    background: var(--light-red);
+}
+
+.about-second-text p {
+    max-width: 500px;
+    font-size: 13px;
+    line-height: 2.55;
+    margin-bottom: 25px;
+}
+
+.about-second-text strong {
+    color: var(--red);
+    font-weight: 500;
+}
+
+.about-second-quote {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--brown);
+    background: linear-gradient(145deg, rgba(255,255,255,0.72), rgba(238,229,218,0.45));
+    border: 1px solid rgba(118,91,73,0.13);
+    box-shadow: 0 25px 70px rgba(75,55,42,0.08);
+    overflow: hidden;
+}
+
+.about-second-quote::before {
+    content: "TELLQ / PHILOSOPHY";
+    position: absolute;
+    top: 28px;
+    left: 30px;
+    font-family: var(--sans);
+    font-size: 7px;
+    letter-spacing: 0.32em;
+    color: rgba(60,51,46,0.5);
+}
+
+.about-second-quote::after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    border: 1px solid rgba(160,102,83,0.16);
+    border-radius: 50%;
+    right: -72px;
+    bottom: -72px;
+}
+
+.quote-mark {
+    font-family: var(--lora);
+    font-size: 88px;
+    line-height: 0.5;
+    opacity: 0.22;
+}
+
+.about-second-quote p {
+    font-family: var(--lora);
+    font-size: clamp(32px, 3.2vw, 46px);
+    font-style: italic;
+    line-height: 1.35;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.quote-end {
+    transform: rotate(180deg);
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   ABOUT FINAL
+========================================================= */
+
+.about-final {
+    background: var(--dark-brown);
+    color: white;
+
+    padding: 150px 8%;
+}
+
+.about-final-inner {
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+}
+
+.about-final p {
+    font-size: 13px;
+    line-height: 2.5;
+    margin-bottom: 25px;
+    opacity: 0.85;
+}
+
+.about-final h3 {
+    margin-top: 80px;
+
+    font-family: var(--english);
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1.1;
+    font-weight: 300;
+}
+
+.about-final h3 em {
+    color: var(--light-red);
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.products {
+    background: var(--cream);
+}
+
+.product-showcase {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    max-width: 1300px;
+    margin: 120px auto 0;
+    background: var(--white);
+}
+
+.product-main {
+    position: relative;
+    min-width: 0;
+}
+
+.product-image {
+    position: relative;
+    height: 700px;
+    overflow: hidden;
+    background: var(--light-beige);
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: opacity 0.35s ease;
+}
+
+.product-number {
+    position: absolute;
+    top: 30px;
+    left: 35px;
+    font-family: var(--english);
+    font-size: 24px;
+    color: rgba(255,255,255,0.8);
+}
+
+.product-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255,255,255,0.65);
+    background: rgba(40,33,29,0.28);
+    color: white;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.product-arrow:hover {
+    background: rgba(40,33,29,0.55);
+}
+
+.product-prev { left: 24px; }
+.product-next { right: 24px; }
+
+.product-info {
+    padding: 80px 10%;
+}
+
+.product-category {
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    color: var(--brown);
+}
+
+.product-info h3 {
+    margin-top: 35px;
+    font-family: var(--english);
+    font-size: 62px;
+    line-height: 0.95;
+    font-weight: 300;
+}
+
+.product-price {
+    margin-top: 35px;
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+}
+
+.product-price small {
+    font-size: 8px;
+    color: #888;
+}
+
+.product-line {
+    width: 100%;
+    height: 1px;
+    margin: 40px 0;
+    background: #d7cec4;
+}
+
+.product-description {
+    font-size: 12px;
+    line-height: 2.4;
+}
+
+.product-detail {
+    margin-top: 50px;
+    display: flex;
+    gap: 50px;
+}
+
+.product-detail div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-detail span {
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: #999;
+}
+
+.product-detail strong {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.buy-button {
+    width: 100%;
+    margin-top: 60px;
+    padding: 20px;
+    border: 1px solid var(--dark-brown);
+    background: var(--dark-brown);
+    color: white;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.buy-button:hover {
+    background: transparent;
+    color: var(--dark-brown);
+}
+
+.product-thumbnails {
+    max-width: 1300px;
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+.product-thumb {
+    position: relative;
+    height: 130px;
+    padding: 0;
+    border: 1px solid transparent;
+    background: var(--light-beige);
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.58;
+    transition: opacity 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.product-thumb:hover,
+.product-thumb.active {
+    opacity: 1;
+}
+
+.product-thumb.active {
+    border-color: var(--dark-brown);
+}
+
+.product-thumb:hover {
+    transform: translateY(-2px);
+}
+
+.product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-thumb span {
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    color: white;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.45);
+}
+
+/* =========================================================
+   STAFF SNAP
+========================================================= */
+
+.staff-snap {
+    max-width: 1300px;
+    margin: 150px auto 0;
+}
+
+.staff-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.staff-heading .section-label {
+    margin-bottom: 18px;
+}
+
+.staff-heading h3 {
+    font-family: var(--english);
+    font-size: clamp(48px, 6vw, 82px);
+    line-height: 0.9;
+    font-weight: 300;
+}
+
+.staff-heading h3 span {
+    color: var(--brown);
+}
+
+.staff-slider {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.staff-track-window {
+    flex: 1;
+    overflow: hidden;
+}
+
+.staff-track {
+    display: flex;
+    transition: transform 0.65s cubic-bezier(.2,.7,.2,1);
+}
+
+.staff-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+.staff-slide img {
+    width: 100%;
+    height: 540px;
+    object-fit: cover;
+    display: block;
+}
+
+.staff-arrow {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(60,51,46,0.45);
+    background: transparent;
+    color: var(--dark-brown);
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.staff-arrow:hover {
+    background: var(--dark-brown);
+    color: white;
+}
+
+.staff-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.staff-dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 1px solid var(--dark-brown);
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.staff-dot.active {
+    background: var(--dark-brown);
+    transform: scale(1.35);
+}
+
+/* スタッフスナップ拡大表示 */
+.staff-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: rgba(40,33,29,0.88);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.staff-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.staff-lightbox img {
+    max-width: min(90vw, 1000px);
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 20px 70px rgba(0,0,0,0.35);
+}
+
+.staff-lightbox-close {
+    position: absolute;
+    top: 22px;
+    right: 28px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 38px;
+    font-weight: 200;
+    cursor: pointer;
+}
+
+/* =========================================================
+   NEWS
+========================================================= */
+
+.news {
+    background: #ded3c6;
+    padding: 150px 8%;
+}
+
+.news-inner {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.news-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+
+    margin-top: 120px;
+    padding-top: 60px;
+
+    border-top: 1px solid rgba(60,51,46,0.25);
+}
+
+.news-date {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding-top: 15px;
+}
+
+.news-date .day {
+    font-family: var(--lora);
+    font-size: 64px;
+    line-height: 0.8;
+    font-weight: 400;
+}
+
+.news-date .month {
+    font-family: var(--sans);
+    font-size: 9px;
+    line-height: 1.6;
+    letter-spacing: 0.15em;
+}
+
+.news-category {
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    color: var(--red);
+}
+
+.news-content {
+    position: relative;
+    padding-left: 46px;
+}
+
+.news-content::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(160,102,83,0.55), rgba(160,102,83,0));
+}
+
+.news-content h3 {
+    margin: 25px 0 35px;
+    font-family: var(--lora);
+    font-size: clamp(42px, 5vw, 64px);
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--brown);
+}
+
+.news-content p {
+    max-width: 700px;
+
+    font-size: 13px;
+    line-height: 2.4;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   INSTAGRAM
+========================================================= */
+
+.instagram {
+    min-height: 650px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #eee5da,
+            #c5b5a5
+        );
+}
+
+.instagram-content h2 {
+    font-family: var(--english);
+    font-size: clamp(60px, 8vw, 110px);
+    line-height: 0.85;
+    font-weight: 300;
+}
+
+.instagram-content h2 em {
+    color: var(--red);
+}
+
+.instagram-content > p:not(.section-label) {
+    margin: 35px auto;
+    font-size: 12px;
+    line-height: 2;
+}
+
+.instagram-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--dark-brown);
+
+    transition: gap 0.4s ease;
+}
+
+.instagram-button:hover {
+    gap: 45px;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact {
+    background: var(--cream);
+}
+
+.contact-inner {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 100px;
+}
+
+.contact-lead {
+    margin-top: 50px;
+
+    font-size: 12px;
+    line-height: 2.3;
+    color: #6e625a;
+}
+
+.contact-form {
+    padding-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 40px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.25em;
+
+    color: var(--brown);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    border: none;
+    border-bottom: 1px solid #c9bdb0;
+
+    background: transparent;
+
+    padding: 13px 0;
+
+    color: var(--dark-brown);
+    outline: none;
+
+    font-size: 13px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-bottom-color: var(--red);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+
+    border: none;
+    background: var(--dark-brown);
+    color: white;
+
+    padding: 22px;
+
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+
+    display: flex;
+    justify-content: space-between;
+
+    cursor: pointer;
+
+    transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+    background: var(--red);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    background: var(--dark-brown);
+    color: white;
+
+    padding: 90px 6% 25px;
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.footer-logo {
+    font-family: var(--english);
+    font-size: 45px;
+}
+
+.footer-brand p {
+    margin-top: 15px;
+
+    font-family: var(--english);
+    font-size: 17px;
+    line-height: 1.3;
+
+    color: #d2c4b7;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-nav a,
+.footer-social a {
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.3em;
+
+    color: #d2c4b7;
+
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover,
+.footer-social a:hover {
+    color: white;
+}
+
+.footer-social {
+    text-align: right;
+}
+
+.footer-bottom {
+    margin-top: 80px;
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.footer-bottom p {
+    font-family: var(--sans);
+    font-size: 7px;
+    letter-spacing: 0.2em;
+    color: #a99a8d;
+}
+
+
+
+@media (max-width: 600px) {
+    .product-showcase {
+        margin-top: 70px;
+    }
+
+    .product-image {
+        height: 450px;
+    }
+
+    .product-info {
+        padding: 60px 8%;
+    }
+
+    .product-info h3 {
+        font-size: 52px;
+    }
+
+    .product-description {
+        font-size: 11px;
+    }
+
+    .product-detail {
+        gap: 30px;
+    }
+
+    .product-thumbnails {
+        margin-top: 15px;
+        gap: 5px;
+    }
+
+    .product-thumb {
+        height: 72px;
+    }
+
+    .product-thumb span {
+        font-size: 6px;
+        left: 6px;
+        bottom: 5px;
+    }
+
+    .product-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    .product-prev { left: 15px; }
+    .product-next { right: 15px; }
+
+    .staff-snap {
+        margin-top: 100px;
+    }
+
+    .staff-slider {
+        gap: 8px;
+    }
+
+    .staff-arrow {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .staff-slide img {
+        height: 450px;
+    }
+
+    .staff-lightbox {
+        padding: 20px;
+    }
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.4s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(40,33,29,0.65);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 2;
+
+    width: min(90%, 500px);
+
+    padding: 70px 55px;
+
+    background: var(--cream);
+
+    text-align: center;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 20px;
+    right: 25px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 30px;
+    font-weight: 200;
+
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    font-family: var(--english);
+    font-size: 50px;
+    line-height: 0.9;
+    font-weight: 300;
+}
+
+.modal-price {
+    margin: 30px 0;
+
+    font-family: var(--sans);
+    font-size: 18px;
+}
+
+.modal-content > p:not(.section-label):not(.modal-price) {
+    font-size: 11px;
+    line-height: 2;
+    color: #746960;
+}
+
+.modal-button {
+    margin-top: 35px;
+
+    padding: 15px 60px;
+
+    border: 1px solid var(--dark-brown);
+    background: transparent;
+
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.3em;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+.back-to-top {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 45px;
+    height: 45px;
+
+    border: 1px solid rgba(60,51,46,0.4);
+
+    background: rgba(248,245,240,0.8);
+
+    color: var(--dark-brown);
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.3s ease;
+}
+
+.back-to-top.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .product-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        height: 600px;
+    }
+
+    .product-info {
+        padding: 70px 8%;
+    }
+
+    .product-thumbnails {
+        gap: 8px;
+    }
+
+    .product-thumb {
+        height: 100px;
+    }
+
+    .staff-slider {
+        gap: 12px;
+    }
+
+    .staff-slide img {
+        height: 550px;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .nav {
+        display: none;
+    }
+
+    .menu-button {
+        display: flex;
+
+        width: 35px;
+        height: 30px;
+
+        flex-direction: column;
+        justify-content: center;
+        gap: 7px;
+
+        border: none;
+        background: transparent;
+
+        cursor: pointer;
+    }
+
+    .menu-button span {
+        width: 100%;
+        height: 1px;
+        background: white;
+
+        transition:
+            transform 0.3s ease;
+    }
+
+    .menu-button.active span:first-child {
+        transform: translateY(4px) rotate(45deg);
+    }
+
+    .menu-button.active span:last-child {
+        transform: translateY(-4px) rotate(-45deg);
+    }
+
+    .hero-content {
+        left: 8%;
+        right: 8%;
+    }
+
+    .hero h1 {
+        font-size: clamp(55px, 12vw, 90px);
+    }
+
+    .about-story {
+        grid-template-columns: 1fr;
+    }
+
+    .about-image {
+        height: 550px;
+    }
+
+    .about-text {
+        height: auto;
+        min-height: 0;
+        padding: 80px 10%;
+        overflow: visible;
+    }
+
+    .about-second {
+        grid-template-columns: 1fr;
+        gap: 100px;
+    }
+
+    .product-card {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image,
+    .product-placeholder {
+        min-height: 600px;
+    }
+
+    .product-info {
+        padding: 70px 8%;
+    }
+
+    .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 70px;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-social {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .section-padding {
+        padding: 100px 7%;
+    }
+
+    .header {
+        padding: 20px 6%;
+    }
+
+    .logo-fallback {
+        font-size: 29px;
+    }
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+        line-height: 1.08;
+        max-width: 650px;
+    }
+
+    .hero-japanese {
+        font-size: 11px;
+    }
+
+    .intro h2 {
+        font-size: 31px;
+    }
+
+    .intro-text {
+        font-size: 12px;
+    }
+
+    .intro-concept {
+        font-size: 27px;
+    }
+
+    .about {
+        padding-top: 100px;
+    }
+
+    .about-heading {
+        padding: 0 7% 70px;
+    }
+
+    .section-title h2 {
+        font-size: 60px;
+    }
+
+    .about-image {
+        height: 450px;
+        min-height: 450px;
+    }
+
+    .about-text {
+        height: auto;
+        min-height: 0;
+        padding: 65px 8%;
+        overflow: visible;
+    }
+
+    .about-text .lead {
+        font-size: 17px;
+    }
+
+    .about-text p {
+        font-size: 12px;
+        line-height: 2.3;
+    }
+
+    .about-second {
+        padding: 100px 8%;
+        gap: 55px;
+    }
+
+    .about-second-text {
+        padding-left: 42px;
+    }
+
+    .about-second-quote {
+        min-height: 400px;
+    }
+
+    .about-second-text h3 {
+        font-size: 30px;
+    }
+
+    .about-second-text p {
+        font-size: 12px;
+    }
+
+    .about-second-quote p {
+        font-size: 34px;
+    }
+
+    .about-final {
+        padding: 100px 8%;
+    }
+
+    .about-final h3 {
+        font-size: 45px;
+    }
+
+    .product-card {
+        margin-top: 70px;
+    }
+
+    .product-image {
+        height: 450px;
+        min-height: 450px;
+    }
+
+    .product-info {
+        padding: 60px 8%;
+    }
+
+    .product-info h3 {
+        font-size: 52px;
+    }
+
+    .product-description {
+        font-size: 11px;
+    }
+
+    .product-detail {
+        gap: 30px;
+    }
+
+    .news {
+        padding: 100px 7%;
+    }
+
+    .news-item {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 80px;
+    }
+
+    .news-content {
+        padding-left: 28px;
+    }
+
+    .news-content h3 {
+        font-size: 45px;
+    }
+
+    .news-content p {
+        font-size: 12px;
+    }
+
+    .instagram {
+        min-height: 500px;
+        padding: 80px 7%;
+    }
+
+    .instagram-content h2 {
+        font-size: 70px;
+    }
+
+    .contact-inner {
+        gap: 50px;
+    }
+
+    .modal-content {
+        padding: 60px 30px;
+    }
+
+}
+
+@media (max-width: 1250px) {
+    .side-background {
+        display: none;
+    }
+
+    main,
+    .footer,
+    .header-inner {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   HAND-DRAWN DOUBLE FRAMES / LONG TEXT BACKGROUNDS
+   v12: v6をベースにした今回のデザイン追加
+========================================================= */
+
+.about-text,
+.about-second-text,
+.news-content {
+    position: relative;
+    isolation: isolate;
+}
+
+.about-text .hand-frame,
+.about-second-text .hand-frame,
+.news-content .hand-frame {
+    position: absolute;
+    z-index: -1;
+    display: block;
+    pointer-events: none;
+    box-sizing: border-box;
+    background: rgba(255, 251, 246, 0.26);
+}
+
+/* =========================================================
+   ORGANIC TEXT FRAMES / v13
+========================================================= */
+
+/* ABOUT TELLQ：四角い背景をなくし、上品な丸みだけを残す */
+.about-text .hand-frame {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.about-text .frame-1 {
+    width: 97%;
+    height: 80%;
+    left: 0%;
+    top: 9%;
+    border: 1px solid rgba(151, 108, 91, 0.16);
+    border-radius: 64% 36% 58% 42% / 43% 61% 39% 57%;
+    background: rgba(255, 250, 244, 0.18);
+    transform: rotate(-2.7deg) scaleX(1.03) skewX(-0.8deg);
+    box-shadow: 0 0 28px rgba(181, 135, 116, 0.05);
+}
+
+.about-text .frame-2 {
+    width: 91%;
+    height: 74%;
+    left: 5%;
+    top: 14%;
+    border: 1px solid rgba(190, 142, 123, 0.12);
+    border-radius: 42% 58% 63% 37% / 59% 41% 55% 45%;
+    background: rgba(235, 216, 204, 0.09);
+    transform: rotate(3.4deg) scaleX(1.02) skewX(1deg);
+}
+
+/* MY STORY：植物の茎が四方へ伸びるような、極端に不規則な曲線 */
+.about-second-text .frame-1,
+.about-second-text .frame-2,
+.news-content .frame-1,
+.news-content .frame-2 {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.about-second-text .frame-1 {
+    width: 116%;
+    height: 112%;
+    left: -9%;
+    top: -6%;
+    border: 1px solid rgba(151, 108, 91, 0.22);
+    border-radius: 73% 27% 61% 39% / 31% 68% 32% 69%;
+    background: rgba(255, 250, 244, 0.15);
+    transform: rotate(-3.2deg) skewX(-2deg);
+
+}
+
+.about-second-text .frame-2 {
+    width: 111%;
+    height: 106%;
+    left: -4%;
+    top: -1%;
+    border: 1px solid rgba(184, 132, 112, 0.17);
+    border-radius: 28% 72% 35% 65% / 67% 29% 71% 33%;
+    background: rgba(233, 215, 203, 0.08);
+    transform: rotate(4.4deg) skewX(2.5deg);
+
+}
+
+/* BRAND LAUNCH：さらに暴れる植物の蔓。角を完全になくした有機形状 */
+.news-content .frame-1 {
+    width: 118%;
+    height: 119%;
+    left: -10%;
+    top: -10%;
+    border: 1px solid rgba(151, 108, 91, 0.21);
+    border-radius: 62% 38% 74% 26% / 25% 69% 31% 75%;
+    background: rgba(255, 250, 244, 0.14);
+    transform: rotate(-4.8deg) skewX(-3deg);
+
+}
+
+.news-content .frame-2 {
+    width: 113%;
+    height: 112%;
+    left: -5%;
+    top: -4%;
+    border: 1px solid rgba(184, 132, 112, 0.17);
+    border-radius: 34% 66% 24% 76% / 71% 33% 67% 29%;
+    background: rgba(235, 216, 204, 0.08);
+    transform: rotate(5.5deg) skewX(3.5deg);
+
+}
+
+/* 線に微細な揺らぎを加えて、定規で描いた感じを消す */
+.about-second-text .frame-1::before,
+.about-second-text .frame-2::before,
+.news-content .frame-1::before,
+.news-content .frame-2::before {
+    content: "";
+    position: absolute;
+    inset: -2.5% -1.5%;
+    border: 1px solid currentColor;
+    border-color: inherit;
+    border-radius: inherit;
+    opacity: 0.28;
+    transform: rotate(1.7deg) scale(1.015, 0.985);
+    filter: blur(0.25px);
+}
+
+@media (max-width: 600px) {
+    .about-text .frame-1 {
+        width: 106%;
+        height: 86%;
+        left: -4%;
+        top: 7%;
+        border-radius: 63% 37% 57% 43% / 45% 60% 40% 55%;
+        transform: rotate(-3.4deg) scaleX(1.02) skewX(-1deg);
+    }
+
+    .about-text .frame-2 {
+        width: 97%;
+        height: 79%;
+        left: 2%;
+        top: 12%;
+        border-radius: 40% 60% 62% 38% / 58% 42% 56% 44%;
+        transform: rotate(3.8deg) scaleX(1.01) skewX(1.1deg);
+    }
+
+    .about-second-text .frame-1 {
+        width: 121%;
+        height: 112%;
+        left: -12%;
+        top: -5%;
+    }
+
+    .about-second-text .frame-2 {
+        width: 116%;
+        height: 108%;
+        left: -8%;
+        top: -1%;
+    }
+
+    .news-content .frame-1 {
+        width: 123%;
+        height: 120%;
+        left: -13%;
+        top: -9%;
+    }
+
+    .news-content .frame-2 {
+        width: 118%;
+        height: 114%;
+        left: -9%;
+        top: -4%;
+    }
+}
+
+/* =========================================================
+   INSTAGRAM HAND-COLORED ICON
+========================================================= */
+
+.instagram-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.instagram-icon {
+    position: relative;
+    display: inline-block;
+    width: 29px;
+    height: 29px;
+    flex: 0 0 29px;
+    border: 1.25px solid rgba(61, 50, 45, 0.70);
+    border-radius: 8px 9px 8px 9px;
+    overflow: visible;
+    transform: rotate(-1.5deg);
+}
+
+/* 透明な手塗りカラー。輪郭より少し外側へはみ出す */
+.instagram-icon::before {
+    content: "";
+    position: absolute;
+    inset: -4px -3px -3px -4px;
+    border-radius: 9px 12px 8px 10px;
+    background:
+        radial-gradient(ellipse at 20% 78%, rgba(247, 119, 55, 0.38) 0 23%, transparent 48%),
+        radial-gradient(ellipse at 77% 21%, rgba(193, 53, 132, 0.35) 0 26%, transparent 50%),
+        radial-gradient(ellipse at 58% 78%, rgba(131, 58, 180, 0.31) 0 27%, transparent 51%),
+        radial-gradient(ellipse at 34% 26%, rgba(252, 175, 69, 0.27) 0 24%, transparent 49%);
+    filter: blur(1.15px);
+    opacity: 0.82;
+    transform: rotate(4deg) skewX(-3deg);
+    z-index: -1;
+}
+
+/* 外枠の版ズレ */
+.instagram-icon::after {
+    content: "";
+    position: absolute;
+    inset: -1px 1px 1px -1px;
+    border: 1px solid rgba(193, 53, 132, 0.25);
+    border-radius: 9px 7px 10px 8px;
+    transform: rotate(3deg);
+    filter: blur(0.35px);
+}
+
+/* 中央レンズ */
+.instagram-icon-dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(1deg);
+    border: 1.1px solid rgba(61, 50, 45, 0.68);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(252, 175, 69, 0.28), transparent 58%),
+        rgba(193, 53, 132, 0.08);
+    box-shadow:
+        1px -1px 0 rgba(247, 119, 55, 0.18),
+        -1px 1px 0 rgba(131, 58, 180, 0.18);
+}
+
+/* Instagram本来の右上の小さなドット */
+.instagram-icon-dot::after {
+    content: "";
+    position: absolute;
+    width: 3.2px;
+    height: 3.2px;
+    right: -7px;
+    top: -7px;
+    border-radius: 50%;
+    background: rgba(193, 53, 132, 0.27);
+    box-shadow:
+        -0.8px 0.8px 0 rgba(247, 119, 55, 0.20),
+        0.8px -0.8px 0 rgba(131, 58, 180, 0.18);
+    filter: blur(0.25px);
+}
+
+.instagram-arrow {
+    margin-left: 4px;
+}
+
+@media (max-width: 600px) {
+    .about-text .frame-1 {
+        width: 108%;
+        height: 96%;
+        left: -7%;
+        top: 2%;
+    }
+
+    .about-text .frame-2 {
+        width: 104%;
+        height: 92%;
+        left: 0;
+        top: 4%;
+    }
+
+    .about-second-text .frame-1 {
+        width: 114%;
+        height: 98%;
+        left: -9%;
+        top: 1%;
+    }
+
+    .about-second-text .frame-2 {
+        width: 107%;
+        height: 94%;
+        left: -1%;
+        top: 4%;
+    }
+
+    .news-content .frame-1 {
+        width: 113%;
+        height: 106%;
+        left: -8%;
+        top: -2%;
+    }
+
+    .news-content .frame-2 {
+        width: 107%;
+        height: 102%;
+        left: 0;
+        top: 1%;
+    }
+}
+
+/* =========================================================
+   FINAL ADJUSTMENT
+   ABOUT TELLQ見出し「FROM WHAT REMAINS.」を途中で折り返さず2行に固定
+========================================================= */
+.about-heading h2 span {
+    white-space: nowrap;
+}
