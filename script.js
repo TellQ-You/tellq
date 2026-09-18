@@ -278,7 +278,7 @@ const PRODUCT_DATA = [
         material: "UPCYCLING KNIT"
     },
     {
-        image: "image/item2.JPG",
+        image: "image/item2.jpg",
         number: "02",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>02",
@@ -287,7 +287,7 @@ const PRODUCT_DATA = [
         material: "UPCYCLING MATERIAL"
     },
     {
-        image: "image/item3.JPG",
+        image: "image/item3.jpg",
         number: "03",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>03",
@@ -296,7 +296,7 @@ const PRODUCT_DATA = [
         material: "UPCYCLING MATERIAL"
     },
     {
-        image: "image/item4.JPG",
+        image: "image/item4.jpg",
         number: "04",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>04",
@@ -305,7 +305,7 @@ const PRODUCT_DATA = [
         material: "UPCYCLING MATERIAL"
     },
     {
-        image: "image/item5.JPG",
+        image: "image/item5.jpg",
         number: "05",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>05",
