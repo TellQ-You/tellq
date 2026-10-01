@@ -3070,3 +3070,49 @@ select {
         transition-duration: .01ms !important;
     }
 }
+
+/* =========================================================
+   MOBILE TEXT WRAP FIX / 2026-10
+   指定された5箇所のみ、スマートフォン表示時の改行を調整
+========================================================= */
+.mobile-about-break,
+.hero-japanese-mobile {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    /* OUR PHILOSOPHY：末尾の「る。」だけが3行目へ落ちないようにする */
+    .intro h2 span {
+        white-space: nowrap;
+        font-size: 0.96em;
+    }
+
+    /* ABOUT TELLQ：FROM WHAT / REMAINS. の3行構成 */
+    .mobile-about-break {
+        display: inline;
+    }
+
+    .about-heading h2 span {
+        line-height: 1.08;
+    }
+
+    /* MY STORY：「い。」だけが次の行へ落ちないようにする */
+    .about-second-text h3 {
+        white-space: nowrap;
+        letter-spacing: -0.045em;
+    }
+
+    /* 「あなたらしさを引き出すブランド。」の2行目を1行に固定 */
+    .mobile-no-wrap {
+        white-space: nowrap;
+    }
+
+    /* 100年の / ものづくりを、 / 今のあなたへ。 */
+    .hero-japanese-desktop {
+        display: none;
+    }
+
+    .hero-japanese-mobile {
+        display: block;
+    }
+}
