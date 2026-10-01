@@ -40,6 +40,73 @@ mobileMenuLinks.forEach(link => {
 
 
 /* =========================================================
+   HIDDEN STORY PAGE
+   TellQロゴを5回クリックすると開きます
+========================================================= */
+
+const tellqLogo = document.querySelector(".logo");
+const secretPage = document.getElementById("secretPage");
+const secretPageClose = document.getElementById("secretPageClose");
+const secretPageOverlay = document.getElementById("secretPageOverlay");
+
+let secretClickCount = 0;
+let secretClickTimer = null;
+
+function openSecretPage() {
+
+    if (!secretPage) return;
+
+    secretPage.classList.add("active");
+    secretPage.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+}
+
+function closeSecretPage() {
+
+    if (!secretPage) return;
+
+    secretPage.classList.remove("active");
+    secretPage.setAttribute("aria-hidden", "true");
+
+    if (!mobileMenu.classList.contains("active")) {
+        document.body.style.overflow = "";
+    }
+
+}
+
+if (tellqLogo) {
+    tellqLogo.addEventListener("click", (event) => {
+
+        secretClickCount += 1;
+
+        clearTimeout(secretClickTimer);
+
+        secretClickTimer = setTimeout(() => {
+            secretClickCount = 0;
+        }, 1800);
+
+        if (secretClickCount >= 5) {
+            event.preventDefault();
+            secretClickCount = 0;
+            clearTimeout(secretClickTimer);
+            openSecretPage();
+        }
+
+    });
+}
+
+if (secretPageClose) secretPageClose.addEventListener("click", closeSecretPage);
+if (secretPageOverlay) secretPageOverlay.addEventListener("click", closeSecretPage);
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && secretPage?.classList.contains("active")) {
+        closeSecretPage();
+    }
+});
+
+
+/* =========================================================
    SCROLL REVEAL
 ========================================================= */
 
@@ -119,11 +186,30 @@ const purchaseModal =
 const modalClose =
     document.getElementById("modalClose");
 
-const modalOk =
-    document.getElementById("modalOk");
+const modalProductName =
+    document.getElementById("modalProductName");
 
+const modalProductPrice =
+    document.getElementById("modalProductPrice");
+
+const modalBaseLink =
+    document.getElementById("modalBaseLink");
+
+/* BASEのショップURLはここだけ変更すればOKです。 */
+const BASE_SHOP_URL = "https://thebase.in/";
+
+if (modalBaseLink) {
+    modalBaseLink.href = BASE_SHOP_URL;
+}
 
 buyButton.addEventListener("click", () => {
+
+    const product = PRODUCT_DATA[currentProductIndex];
+
+    if (product && modalProductName && modalProductPrice) {
+        modalProductName.innerHTML = product.name;
+        modalProductPrice.textContent = product.price;
+    }
 
     purchaseModal.classList.add("active");
 
@@ -143,7 +229,6 @@ function closeModal() {
 
 modalClose.addEventListener("click", closeModal);
 
-modalOk.addEventListener("click", closeModal);
 
 
 /* モーダル背景クリック */
@@ -273,43 +358,43 @@ const PRODUCT_DATA = [
         number: "01",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "TellQ<br>トートバッグ",
-        price: "¥2,400",
+        price: "¥7,400",
         description: "TellQブランドのトートバッグです。ニットを使った温かみのあるデザインで冬物の洋服に合わせやすく、上品な雰囲気と触り心地の良さを楽しめます。",
         material: "UPCYCLING KNIT"
     },
     {
-        image: "image/item2.jpg",
-        number: "02",
+        image: "image/item2.1.jpg",
+        number: "TellQトート（ブラック）",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>02",
-        price: "¥—",
-        description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
+        price: "¥5,800",
+        description: "黒色を基調とした、シックでおしゃれなトートバッグです。肌触りも良く、冬に来がちな白色の洋服にも合わせやすいく一味違った大人な雰囲気を作り出します。",
         material: "UPCYCLING MATERIAL"
     },
     {
-        image: "image/item3.jpg",
-        number: "03",
+        image: "image/item3.1.jpg",
+        number: "TellQトート（ハーフ）",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>03",
-        price: "¥—",
+        price: "¥6,100",
         description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
         material: "UPCYCLING MATERIAL"
     },
     {
-        image: "image/item4.jpg",
-        number: "04",
+        image: "image/item4.1.jpg",
+        number: "TellQショルダーニット",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>04",
-        price: "¥—",
+        price: "¥8,600",
         description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
         material: "UPCYCLING MATERIAL"
     },
     {
-        image: "image/item5.jpg",
-        number: "05",
+        image: "image/item5.1.jpg",
+        number: "TellQニットバック（ホワイト）",
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "Product<br>05",
-        price: "¥—",
+        price: "¥7,000",
         description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
         material: "UPCYCLING MATERIAL"
     }
