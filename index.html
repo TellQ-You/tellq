@@ -354,17 +354,19 @@
             <!-- 商品画像は script.js の PRODUCT_DATA から変更できます。 -->
             <div class="product-showcase reveal">
 
-                <div class="product-main">
+                <div class="product-visual-column">
+                    <div class="product-main">
 
-                    <button class="product-arrow product-prev" id="productPrev" aria-label="前の商品">←</button>
+                        <button class="product-arrow product-prev" id="productPrev" aria-label="前の商品">←</button>
 
-                    <div class="product-image">
-                        <img id="productMainImage" src="test0001.jpg" alt="TellQトートバッグ">
-                        <div class="product-number" id="productNumber">01</div>
+                        <div class="product-image">
+                            <img id="productMainImage" src="image/test-A-M-01.jpg" alt="TellQトートバッグ">
+                            <div class="product-number" id="productNumber">01</div>
+                        </div>
+
+                        <button class="product-arrow product-next" id="productNext" aria-label="次の商品">→</button>
+
                     </div>
-
-                    <button class="product-arrow product-next" id="productNext" aria-label="次の商品">→</button>
-
                 </div>
 
                 <div class="product-info">
@@ -376,24 +378,21 @@
 
                     <div class="product-line"></div>
 
-                    <p class="product-description" id="productDescription">
-                        TellQブランドのトートバッグです。
-                        ニットを使った温かみのあるデザインで
-                        冬物の洋服に合わせやすく、
-                        上品な雰囲気と触り心地の良さを楽しめます。
-                    </p>
-
+                    <!-- 商品説明は下部のアコーディオンに集約 -->
                     <div class="product-detail">
                         <div>
                             <span>MATERIAL</span>
                             <strong id="productMaterial">UPCYCLING KNIT</strong>
                         </div>
 
-                        <div>
-                            <span>PRICE</span>
-                            <strong id="productDetailPrice">¥2,400</strong>
+                        <div class="product-color-detail">
+                            <span>COLOR VARIATION</span>
+                            <strong id="productColorLabel">3 COLORS</strong>
                         </div>
                     </div>
+
+                    <!-- カラー選択：商品A・Bの仮設定。黒=1枚目、白=3枚目、茶=5枚目 -->
+                    <div class="product-color-swatches" id="productColorSwatches" aria-label="カラーバリエーション"></div>
 
                     <button class="buy-button" id="buyButton">
                         PURCHASE
@@ -403,12 +402,25 @@
 
             </div>
 
-            <!-- 商品一覧の小さいアイコン -->
+            <!-- =====================================================
+                 商品説明群（全商品共通の配置／文章は商品ごとにJSで切り替え）
+                 左列：コンセプト・商品説明・素材組織
+                 右列：サイズ・デザイン展開・お手入れ方法・発送
+                 各列を独立させ、片側の開閉で反対側に空白ができない構造です。
+            ====================================================== -->
+            <div class="product-information" id="productInformation" aria-label="商品詳細情報"></div>
+
+            <!-- 商品一覧の小さいアイコン（既存の商品切り替え機能を維持） -->
             <div class="product-thumbnails" id="productThumbnails" aria-label="商品一覧"></div>
 
-            <!-- =========================
+            <!-- =====================================================
                  STAFF SNAP
-            ========================== -->
+                 画像は script.js の PRODUCT_DATA から自動生成します。
+                 保存場所：image/
+                 命名：test-[商品A～D]-S-[番号01～05].webp
+                 例：image/test-A-S-01.webp
+                 商品メイン画像（M）とは別管理です。
+            ====================================================== -->
             <div class="staff-snap">
 
                 <div class="staff-heading reveal">
@@ -420,23 +432,7 @@
                     <button class="staff-arrow staff-prev" id="staffPrev" aria-label="前のスタッフスナップ">←</button>
 
                     <div class="staff-track-window">
-                        <div class="staff-track" id="staffTrack">
-                            <button class="staff-slide active" data-index="0" aria-label="スタッフスナップ1">
-                                <img src="image/staffsnap1.1.jpg" alt="スタッフスナップ 1">
-                            </button>
-                            <button class="staff-slide" data-index="1" aria-label="スタッフスナップ2">
-                                <img src="image/staffsnap2.1.jpg" alt="スタッフスナップ 2">
-                            </button>
-                            <button class="staff-slide" data-index="2" aria-label="スタッフスナップ3">
-                                <img src="image/staffsnap3.1.jpg" alt="スタッフスナップ 3">
-                            </button>
-                            <button class="staff-slide" data-index="3" aria-label="スタッフスナップ4">
-                                <img src="image/staffsnap4.1.jpg" alt="スタッフスナップ 4">
-                            </button>
-                            <button class="staff-slide" data-index="4" aria-label="スタッフスナップ5">
-                                <img src="image/staffsnap5.1.jpg" alt="スタッフスナップ 5">
-                            </button>
-                        </div>
+                        <div class="staff-track" id="staffTrack"></div>
                     </div>
 
                     <button class="staff-arrow staff-next" id="staffNext" aria-label="次のスタッフスナップ">→</button>
@@ -819,6 +815,31 @@
                         <em>We are still becoming.</em>
                     </p>
                 </div>
+
+                <!-- SECRET PAGE VIDEO CLIPS -->
+                <section class="secret-video-section" aria-label="TellQ 動画の記録">
+                    <p class="secret-story-label">MOVING MEMORIES</p>
+                    <div class="secret-video-grid">
+                        <article class="secret-video-card">
+                            <button class="secret-video-frame" type="button" data-video-id="Gf3rqxO3U3I" data-start="32" data-end="54" aria-label="左側の動画を再生">
+                                <img class="secret-video-cover" src="test00f1.jpg" alt="動画を再生する">
+                                <span class="secret-video-play" aria-hidden="true">▶</span>
+                                <span class="secret-video-player" aria-hidden="true"></span>
+                            </button>
+                            <p class="secret-video-caption">VIDEO NOTE / 01</p>
+                            <a class="secret-video-source" href="https://youtu.be/Gf3rqxO3U3I" target="_blank" rel="noopener noreferrer">YouTubeで動画を見る <span aria-hidden="true">↗</span></a>
+                        </article>
+                        <article class="secret-video-card">
+                            <button class="secret-video-frame" type="button" data-video-id="Gf3rqxO3U3I" data-start="514" data-end="544" aria-label="右側の動画を再生">
+                                <img class="secret-video-cover" src="test00f1.jpg" alt="動画を再生する">
+                                <span class="secret-video-play" aria-hidden="true">▶</span>
+                                <span class="secret-video-player" aria-hidden="true"></span>
+                            </button>
+                            <p class="secret-video-caption">VIDEO NOTE / 02</p>
+                            <a class="secret-video-source" href="https://youtu.be/Gf3rqxO3U3I" target="_blank" rel="noopener noreferrer">YouTubeで動画を見る <span aria-hidden="true">↗</span></a>
+                        </article>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
@@ -831,7 +852,8 @@
     <!-- STAFF SNAP IMAGE LIGHTBOX -->
     <div class="staff-lightbox" id="staffLightbox" aria-hidden="true">
         <button class="staff-lightbox-close" id="staffLightboxClose" aria-label="閉じる">×</button>
-        <img id="staffLightboxImage" src="test0001.jpg" alt="スタッフスナップ拡大画像">
+        <!-- 拡大表示の初期画像もStaff Snapと同じWebP形式に統一 -->
+        <img id="staffLightboxImage" src="image/test-A-S-01.webp" alt="スタッフスナップ拡大画像">
     </div>
 
     <div class="modal" id="purchaseModal">

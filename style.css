@@ -754,6 +754,12 @@ select {
     background: var(--white);
 }
 
+.product-visual-column {
+    min-width: 0;
+    align-self: start;
+    background: var(--white);
+}
+
 .product-main {
     position: relative;
     min-width: 0;
@@ -3114,5 +3120,549 @@ select {
 
     .hero-japanese-mobile {
         display: block;
+    }
+}
+
+
+/* =========================================================
+   SECRET PAGE / YOUTUBE CLIP NOTES
+   追加機能のみ。既存スタイルは変更しません。
+========================================================= */
+.secret-video-section {
+    margin-top: 68px;
+    padding-top: 42px;
+    border-top: 1px solid rgba(95, 73, 62, 0.16);
+}
+
+.secret-video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 22px;
+}
+
+.secret-video-card {
+    min-width: 0;
+}
+
+.secret-video-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background: #e8e0d8;
+    cursor: pointer;
+    isolation: isolate;
+}
+
+.secret-video-cover,
+.secret-video-player,
+.secret-video-player iframe {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.secret-video-cover {
+    object-fit: cover;
+    transition: opacity 0.25s ease;
+}
+
+.secret-video-play {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    padding-left: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    background: rgba(39, 31, 27, 0.42);
+    color: #fff;
+    font-size: 16px;
+    transform: translate(-50%, -50%);
+    transition: background 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.secret-video-frame:hover .secret-video-play,
+.secret-video-frame:focus-visible .secret-video-play {
+    background: rgba(39, 31, 27, 0.72);
+}
+
+.secret-video-frame.is-playing .secret-video-cover,
+.secret-video-frame.is-playing .secret-video-play {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.secret-video-player {
+    z-index: 1;
+    display: none;
+    background: #000;
+}
+
+.secret-video-frame.is-playing .secret-video-player {
+    display: block;
+}
+
+.secret-video-caption {
+    margin: 13px 0 7px;
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: 0.28em;
+    color: #87776d;
+}
+
+.secret-video-source {
+    display: inline-block;
+    color: #6f625a;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(95, 73, 62, 0.28);
+    padding-bottom: 4px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.secret-video-source:hover {
+    color: var(--dark-brown);
+    border-color: var(--dark-brown);
+}
+
+@media (max-width: 600px) {
+    .secret-video-section {
+        margin-top: 54px;
+        padding-top: 34px;
+    }
+
+    .secret-video-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .secret-video-play {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+
+/* =========================================================
+   PRODUCTS: FOUR PRODUCT SELECTORS
+   商品選択画像を4列で大きくし、間隔を狭くする
+========================================================= */
+#productThumbnails.product-thumbnails {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    max-width: 1300px;
+    margin-top: 18px;
+}
+
+#productThumbnails .product-thumb {
+    height: clamp(150px, 22vw, 290px);
+}
+
+@media (max-width: 600px) {
+    #productThumbnails.product-thumbnails {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+        margin-top: 12px;
+    }
+
+    #productThumbnails .product-thumb {
+        height: clamp(150px, 48vw, 240px);
+    }
+}
+
+
+/* =========================================================
+   STAFF SNAP: SMALLER CARDS / SLOW AUTO LOOP / EDGE FADE
+   写真を小さめにし、隙間を詰めてゆっくり自動スクロール
+========================================================= */
+.staff-track-window {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+
+.staff-track {
+    display: flex;
+    align-items: stretch;
+    gap: 5px;
+    width: max-content;
+    will-change: transform;
+}
+
+.staff-slide {
+    flex: 0 0 clamp(150px, 17vw, 220px);
+    width: clamp(150px, 17vw, 220px);
+    padding: 0;
+    border: none;
+    background: transparent;
+    opacity: 0.88;
+    transition: opacity 0.45s ease;
+}
+
+.staff-slide.active {
+    opacity: 1;
+}
+
+.staff-slide img {
+    width: 100%;
+    height: clamp(250px, 25vw, 340px);
+    object-fit: cover;
+    display: block;
+}
+
+/* フェードはmask-imageに一本化し、重ねたグラデーションレイヤーを減らす */
+.staff-track-window::before,
+.staff-track-window::after {
+    content: none;
+}
+
+@media (max-width: 900px) {
+    .staff-track {
+        gap: 4px;
+    }
+
+    .staff-slide {
+        flex-basis: 23vw;
+        width: 23vw;
+    }
+
+    .staff-slide img {
+        height: clamp(230px, 34vw, 300px);
+    }
+}
+
+@media (max-width: 600px) {
+    .staff-track {
+        gap: 4px;
+    }
+
+    .staff-slide {
+        flex-basis: 54vw;
+        width: 54vw;
+    }
+
+    .staff-slide img {
+        height: 72vw;
+        max-height: 360px;
+    }
+
+    .staff-track-window {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    }
+}
+
+
+/* STAFF SNAP: 一定速度の連続スクロール */
+.staff-track {
+    transition: none !important;
+    will-change: transform;
+}
+
+
+/* =========================================================
+   PRODUCTS v2.0: COLOR SWATCHES + DETAIL ACCORDIONS
+   カラー選択と商品詳細の表示。既存のレイアウトを維持しながら追加。
+========================================================= */
+.product-color-swatches {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    min-height: 34px;
+}
+.product-color-swatches[hidden] { display: none !important; }
+.product-color-swatch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 3px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease;
+}
+.product-color-swatch:hover { transform: translateY(-1px); }
+.product-color-swatch.active { border-color: var(--dark-brown); }
+.product-color-dot {
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--swatch-color);
+    border: 1px solid rgba(45, 38, 34, .18);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.product-information {
+    width: 100%;
+    margin: 0;
+    padding: 10px clamp(18px, 2.4vw, 34px) 14px;
+    background: var(--white);
+}
+.product-info-accordion { border-bottom: 1px solid #d7cec4; }
+.product-info-accordion:first-child { border-top: 1px solid #d7cec4; }
+.product-info-accordion summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--dark-brown);
+}
+.product-info-accordion summary::-webkit-details-marker { display: none; }
+.product-accordion-icon { position: relative; flex: 0 0 16px; width: 16px; height: 16px; }
+.product-accordion-icon::before, .product-accordion-icon::after {
+    content: ""; position: absolute; left: 2px; top: 7px; width: 12px; height: 1px; background: currentColor;
+}
+.product-accordion-icon::after { transform: rotate(90deg); transition: transform .2s ease; }
+.product-info-accordion[open] .product-accordion-icon::after { transform: rotate(0); }
+.product-accordion-content { padding: 0 18px 10px 0; }
+.product-accordion-content p { margin: 0; font-size: 11px; line-height: 1.8; color: #514943; }
+@media (max-width: 600px) {
+    .product-color-swatches { margin-top: 22px; gap: 10px; }
+    .product-information { margin-top: 0; padding: 8px 7% 12px; }
+    .product-info-accordion summary { padding: 9px 0; font-size: 10px; }
+    .product-accordion-content { padding-right: 12px; }
+}
+
+
+/* =========================================================
+   PRODUCT DETAIL ALIGNMENT UPDATE
+   - PURCHASE bottom aligns with main image bottom on desktop
+   - Product information accordions use two balanced columns
+========================================================= */
+@media (min-width: 901px) {
+    .product-showcase {
+        align-items: stretch;
+    }
+
+    .product-visual-column {
+        display: flex;
+        flex-direction: column;
+        min-height: 700px;
+    }
+
+    .product-main,
+    .product-image {
+        height: 700px;
+    }
+
+    .product-info {
+        box-sizing: border-box;
+        min-height: 700px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 64px;
+        padding-bottom: 0;
+    }
+
+    .buy-button {
+        margin-top: auto;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .product-information {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: clamp(22px, 3vw, 44px);
+        align-items: start;
+        padding: 14px clamp(18px, 2.4vw, 34px) 18px;
+        box-sizing: border-box;
+    }
+
+    .product-info-accordion {
+        min-width: 0;
+    }
+
+    .product-info-accordion:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .product-info-accordion:nth-child(2) { grid-column: 1; grid-row: 2; }
+    .product-info-accordion:nth-child(3) { grid-column: 1; grid-row: 3; }
+    .product-info-accordion:nth-child(4) { grid-column: 2; grid-row: 1; }
+    .product-info-accordion:nth-child(5) { grid-column: 2; grid-row: 2; }
+    .product-info-accordion:nth-child(6) { grid-column: 2; grid-row: 3; }
+
+    .product-info-accordion summary {
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .product-info {
+        min-height: 0;
+    }
+
+    .product-information {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: clamp(16px, 4vw, 28px);
+        align-items: start;
+    }
+
+    .product-info-accordion:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .product-info-accordion:nth-child(2) { grid-column: 1; grid-row: 2; }
+    .product-info-accordion:nth-child(3) { grid-column: 1; grid-row: 3; }
+    .product-info-accordion:nth-child(4) { grid-column: 2; grid-row: 1; }
+    .product-info-accordion:nth-child(5) { grid-column: 2; grid-row: 2; }
+    .product-info-accordion:nth-child(6) { grid-column: 2; grid-row: 3; }
+}
+
+@media (max-width: 480px) {
+    .product-information {
+        column-gap: 14px;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .product-info-accordion summary {
+        gap: 8px;
+        font-size: 9px;
+        letter-spacing: .02em;
+    }
+
+    .product-accordion-content p {
+        font-size: 10px;
+        line-height: 1.7;
+    }
+}
+
+
+/* =========================================================
+   PRODUCT LAYOUT v2.3 — alignment and content management
+   - PURCHASE bottom matches the main product image bottom
+   - Product information uses balanced, center-symmetric columns
+   - Keep all other product and site behavior unchanged
+========================================================= */
+@media (min-width: 901px) {
+    .product-showcase {
+        align-items: stretch;
+    }
+
+    .product-visual-column {
+        min-width: 0;
+        align-self: stretch;
+    }
+
+    .product-main,
+    .product-image {
+        height: 700px;
+    }
+
+    .product-info {
+        box-sizing: border-box;
+        height: 700px;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding-top: 64px;
+        padding-bottom: 0;
+    }
+
+    .product-info .buy-button {
+        margin-top: auto;
+        margin-bottom: 0;
+        flex: 0 0 auto;
+    }
+
+    /* 左右の列幅と余白を均等にし、中央線を基準に対称配置 */
+    .product-information {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: clamp(28px, 4vw, 56px);
+        align-items: start;
+        box-sizing: border-box;
+        padding-left: clamp(22px, 3vw, 42px);
+        padding-right: clamp(22px, 3vw, 42px);
+    }
+}
+
+@media (max-width: 900px) {
+    .product-information {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: clamp(18px, 4vw, 32px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-information {
+        column-gap: 14px;
+    }
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION v2.4
+   - Center the information group beneath the complete product showcase
+   - Use generous horizontal width
+   - Keep left and right accordion columns independent so opening an item
+     does not create blank space in the opposite column
+========================================================= */
+.product-information {
+    width: min(100%, 1300px);
+    margin: 24px auto 0;
+    padding: 18px clamp(20px, 4vw, 64px) 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(36px, 7vw, 100px);
+    align-items: start;
+    box-sizing: border-box;
+    background: var(--white);
+}
+
+.product-information-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.product-information-column .product-info-accordion:first-child {
+    border-top: 1px solid #d7cec4;
+}
+
+/* Remove older grid-row placement rules; each side now has its own flow. */
+.product-information .product-info-accordion:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+}
+
+@media (max-width: 900px) {
+    .product-information {
+        width: 100%;
+        margin-top: 20px;
+        padding: 14px clamp(18px, 4vw, 36px) 20px;
+        column-gap: clamp(22px, 5vw, 48px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-information {
+        padding-left: 5%;
+        padding-right: 5%;
+        column-gap: 14px;
     }
 }
