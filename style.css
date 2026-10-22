@@ -858,7 +858,7 @@ select {
 }
 
 .product-detail {
-    margin-top: 50px;
+    margin-top: 34px;
     display: flex;
     gap: 50px;
 }
@@ -3664,5 +3664,300 @@ select {
         padding-left: 5%;
         padding-right: 5%;
         column-gap: 14px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ UPDATE v2.5
+   - Keep product images and product selector cards from becoming narrow
+     at intermediate desktop/tablet widths
+   - Add a clear label above the other-item selector
+   - Enable natural horizontal dragging for Staff Snap
+========================================================= */
+.more-items-label {
+    width: min(100%, 1300px);
+    margin: 42px auto 0;
+    padding: 0 2px;
+    color: var(--brown);
+    font-family: var(--english);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-align: left;
+}
+
+#productThumbnails.product-thumbnails {
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+#productThumbnails .product-thumb {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    aspect-ratio: 1 / 1;
+}
+
+#productThumbnails .product-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 中間幅のPCでもメイン画像の横幅だけが狭くならないよう、縦積みに切り替える */
+@media (max-width: 1100px) {
+    .product-showcase {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .product-visual-column,
+    .product-main,
+    .product-info {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .product-image {
+        width: 100%;
+        height: clamp(360px, 72vw, 620px);
+        min-height: 0;
+        max-height: 620px;
+    }
+
+    .product-information {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .more-items-label {
+        margin-top: 28px;
+        font-size: 12px;
+    }
+
+    #productThumbnails.product-thumbnails {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    #productThumbnails .product-thumb {
+        aspect-ratio: 1 / 1;
+    }
+
+    .product-image {
+        height: clamp(300px, 105vw, 480px);
+    }
+}
+
+.staff-track-window {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.staff-track-window:active {
+    cursor: grabbing;
+}
+
+.staff-track {
+    will-change: transform;
+}
+
+.staff-slide,
+.staff-slide img {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* =========================================================
+   PRODUCT DISPLAY TUNING v3.2 — EASY EDIT SETTINGS
+   商品名の文字サイズは、下の --product-name-font-size を変更してください。
+   PC・タブレット・スマートフォンで別々に調整でき、すべて clamp() で
+   画面幅に応じて伸縮するため、極端な拡大・縮小によるレイアウト崩れを抑えます。
+   例：clamp(28px, 3vw, 42px) = 最小28px、画面幅に応じた値、最大42px
+========================================================= */
+:root {
+    /* PC：商品名サイズ（最小値, 画面幅に応じたサイズ, 最大値） */
+    --product-name-font-size: clamp(22px, 2.6vw, 36px);
+    /* メイン画像の表示枠の高さ */
+    --product-image-height-desktop: 620px;
+}
+
+.product-info h3 {
+    font-size: var(--product-name-font-size);
+    line-height: 1.05;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    flex-shrink: 1;
+}
+
+.product-image img {
+    object-fit: contain;
+    object-position: center;
+}
+
+@media (min-width: 1101px) {
+    .product-main,
+    .product-image {
+        height: var(--product-image-height-desktop);
+    }
+
+    .product-info {
+        height: var(--product-image-height-desktop);
+        min-height: 0;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1100px) {
+    :root {
+        /* タブレット：必要ならこの値だけを編集 */
+        --product-name-font-size: clamp(27px, 4.6vw, 40px);
+    }
+
+    .product-image {
+        height: clamp(340px, 68vw, 560px);
+        min-height: 0;
+        max-height: 560px;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        /* スマートフォン：必要ならこの値だけを編集 */
+        --product-name-font-size: clamp(25px, 7vw, 34px);
+    }
+
+    .product-image {
+        height: clamp(280px, 88vw, 420px);
+        min-height: 0;
+        max-height: 420px;
+    }
+
+    .product-info h3 {
+        font-size: var(--product-name-font-size);
+    }
+}
+
+
+/* =========================================================
+   TELLQ UPDATE v2.9
+   - Fill side gaps around contained product photos with a subtle blurred backdrop
+   - Remove Staff Snap side arrows; retain drag / touch scrolling and dots
+========================================================= */
+.product-image {
+    isolation: isolate;
+    background: var(--light-beige);
+}
+
+.product-image::before {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    z-index: 0;
+    background-image: var(--product-image-backdrop);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(18px);
+    opacity: 0.48;
+    transform: scale(1.04);
+    pointer-events: none;
+}
+
+.product-image img {
+    position: relative;
+    z-index: 1;
+    object-fit: contain;
+    object-position: center;
+}
+
+.product-number {
+    z-index: 2;
+}
+
+.staff-slider {
+    gap: 0;
+}
+
+.staff-track-window {
+    width: 100%;
+    min-width: 0;
+}
+
+/* =========================================================
+   TELLQ UPDATE v3.0
+   - Match the main product photo background to the right information panel
+   - Reduce the photo itself slightly without moving the photo navigation arrows
+   - No other feature changes
+========================================================= */
+.product-image {
+    background: var(--white);
+}
+
+.product-image::before {
+    content: none;
+    display: none;
+}
+
+.product-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    object-position: center;
+    transform: translate(-50%, -50%);
+}
+
+
+/* =========================================================
+   TELLQ UPDATE v3.1
+   - Keep PRODUCT_DATA number inside the visible main photo area
+   - Raise PURCHASE so its bottom aligns with the displayed photo bottom
+   - No other layout or feature changes
+========================================================= */
+.product-number {
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+@media (min-width: 901px) {
+    .product-info {
+        padding-bottom: 35px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ UPDATE v3.2
+   - Reduce excessive space above MATERIAL / COLOR VARIATION
+   - Let the desktop auto-spacing distribute the freed space naturally
+   - Keep the product name responsive and easier to edit
+========================================================= */
+.product-detail {
+    min-width: 0;
+    flex-wrap: wrap;
+    row-gap: 18px;
+}
+
+.product-detail > div {
+    min-width: 0;
+}
+
+.product-detail strong {
+    overflow-wrap: anywhere;
+}
+
+@media (min-width: 901px) {
+    .product-detail {
+        margin-top: 34px;
     }
 }

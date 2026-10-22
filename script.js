@@ -354,10 +354,14 @@ window.addEventListener("load", () => {
    保存場所：image/
 
    商品メイン画像・商品一覧サムネイル（JPG）
-     image/test-A-M-01.jpg ～ image/test-A-M-05.jpg
-     image/test-B-M-01.jpg ～ image/test-B-M-05.jpg
-     image/test-C-M-01.jpg ～ image/test-C-M-05.jpg
-     image/test-D-M-01.jpg ～ image/test-D-M-05.jpg
+     商品A：image/test-A-M-01.jpg ～ image/test-A-M-06.jpg（6枚）
+     商品B：image/test-B-M-01.jpg ～ image/test-B-M-06.jpg（6枚）
+     商品C：image/test-C-M-01.jpg ～ image/test-C-M-08.jpg（8枚）
+     商品D：image/test-D-M-01.jpg ～ image/test-D-M-02.jpg（2枚）
+
+   ★写真枚数を変更する場所：下の PRODUCT_DATA 各商品の photoCount
+     例）photoCount: 6 → 7 にすると、その商品は7枚表示します。
+     画像ファイルも同じ番号まで image/ フォルダに用意してください。
 
    Staff Snap横スクロール・拡大表示（WebP）
      image/test-A-S-01.webp ～ image/test-A-S-05.webp
@@ -379,15 +383,16 @@ window.addEventListener("load", () => {
 const PRODUCT_DATA = [
     {
         imagePrefix: "test-A-M-",
+        photoCount: 6, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         staffPrefix: "test-A-S-",
         number: "01",
         category: "TELLQ / UPCYCLED COLLECTION",
-        name: "TellQ<br>トートバッグ",
+        name: "TellQ<br>パッチワークマフラー",
         price: "¥7,400",
         description: "TellQブランドのトートバッグです。ニットを使った温かみのあるデザインで冬物の洋服に合わせやすく、上品な雰囲気と触り心地の良さを楽しめます。",
         material: "UPCYCLING KNIT",
         information: [
-            "100年続いた実家のニット会社で長く愛されてきた人気アイテムを、現代のスタイルに合わせてリメイクしました。</br></br>「繊維の宝石」とも呼ばれるカシミヤを100％使用し、受け継がれてきたデザインに、柔らかな風合いと軽やかな着け心地を組み合わせています。日常に取り入れやすいコンパクトマフラーに仕上げました。</br></br>大きめのリボンがワンポイントになるリボンデザインと、シンプルで取り入れやすいユニセックスデザインを展開。</br></br>全7種類のラインナップで、リボンデザイン3種類、ユニセックスデザイン4種類をご用意しています。</br>",
+            "ニット素材の表情や温かみを活かし、日々の装いに自然になじむトートバッグを目指しました。",
             "ニットを使った温かみのあるデザイン。冬物の洋服に合わせやすく、上品な雰囲気と触り心地を楽しめます。",
             "アップサイクルニットを使用。素材の組成・編み地の詳細は確定後に追記します。",
             "カラー展開や寸法などの詳細は、商品仕様の確定後に追記します。",
@@ -397,6 +402,7 @@ const PRODUCT_DATA = [
     },
     {
         imagePrefix: "test-B-M-",
+        photoCount: 6, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         staffPrefix: "test-B-S-",
         number: "02",
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -415,6 +421,7 @@ const PRODUCT_DATA = [
     },
     {
         imagePrefix: "test-C-M-",
+        photoCount: 8, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         staffPrefix: "test-C-S-",
         number: "03",
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -423,8 +430,8 @@ const PRODUCT_DATA = [
         description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
         material: "UPCYCLING MATERIAL",
         information: [
-            "100年続いた実家のニット会社で長く愛されてきた人気アイテムを、現代のスタイルに合わせてリメイクしました。</br></br>「繊維の宝石」とも呼ばれるカシミヤを100％使用し、受け継がれてきたデザインに、柔らかな風合いと軽やかな着け心地を組み合わせています。日常に取り入れやすいコンパクトマフラーに仕上げました。</br></br>大きめのリボンがワンポイントになるリボンデザインと、シンプルで取り入れやすいユニセックスデザインを展開。</br></br>全7種類のラインナップで、リボンデザイン3種類、ユニセックスデザイン4種類をご用意しています。</br>",
-            "上質なカシミヤを100％使用した、コンパクトなマフラー。</br></br>長さ約68cm、幅約13cm、重さ約35gの軽やかな仕上がりで、首元をすっきりと彩ります。</br></br>袋編み部分に指を差し入れて首に回し、リブ編み部分を引っ張るだけで簡単に着用できるデザイン。巻き方に悩まず、日常のコーディネートに取り入れやすいアイテムです。</br></br>天然素材ならではの柔らかな風合いと、カシミヤのぬくもりをお楽しみください。</br></br></br>リボンデザイン</br></br>柔らかいシースルーの生地で大きめのリボンをつくり、エレガントで大人っぽいフォルムに仕上げました。</br></br>リボンのテールの先端にはパールをあしらい、さりげない華やかさをプラスしています。</br></br>リボンを首元の中央に配置するのはもちろん、斜めに配置してアシンメトリーに見せるスタイリングもおすすめです。</br></br>立体的なリボンが、シンプルな装いにも華やかなアクセントを添えてくれます。</br></br>リボンデザインは全3種類を展開しています。</br></br></br>ユニセックスデザイン</br></br>性別を問わず取り入れやすい、シンプルで洗練されたデザイン。</br></br>コンパクトで持ち運びやすく、外出時はもちろん、体を動かすときやお家で過ごす時間にも気軽にお使いいただけます。</br></br>ヘリンボーン柄を取り入れることで、シンプルなデザインに上品な表情と高級感をプラスしました。</br></br>首元をすっきりと見せながら、カジュアルからきれいめまで幅広いスタイルに合わせていただけます。</br></br>ユニセックスデザインは全4種類を展開しています。</br>",
+            "商品3の素材やデザインの個性を活かし、新しい価値を届けることを目指しています。",
+            "現在検討中の商品です。仕様が決まり次第、商品説明を更新します。",
             "アップサイクル素材を使用予定。素材の組成や生地の詳細は確定後に追記します。",
             "黒・白・茶色・赤の4色展開を想定しています。サイズや寸法は決まり次第追記します。",
             "素材仕様の確定後、適切なお手入れ方法を記載します。",
@@ -433,6 +440,7 @@ const PRODUCT_DATA = [
     },
     {
         imagePrefix: "test-D-M-",
+        photoCount: 2, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         staffPrefix: "test-D-S-",
         number: "04",
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -471,6 +479,9 @@ const PRODUCT_DATA = [
       各商品の説明本文は PRODUCT_DATA 内の information を編集します。
 ========================================================= */
 // カラーアイコンとメイン画像の対応表。photoIndex は「画像番号 - 1」です。
+// 色の変更：color: "#カラーコード" を変更します。
+// 2色アイコン：color の代わりに colors: ["#1色目", "#2色目"] を指定します。
+// 例：{ key: "black-white", label: "BLACK / WHITE", colors: ["#171717", "#f8f5ef"], photoIndex: 0 }
 const COLOR_PHOTO_MAP = {
     // 商品A・B：黒=1枚目、白=3枚目、茶=5枚目
     0: [
@@ -523,8 +534,6 @@ const productPrev = document.getElementById("productPrev");
 const productNext = document.getElementById("productNext");
 
 const staffTrack = document.getElementById("staffTrack");
-const staffPrev = document.getElementById("staffPrev");
-const staffNext = document.getElementById("staffNext");
 const staffDots = document.getElementById("staffDots");
 const staffLightbox = document.getElementById("staffLightbox");
 const staffLightboxImage = document.getElementById("staffLightboxImage");
@@ -540,6 +549,11 @@ let staffLastFrameTime = 0;
 let staffOffset = 0;
 let staffSetWidth = 0;
 let staffIsVisible = true;
+let staffIsDragging = false;
+let staffPointerStartX = 0;
+let staffPointerStartOffset = 0;
+let staffHasDragged = false;
+let staffSuppressClickUntil = 0;
 let staffLastStateUpdate = 0;
 const STAFF_SCROLL_SPEED = 18; // px/秒：一定速度でゆっくり横移動
 
@@ -559,8 +573,11 @@ function numberedStaffImage(prefix, index) {
 }
 
 function getProductImages(product) {
-    // 商品Cは赤色用の7枚目まで表示。他の商品は既存どおり5枚。
-    const count = product.number === "03" ? 7 : 5;
+    // 写真枚数は PRODUCT_DATA の photoCount で商品ごとに管理します。
+    // photoCount を変更すれば、メイン写真の切り替え・前後移動にも反映されます。
+    const count = Number.isInteger(product.photoCount) && product.photoCount > 0
+        ? product.photoCount
+        : 1;
     return Array.from({ length: count }, (_, index) => numberedProductImage(product.imagePrefix, index));
 }
 
@@ -602,6 +619,50 @@ function renderProductThumbnails() {
     });
 }
 
+function updateProductImageBackdrop(src) {
+    const imageFrame = productMainImage?.closest(".product-image");
+    if (!imageFrame || !src) return;
+    // 画像背景はCSSで右側の商品情報エリアと同じ白色にしています。
+    imageFrame.style.setProperty("--product-image-backdrop", `url("${src}")`);
+}
+
+// 商品番号を、メイン写真の実際に描画されている領域の左上へ配置します。
+function updateProductNumberPosition() {
+    if (!productMainImage || !productNumber || !productMainImage.complete || !productMainImage.naturalWidth || !productMainImage.naturalHeight) return;
+
+    const imageFrame = productMainImage.closest(".product-image");
+    if (!imageFrame) return;
+
+    const frameRect = imageFrame.getBoundingClientRect();
+    const imageRect = productMainImage.getBoundingClientRect();
+    const naturalRatio = productMainImage.naturalWidth / productMainImage.naturalHeight;
+    const elementRatio = imageRect.width / imageRect.height;
+
+    let renderedWidth = imageRect.width;
+    let renderedHeight = imageRect.height;
+    if (naturalRatio > elementRatio) {
+        renderedHeight = imageRect.width / naturalRatio;
+    } else {
+        renderedWidth = imageRect.height * naturalRatio;
+    }
+
+    const renderedLeft = imageRect.left + (imageRect.width - renderedWidth) / 2;
+    const renderedTop = imageRect.top + (imageRect.height - renderedHeight) / 2;
+    const inset = 12;
+
+    productNumber.style.left = `${Math.max(0, renderedLeft - frameRect.left + inset)}px`;
+    productNumber.style.top = `${Math.max(0, renderedTop - frameRect.top + inset)}px`;
+}
+
+if (productMainImage) {
+    updateProductImageBackdrop(productMainImage.currentSrc || productMainImage.src);
+    productMainImage.addEventListener("load", () => {
+        updateProductImageBackdrop(productMainImage.currentSrc || productMainImage.src);
+        updateProductNumberPosition();
+    });
+    if (productMainImage.complete) updateProductNumberPosition();
+}
+
 function showProductPhoto(index) {
     const product = PRODUCT_DATA[currentProductIndex];
     if (!product || !productMainImage) return;
@@ -612,6 +673,7 @@ function showProductPhoto(index) {
 
     window.setTimeout(() => {
         productMainImage.src = images[currentProductPhotoIndex];
+        updateProductImageBackdrop(productMainImage.src);
         productMainImage.alt = `${product.name.replace(/<br>/g, " ")} 写真 ${currentProductPhotoIndex + 1}`;
         productMainImage.style.opacity = "1";
         updateProductColorSwatchState(currentProductPhotoIndex);
@@ -635,17 +697,36 @@ function renderProductColorSwatches(product) {
         return;
     }
 
-    productColorSwatches.innerHTML = colors.map(color => `
-        <button type="button" class="product-color-swatch" data-photo-index="${color.photoIndex}"
-            aria-label="${color.label}の画像を表示" title="${color.label}">
-            <span class="product-color-dot" style="--swatch-color:${color.color}"></span>
-        </button>
-    `).join("");
+    productColorSwatches.innerHTML = colors.map(color => {
+        // colors が2色以上なら、アイコンを分割したグラデーションで表示します。
+        const colorList = Array.isArray(color.colors) && color.colors.length > 0
+            ? color.colors
+            : [color.color || "#f8f5ef"];
+        const background = colorList.length === 1
+            ? colorList[0]
+            : `linear-gradient(90deg, ${colorList.map((value, index) => {
+                const start = (index / colorList.length) * 100;
+                const end = ((index + 1) / colorList.length) * 100;
+                return `${value} ${start}%, ${value} ${end}%`;
+            }).join(", ")})`;
+        return `
+            <button type="button" class="product-color-swatch" data-photo-index="${color.photoIndex}"
+                aria-label="${color.label}の画像を表示" title="${color.label}">
+                <span class="product-color-dot" style="--swatch-color:${background}"></span>
+            </button>
+        `;
+    }).join("");
 
     productColorSwatches.querySelectorAll(".product-color-swatch").forEach(button => {
         button.addEventListener("click", () => {
-            showProductPhoto(Number(button.dataset.photoIndex));
-            updateProductColorSwatchState(Number(button.dataset.photoIndex));
+            const photoIndex = Number(button.dataset.photoIndex);
+            showProductPhoto(photoIndex);
+            updateProductColorSwatchState(photoIndex);
+            // カラー選択後、メイン商品画像が見える位置へスムーズに移動します。
+            window.setTimeout(() => {
+                const mainImageArea = document.querySelector(".product-main");
+                if (mainImageArea) mainImageArea.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 180);
         });
     });
     updateProductColorSwatchState(currentProductPhotoIndex);
@@ -684,10 +765,13 @@ function renderProductInformation(product) {
         </details>
     `;
 
-    const leftColumn = ACCORDION_CONTENTS.slice(0, 3)
-        .map((item, index) => renderAccordion(item, index)).join("");
-    const rightColumn = ACCORDION_CONTENTS.slice(3, 6)
-        .map((item, index) => renderAccordion(item, index + 3)).join("");
+    // 左列：コンセプト・素材組織・サイズ/デザイン展開
+    // 右列：商品説明・お手入れ方法・発送
+    // 表示順に合わせて、開いた内容も元の項目と正しく対応させます。
+    const leftColumn = [0, 2, 3]
+        .map(index => renderAccordion(ACCORDION_CONTENTS[index], index)).join("");
+    const rightColumn = [1, 4, 5]
+        .map(index => renderAccordion(ACCORDION_CONTENTS[index], index)).join("");
 
     productInformation.innerHTML = `
         <div class="product-information-column product-information-column-left">${leftColumn}</div>
@@ -705,6 +789,7 @@ function showProduct(index) {
         productMainImage.style.opacity = "0";
         window.setTimeout(() => {
             productMainImage.src = numberedProductImage(product.imagePrefix, 0);
+            updateProductImageBackdrop(productMainImage.src);
             productMainImage.alt = product.name.replace(/<br>/g, " ");
             productMainImage.style.opacity = "1";
         }, 160);
@@ -749,6 +834,7 @@ function renderAllStaff() {
     staffTrack.querySelectorAll(".staff-slide").forEach(slide => {
         slide.addEventListener("click", () => {
             const image = slide.querySelector("img");
+            if (Date.now() < staffSuppressClickUntil) return;
             if (!image || !staffLightbox || !staffLightboxImage) return;
             openStaffLightbox(image.src, image.alt);
         });
@@ -832,11 +918,6 @@ function showStaff(index, jump = false) {
     updateStaffActiveStates();
 }
 
-function moveStaff(direction) {
-    if (!allStaffImages.length || !staffTrack) return;
-    showStaff(currentStaffIndex + direction, true);
-}
-
 function focusStaffForProduct(productIndex) {
     const firstStaffIndex = productIndex * PRODUCT_PHOTO_COUNT;
     showStaff(firstStaffIndex, true);
@@ -853,7 +934,7 @@ function startStaffAutoPlay() {
         const deltaSeconds = Math.min((timestamp - staffLastFrameTime) / 1000, 0.05);
         staffLastFrameTime = timestamp;
 
-        if (!document.hidden && staffIsVisible && !staffLightbox?.classList.contains("active") && staffSetWidth > 0) {
+        if (!document.hidden && staffIsVisible && !staffIsDragging && !staffLightbox?.classList.contains("active") && staffSetWidth > 0) {
             // transitionによる「写真ごとの切り替え」ではなく、毎フレーム同じpx/秒で移動
             staffOffset += STAFF_SCROLL_SPEED * deltaSeconds;
             if (staffOffset >= staffSetWidth) staffOffset -= staffSetWidth;
@@ -897,6 +978,52 @@ if (staffTrack) {
     staffTrack.addEventListener("transitionend", () => {});
 }
 
+// Staff Snapは、左右の矢印に加えてマウス/指で直接横へドラッグできます。
+const staffTrackWindow = staffTrack?.parentElement;
+if (staffTrackWindow && staffTrack) {
+    staffTrackWindow.addEventListener("pointerdown", event => {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+        staffIsDragging = true;
+        staffHasDragged = false;
+        staffPointerStartX = event.clientX;
+        staffPointerStartOffset = staffOffset;
+        staffLastFrameTime = 0;
+        if (staffTrackWindow.setPointerCapture) {
+            try { staffTrackWindow.setPointerCapture(event.pointerId); } catch (_) {}
+        }
+    });
+
+    staffTrackWindow.addEventListener("pointermove", event => {
+        if (!staffIsDragging) return;
+        const deltaX = event.clientX - staffPointerStartX;
+        if (Math.abs(deltaX) > 5) staffHasDragged = true;
+        if (!staffHasDragged) return;
+        if (staffSetWidth > 0) {
+            const rawOffset = staffPointerStartOffset - deltaX;
+            staffOffset = ((rawOffset % staffSetWidth) + staffSetWidth) % staffSetWidth;
+        } else {
+            staffOffset = Math.max(0, staffPointerStartOffset - deltaX);
+        }
+        setStaffOffset(staffOffset);
+        updateNearestStaffState();
+        event.preventDefault();
+    });
+
+    const finishStaffDrag = event => {
+        if (!staffIsDragging) return;
+        staffIsDragging = false;
+        if (staffHasDragged) staffSuppressClickUntil = Date.now() + 350;
+        staffHasDragged = false;
+        staffLastFrameTime = 0;
+        if (event && staffTrackWindow.hasPointerCapture?.(event.pointerId)) {
+            try { staffTrackWindow.releasePointerCapture(event.pointerId); } catch (_) {}
+        }
+    };
+    staffTrackWindow.addEventListener("pointerup", finishStaffDrag);
+    staffTrackWindow.addEventListener("pointercancel", finishStaffDrag);
+    staffTrackWindow.addEventListener("lostpointercapture", finishStaffDrag);
+}
+
 // Staff Snapが画面外にある間は自動移動を停止し、不要な描画処理を減らす
 const staffVisibilityTarget = staffTrack?.parentElement;
 if (staffVisibilityTarget && "IntersectionObserver" in window) {
@@ -909,6 +1036,7 @@ if (staffVisibilityTarget && "IntersectionObserver" in window) {
 window.addEventListener("resize", () => {
     measureStaffTrack();
     updateStaffTrackPosition(false);
+    updateProductNumberPosition();
 });
 
 function openStaffLightbox(src, alt) {
@@ -927,8 +1055,6 @@ function closeStaffLightbox() {
     document.body.style.overflow = "";
 }
 
-if (staffPrev) staffPrev.addEventListener("click", () => moveStaff(-1));
-if (staffNext) staffNext.addEventListener("click", () => moveStaff(1));
 if (staffLightboxClose) staffLightboxClose.addEventListener("click", closeStaffLightbox);
 if (staffLightbox) {
     staffLightbox.addEventListener("click", event => {
