@@ -10,7 +10,7 @@
     <meta name="description"
         content="TellQ - 捨てられるはずの物を美しく生まれ変わらせる。100年のものづくりを、今のあなたへ。">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4.22">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -351,7 +351,7 @@
             </div>
 
             <!-- PRODUCT SLIDER -->
-            <!-- 商品画像は script.js の PRODUCT_DATA から変更できます。 -->
+            <!-- 商品画像は product-data.js の PRODUCT_DATA から変更できます。 -->
             <div class="product-showcase reveal">
 
                 <div class="product-visual-column">
@@ -375,6 +375,7 @@
                     <h3 id="productName">TellQ<br>トートバッグ</h3>
 
                     <p class="product-price" id="productPrice">¥2,400 <small>(tax included)</small></p>
+                    <p class="product-status" id="productStatus" data-status="available" aria-live="polite">販売中</p>
 
                     <div class="product-line"></div>
 
@@ -394,9 +395,9 @@
                     <!-- カラー選択：商品A・Bの仮設定。黒=1枚目、白=3枚目、茶=5枚目 -->
                     <div class="product-color-swatches" id="productColorSwatches" aria-label="カラーバリエーション"></div>
 
-                    <button class="buy-button" id="buyButton">
-                        PURCHASE
-                        <span>→</span>
+                    <button class="buy-button" id="buyButton" type="button">
+                        <span id="buyButtonLabel">PURCHASE</span>
+                        <span id="buyButtonArrow" aria-hidden="true">→</span>
                     </button>
                 </div>
 
@@ -416,7 +417,7 @@
 
             <!-- =====================================================
                  STAFF SNAP
-                 画像は script.js の PRODUCT_DATA から自動生成します。
+                 画像は product-data.js の PRODUCT_DATA から自動生成します。
                  保存場所：image/
                  命名：test-[商品A～D]-S-[番号01～05].webp
                  例：image/test-A-S-01.webp
@@ -463,111 +464,28 @@
                 </div>
 
 
-                <article class="news-item reveal">
+                <div class="news-list" id="homeJournalList" aria-live="polite">
+                    <!-- JOURNAL & NEWSの記事は journal-data.js から自動生成されます。 -->
+                </div>
 
-                    <div class="news-date">
-
-                        <span class="day">03</span>
-
-                        <span class="month">
-                            JUN<br>
-                            2026
-                        </span>
-
-                    </div>
-
-
-                    <div class="news-content">
-
-                        <p class="news-category">
-                            BRAND LAUNCH <span class="news-category-line"></span>  STORY 02
-                        </p>
-
-                        <h3>
-                            TellQを始めます。
-                        </h3>
-
-                        <p>
-                            捨てられるはずだった素材に、
-                            もう一度命を吹き込むブランドを始めます。
-                        </p>
-
-                        <p>
-                            実家は100年続いたニット工場でした。
-                            倉庫には、百貨店品質のカシミヤ生地や
-                            高級ニット素材が、使われないまま眠っています。
-                        </p>
-
-                        <p>
-                            幼い頃から、
-                            「こんなに綺麗な素材を捨ててしまうのはもったいない」
-                            そう思っていました。
-                        </p>
-
-                        <p>
-                            だからこそ私は、
-                            残布を活用した服を美しく生まれ変わらせたい。
-                        </p>
-
-                        <p>
-                            前回の投稿へのたくさんのコメント、
-                            本当にありがとうございました。
-                            皆さんの言葉に背中を押され、
-                            もっと頑張ろうと思えました。
-                        </p>
-
-                    </div>
-
-                </article>
-
+                <div class="news-actions reveal">
+                    <a class="news-view-all" href="journal.html">VIEW ALL JOURNAL &amp; NEWS <span aria-hidden="true">↗</span></a>
+                </div>
             </div>
 
         </section>
 
 
         <!-- =========================
-             INSTAGRAM
-        ========================== -->
-
-        <section class="instagram">
-
-            <div class="instagram-content reveal">
-
-                <p class="section-label">FOLLOW OUR STORY</p>
-
-                <h2>
-                    TellQ on<br>
-                    <em>Instagram.</em>
-                </h2>
-
-                <p>
-                    日々のものづくりや、
-                    TellQの最新情報をお届けします。
-                </p>
-
-                <!-- 仮リンク -->
-                <a href="https://www.instagram.com/tellq_you_/" target="_blank" rel="noopener noreferrer"
-                    class="instagram-button">
-                    <span class="instagram-icon" aria-hidden="true"><span class="instagram-icon-dot"></span></span>
-                    <span>@TELLQ</span>
-                    <span class="instagram-arrow">↗</span>
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             CONTACT
+             CONTACT / INSTAGRAM DM + FAQ
+             Instagramへの導線とお問い合わせを一つにまとめています。
         ========================== -->
 
         <section id="contact" class="contact section-padding">
 
             <div class="contact-inner">
 
-                <div class="section-title reveal">
-
+                <div class="contact-heading reveal">
                     <p class="section-label">CONTACT</p>
 
                     <h2>
@@ -576,97 +494,44 @@
                     </h2>
 
                     <p class="contact-lead">
-                        商品についてのお問い合わせや、
-                        ブランドに関するご質問など、
-                        お気軽にお問い合わせください。
+                        商品について気になることや、ブランドへのご質問など、<br class="contact-desktop-break">
+                        InstagramのDMからお気軽にお声がけください。
                     </p>
-
                 </div>
 
+                <div class="contact-details reveal">
+                    <p class="contact-faq-label">BEFORE YOU MESSAGE</p>
+                    <h3>こんなご質問をお待ちしています。</h3>
 
-                <form id="contactForm" class="contact-form reveal">
+                    <div class="contact-faq-list">
+                        <details class="contact-faq-item">
+                            <summary>商品の素材・サイズ・色について</summary>
+                            <p>素材の特徴やサイズ感、カラーバリエーションなど、購入前に確認しておきたいことをご相談いただけます。</p>
+                        </details>
 
-                    <div class="form-group">
+                        <details class="contact-faq-item">
+                            <summary>販売時期・在庫・発送について</summary>
+                            <p>販売状況や発送について気になることがあれば、お問い合わせください。確認のうえ、順次お返事します。</p>
+                        </details>
 
-                        <label for="name">
-                            NAME
-                        </label>
-
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="お名前"
-                            required
-                        >
-
+                        <details class="contact-faq-item">
+                            <summary>TellQやアップサイクルについて</summary>
+                            <p>ブランドのことや、素材を生まれ変わらせるものづくりについてのご質問・ご感想も歓迎しています。</p>
+                        </details>
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label for="email">
-                            EMAIL
-                        </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="メールアドレス"
-                            required
-                        >
-
+                    <div class="contact-instagram-note">
+                        <span class="instagram-icon" aria-hidden="true"><span class="instagram-icon-dot"></span></span>
+                        <p>メッセージはInstagramのDMでお送りください。</p>
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label for="category">
-                            CATEGORY
-                        </label>
-
-                        <select id="category" name="category">
-
-                            <option value="product">
-                                商品について
-                            </option>
-
-                            <option value="brand">
-                                ブランドについて
-                            </option>
-
-                            <option value="other">
-                                その他
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="message">
-                            MESSAGE
-                        </label>
-
-                        <textarea
-                            id="message"
-                            name="message"
-                            placeholder="お問い合わせ内容をご入力ください"
-                            required
-                        ></textarea>
-
-                    </div>
-
-
-                    <button type="submit" class="submit-button">
-                        SEND MESSAGE
-                        <span>→</span>
-                    </button>
-
-                </form>
+                    <a href="https://ig.me/m/tellq_you_" target="_blank" rel="noopener noreferrer"
+                        class="instagram-button contact-instagram-button">
+                        <span>@TELLQ</span>
+                        <span>Instagram DM</span>
+                        <span class="instagram-arrow">↗</span>
+                    </a>
+                </div>
 
             </div>
 
@@ -900,7 +765,9 @@
     </button>
 
 
-    <script src="script.js"></script>
+    <script src="product-data.js?v=4.22"></script>
+    <script src="journal-data.js?v=4.22"></script>
+    <script src="script.js?v=4.22"></script>
 
 </body>
 

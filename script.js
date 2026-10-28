@@ -206,9 +206,17 @@ buyButton.addEventListener("click", () => {
 
     const product = PRODUCT_DATA[currentProductIndex];
 
+    // 販売予定・売り切れの商品では購入モーダルを開きません。
+    if (!product || (product.status || "available") !== "available") return;
+
     if (product && modalProductName && modalProductPrice) {
         modalProductName.innerHTML = product.name;
         modalProductPrice.textContent = product.price;
+    }
+
+    // 商品ごとにBASEの商品ページURLを設定できます。未設定時はショップURLを使用します。
+    if (modalBaseLink) {
+        modalBaseLink.href = product.baseUrl || BASE_SHOP_URL;
     }
 
     purchaseModal.classList.add("active");
@@ -240,27 +248,9 @@ document.querySelector(".modal-overlay").addEventListener(
 
 
 /* =========================================================
-   CONTACT FORM
+   CONTACT
+   v4.14: お問い合わせはInstagram DMへ。FAQはHTMLのdetailsで動作します。
 ========================================================= */
-
-const contactForm =
-    document.getElementById("contactForm");
-
-
-contactForm.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    const name =
-        document.getElementById("name").value;
-
-    alert(
-        `${name} 様\n\nお問い合わせありがとうございます。\n\n現在はデモサイトのため、実際の送信機能は実装されていません。`
-    );
-
-    contactForm.reset();
-
-});
 
 
 /* =========================================================
@@ -359,7 +349,7 @@ window.addEventListener("load", () => {
      商品C：image/test-C-M-01.jpg ～ image/test-C-M-08.jpg（8枚）
      商品D：image/test-D-M-01.jpg ～ image/test-D-M-02.jpg（2枚）
 
-   ★写真枚数を変更する場所：下の PRODUCT_DATA 各商品の photoCount
+   ★写真枚数は product-data.js の PRODUCT_DATA 各商品の photoCount で管理
      例）photoCount: 6 → 7 にすると、その商品は7枚表示します。
      画像ファイルも同じ番号まで image/ フォルダに用意してください。
 
@@ -375,147 +365,16 @@ window.addEventListener("load", () => {
      S = Staff Snap
      01～05 = その商品内の画像番号
 
-   Staff Snapの画像は下の PRODUCT_DATA の staffPrefix と
+   Staff Snapの画像はproduct-data.js の PRODUCT_DATA の staffPrefix と
    numberedStaffImage() で管理しています。画像を差し替える場合は、
    同じファイル名で image/ 内の画像を置き換えればコード変更は不要です。
    商品は A～D の4種類です。
+
+   商品名のサイズを商品ごとに変えたい場合：
+   各商品の name の次の行に nameFontSize: "clamp(25px, 3vw, 40px)", のように追加します。
+   指定しない商品は、style.css の共通レスポンシブ設定をそのまま使います。
 */
-const PRODUCT_DATA = [
-    {
-        imagePrefix: "test-A-M-",
-        photoCount: 6, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        staffPrefix: "test-A-S-",
-        number: "01",
-        category: "TELLQ / UPCYCLED COLLECTION",
-        name: "TellQ<br>パッチワークマフラー",
-        price: "¥7,400",
-        description: "TellQブランドのトートバッグです。ニットを使った温かみのあるデザインで冬物の洋服に合わせやすく、上品な雰囲気と触り心地の良さを楽しめます。",
-        material: "UPCYCLING KNIT",
-        information: [
-            "ニット素材の表情や温かみを活かし、日々の装いに自然になじむトートバッグを目指しました。",
-            "ニットを使った温かみのあるデザイン。冬物の洋服に合わせやすく、上品な雰囲気と触り心地を楽しめます。",
-            "アップサイクルニットを使用。素材の組成・編み地の詳細は確定後に追記します。",
-            "カラー展開や寸法などの詳細は、商品仕様の確定後に追記します。",
-            "ニット素材のため、引っ掛かりに注意して保管してください。洗濯方法は素材表示を確認のうえ追記します。",
-            "発送時期・配送方法・送料は販売条件の確定後に追記します。"
-        ]
-    },
-    {
-        imagePrefix: "test-B-M-",
-        photoCount: 6, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        staffPrefix: "test-B-S-",
-        number: "02",
-        category: "TELLQ / UPCYCLED COLLECTION",
-        name: "Product<br>02",
-        price: "¥5,800",
-        description: "黒色を基調とした、シックでおしゃれなトートバッグです。肌触りも良く、冬に来がちな白色の洋服にも合わせやすいく一味違った大人な雰囲気を作り出します。",
-        material: "UPCYCLING MATERIAL",
-        information: [
-            "黒色を基調としたシックな雰囲気と、アップサイクル素材の個性を楽しむアイテムです。",
-            "黒色を基調とした落ち着いたデザイン。白色の洋服にも合わせやすく、大人らしい雰囲気を演出します。",
-            "アップサイクル素材を使用。素材の組成や生地の詳細は確定後に追記します。",
-            "カラー展開や寸法などの詳細は、商品仕様の確定後に追記します。",
-            "素材の特性に合わせたお手入れをおすすめします。具体的な洗濯・保管方法は確認後に追記します。",
-            "発送時期・配送方法・送料は販売条件の確定後に追記します。"
-        ]
-    },
-    {
-        imagePrefix: "test-C-M-",
-        photoCount: 8, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        staffPrefix: "test-C-S-",
-        number: "03",
-        category: "TELLQ / UPCYCLED COLLECTION",
-        name: "Product<br>03",
-        price: "¥6,100",
-        description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
-        material: "UPCYCLING MATERIAL",
-        information: [
-            "商品3の素材やデザインの個性を活かし、新しい価値を届けることを目指しています。",
-            "現在検討中の商品です。仕様が決まり次第、商品説明を更新します。",
-            "アップサイクル素材を使用予定。素材の組成や生地の詳細は確定後に追記します。",
-            "黒・白・茶色・赤の4色展開を想定しています。サイズや寸法は決まり次第追記します。",
-            "素材仕様の確定後、適切なお手入れ方法を記載します。",
-            "発送時期・配送方法・送料は販売条件の確定後に追記します。"
-        ]
-    },
-    {
-        imagePrefix: "test-D-M-",
-        photoCount: 2, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        staffPrefix: "test-D-S-",
-        number: "04",
-        category: "TELLQ / UPCYCLED COLLECTION",
-        name: "Product<br>04",
-        price: "¥8,600",
-        description: "現在検討中の商品です。商品が決まり次第、ここに詳細情報を入力できます。",
-        material: "UPCYCLING MATERIAL",
-        information: [
-            "白を基調に、素材の質感とシンプルな美しさを引き立てるアイテムを目指しています。",
-            "現在検討中の商品です。仕様が決まり次第、商品説明を更新します。",
-            "アップサイクル素材を使用予定。素材の組成や生地の詳細は確定後に追記します。",
-            "白の1色展開を想定しています。サイズや寸法は決まり次第追記します。",
-            "素材仕様の確定後、適切なお手入れ方法を記載します。",
-            "発送時期・配送方法・送料は販売条件の確定後に追記します。"
-        ]
-    }
-];
-
-/* =========================================================
-   【画像・商品説明の管理場所】今後の差し替えはこの付近を編集
-
-   1) PRODUCT_DATA（上の設定）
-      商品ごとの基本情報と information 配列を管理します。
-      information の順番は下の ACCORDION_CONTENTS の見出し順です。
-      [0] コンセプト [1] 商品説明 [2] 素材組織
-      [3] サイズ・デザイン展開 [4] お手入れ方法 [5] 発送
-      商品A〜Dごとに文章を変更してください。
-
-   2) COLOR_PHOTO_MAP（この下）
-      商品番号は 0=A、1=B、2=C、3=D。
-      photoIndex は 0から数えるため、0=1枚目、2=3枚目、4=5枚目など。
-      色の追加・削除や、クリック時に表示する写真の紐付けはここで変更。
-
-   3) ACCORDION_CONTENTS（この下）
-      商品説明群の6つの見出し名を管理します。
-      各商品の説明本文は PRODUCT_DATA 内の information を編集します。
-========================================================= */
-// カラーアイコンとメイン画像の対応表。photoIndex は「画像番号 - 1」です。
-// 色の変更：color: "#カラーコード" を変更します。
-// 2色アイコン：color の代わりに colors: ["#1色目", "#2色目"] を指定します。
-// 例：{ key: "black-white", label: "BLACK / WHITE", colors: ["#171717", "#f8f5ef"], photoIndex: 0 }
-const COLOR_PHOTO_MAP = {
-    // 商品A・B：黒=1枚目、白=3枚目、茶=5枚目
-    0: [
-        { key: "black", label: "BLACK", color: "#171717", photoIndex: 0 },
-        { key: "white", label: "WHITE", color: "#f8f5ef", photoIndex: 2 },
-        { key: "brown", label: "BROWN", color: "#79543a", photoIndex: 4 }
-    ],
-    1: [
-        { key: "black", label: "BLACK", color: "#171717", photoIndex: 0 },
-        { key: "white", label: "WHITE", color: "#f8f5ef", photoIndex: 2 },
-        { key: "brown", label: "BROWN", color: "#79543a", photoIndex: 4 }
-    ],
-    // 商品C：黒=1枚目、白=3枚目、茶=5枚目、赤=7枚目
-    2: [
-        { key: "black", label: "BLACK", color: "#171717", photoIndex: 0 },
-        { key: "white", label: "WHITE", color: "#f8f5ef", photoIndex: 2 },
-        { key: "brown", label: "BROWN", color: "#79543a", photoIndex: 4 },
-        { key: "red", label: "RED", color: "#a83232", photoIndex: 6 }
-    ],
-    // 商品D：白のみ、1枚目を表示
-    3: [
-        { key: "white", label: "WHITE", color: "#f8f5ef", photoIndex: 0 }
-    ]
-};
-
-// 商品説明群の見出し一覧。各商品の本文は PRODUCT_DATA[].information に設定します。
-const ACCORDION_CONTENTS = [
-    { title: "コンセプト", body: "捨てられるはずだった素材に、新しい価値と美しさを与えるTellQのものづくり。素材が持つ個性を活かし、日々の装いに自然になじむアイテムを目指しています。" },
-    { title: "商品説明", body: "商品ごとの詳細は、今後この設定を編集して更新できます。掲載内容は商品に合わせて調整してください。" },
-    { title: "素材組織", body: "素材の種類や組成、編み地・生地の特徴などをここに記載します。" },
-    { title: "サイズ・デザイン展開", body: "サイズ、寸法、カラー、デザインの展開情報をここに記載します。カラーは商品画像と合わせてご確認ください。" },
-    { title: "お手入れ方法", body: "素材に合わせたお手入れ方法をご確認ください。具体的な洗濯・保管方法は商品ごとに追記してください。" },
-    { title: "発送", body: "発送時期や配送方法、送料などの情報をここに記載します。販売条件が決まり次第、内容を更新してください。" }
-];
+/* 商品情報・カラー設定・商品説明群の見出しは product-data.js で管理します。 */
 
 const PRODUCT_PHOTO_COUNT = 7;
 const productMainImage = document.getElementById("productMainImage");
@@ -523,12 +382,16 @@ const productNumber = document.getElementById("productNumber");
 const productCategory = document.getElementById("productCategory");
 const productName = document.getElementById("productName");
 const productPrice = document.getElementById("productPrice");
+const productStatus = document.getElementById("productStatus");
+const buyButtonLabel = document.getElementById("buyButtonLabel");
+const buyButtonArrow = document.getElementById("buyButtonArrow");
 const productDescription = document.getElementById("productDescription");
 const productMaterial = document.getElementById("productMaterial");
 const productDetailPrice = document.getElementById("productDetailPrice"); // 旧コードとの互換性維持
 const productColorSwatches = document.getElementById("productColorSwatches");
 const productColorLabel = document.getElementById("productColorLabel");
 const productInformation = document.getElementById("productInformation");
+const productInfoPanel = document.querySelector(".product-info");
 const productThumbnails = document.getElementById("productThumbnails");
 const productPrev = document.getElementById("productPrev");
 const productNext = document.getElementById("productNext");
@@ -581,6 +444,47 @@ function getProductImages(product) {
     return Array.from({ length: count }, (_, index) => numberedProductImage(product.imagePrefix, index));
 }
 
+// 商品メイン写真の前後画像を先読みし、矢印を押した際の読み込み待ちを減らします。
+// キャッシュは直近で必要な画像だけに限定し、画像を大量に保持し続けないようにします。
+const productPhotoPreloadCache = new Map();
+
+function preloadProductPhoto(src) {
+    if (!src) return Promise.resolve(null);
+
+    const cached = productPhotoPreloadCache.get(src);
+    if (cached) return cached;
+
+    const promise = new Promise(resolve => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => resolve(null);
+        image.src = src;
+        if (image.complete && image.naturalWidth > 0) resolve(image);
+    });
+
+    productPhotoPreloadCache.set(src, promise);
+    return promise;
+}
+
+function preloadAdjacentProductPhotos(product = PRODUCT_DATA[currentProductIndex], photoIndex = currentProductPhotoIndex) {
+    if (!product) return;
+
+    const images = getProductImages(product);
+    if (images.length <= 1) return;
+
+    const previousIndex = (photoIndex - 1 + images.length) % images.length;
+    const nextIndex = (photoIndex + 1) % images.length;
+    const keep = new Set([images[photoIndex], images[previousIndex], images[nextIndex]]);
+
+    // 今の商品で前後移動に必要な画像以外はキャッシュ参照から外します。
+    for (const src of productPhotoPreloadCache.keys()) {
+        if (!keep.has(src)) productPhotoPreloadCache.delete(src);
+    }
+
+    preloadProductPhoto(images[previousIndex]);
+    preloadProductPhoto(images[nextIndex]);
+}
+
 function getStaffImages(product) {
     return Array.from({ length: 5 }, (_, index) => numberedStaffImage(product.staffPrefix, index));
 }
@@ -600,12 +504,22 @@ function buildAllStaffImages() {
 function renderProductThumbnails() {
     if (!productThumbnails) return;
 
-    productThumbnails.innerHTML = PRODUCT_DATA.map((product, index) => `
-        <button class="product-thumb${index === currentProductIndex ? " active" : ""}" data-product-index="${index}" aria-label="商品 ${product.number}">
-            <img src="${numberedProductImage(product.imagePrefix, 0)}" alt="${product.name.replace(/<br>/g, " ")}">
-            <span>${product.number}</span>
-        </button>
-    `).join("");
+    productThumbnails.innerHTML = PRODUCT_DATA.map((product, index) => {
+        const status = product.status || "available";
+        const statusLabels = { upcoming: "COMING SOON", soldout: "SOLD OUT" };
+        const statusLabel = statusLabels[status] || "";
+        const statusMarkup = statusLabel
+            ? `<span class="product-thumb-status product-thumb-status--${status}">${statusLabel}</span>`
+            : "";
+        const accessibleStatus = statusLabel ? `・${statusLabel}` : "";
+        return `
+            <button class="product-thumb${index === currentProductIndex ? " active" : ""}" data-product-index="${index}" aria-label="商品 ${product.number}${accessibleStatus}">
+                <img src="${numberedProductImage(product.imagePrefix, 0)}" alt="${product.name.replace(/<br>/g, " ")}">
+                <span>${product.number}</span>
+                ${statusMarkup}
+            </button>
+        `;
+    }).join("");
 
     productThumbnails.querySelectorAll(".product-thumb").forEach(button => {
         button.addEventListener("click", () => {
@@ -626,32 +540,12 @@ function updateProductImageBackdrop(src) {
     imageFrame.style.setProperty("--product-image-backdrop", `url("${src}")`);
 }
 
-// 商品番号を、メイン写真の実際に描画されている領域の左上へ配置します。
+// 商品画像は object-fit: cover でフレーム全体に表示するため、
+// 商品番号も画像の縦横比から計算せず、フレーム左上から一定距離に固定します。
 function updateProductNumberPosition() {
-    if (!productMainImage || !productNumber || !productMainImage.complete || !productMainImage.naturalWidth || !productMainImage.naturalHeight) return;
-
-    const imageFrame = productMainImage.closest(".product-image");
-    if (!imageFrame) return;
-
-    const frameRect = imageFrame.getBoundingClientRect();
-    const imageRect = productMainImage.getBoundingClientRect();
-    const naturalRatio = productMainImage.naturalWidth / productMainImage.naturalHeight;
-    const elementRatio = imageRect.width / imageRect.height;
-
-    let renderedWidth = imageRect.width;
-    let renderedHeight = imageRect.height;
-    if (naturalRatio > elementRatio) {
-        renderedHeight = imageRect.width / naturalRatio;
-    } else {
-        renderedWidth = imageRect.height * naturalRatio;
-    }
-
-    const renderedLeft = imageRect.left + (imageRect.width - renderedWidth) / 2;
-    const renderedTop = imageRect.top + (imageRect.height - renderedHeight) / 2;
-    const inset = 12;
-
-    productNumber.style.left = `${Math.max(0, renderedLeft - frameRect.left + inset)}px`;
-    productNumber.style.top = `${Math.max(0, renderedTop - frameRect.top + inset)}px`;
+    if (!productMainImage || !productNumber) return;
+    productNumber.style.left = "12px";
+    productNumber.style.top = "12px";
 }
 
 if (productMainImage) {
@@ -663,21 +557,37 @@ if (productMainImage) {
     if (productMainImage.complete) updateProductNumberPosition();
 }
 
+let productPhotoChangeToken = 0;
+
 function showProductPhoto(index) {
     const product = PRODUCT_DATA[currentProductIndex];
     if (!product || !productMainImage) return;
 
     const images = getProductImages(product);
-    currentProductPhotoIndex = (index + images.length) % images.length;
-    productMainImage.style.opacity = "0";
+    const nextPhotoIndex = (index + images.length) % images.length;
+    const nextPhotoSrc = images[nextPhotoIndex];
+    const changeToken = ++productPhotoChangeToken;
 
-    window.setTimeout(() => {
-        productMainImage.src = images[currentProductPhotoIndex];
-        updateProductImageBackdrop(productMainImage.src);
-        productMainImage.alt = `${product.name.replace(/<br>/g, " ")} 写真 ${currentProductPhotoIndex + 1}`;
-        productMainImage.style.opacity = "1";
-        updateProductColorSwatchState(currentProductPhotoIndex);
-    }, 160);
+    currentProductPhotoIndex = nextPhotoIndex;
+    productMainImage.alt = `${product.name.replace(/<br>/g, " ")} 写真 ${nextPhotoIndex + 1}`;
+    updateProductColorSwatchState(nextPhotoIndex);
+
+    // 画像の読み込みが終わるまでは現在の写真を表示し、読み込み完了後に切り替えます。
+    // 前後画像は先読みされるため、通常は固定の160ms待ちを挟まず切り替わります。
+    preloadProductPhoto(nextPhotoSrc).then(() => {
+        if (changeToken !== productPhotoChangeToken) return;
+
+        productMainImage.style.opacity = "0";
+        window.setTimeout(() => {
+            // 連続タップ時に、古いリクエストが最新の選択を上書きしないようにします。
+            if (changeToken !== productPhotoChangeToken) return;
+
+            productMainImage.src = nextPhotoSrc;
+            updateProductImageBackdrop(nextPhotoSrc);
+            productMainImage.style.opacity = "1";
+            preloadAdjacentProductPhotos(product, nextPhotoIndex);
+        }, 0);
+    });
 }
 
 function getColorsForCurrentProduct() {
@@ -698,17 +608,23 @@ function renderProductColorSwatches(product) {
     }
 
     productColorSwatches.innerHTML = colors.map(color => {
-        // colors が2色以上なら、アイコンを分割したグラデーションで表示します。
+        // 2色の場合は、斜め分割と柔らかな色の移り変わりで表示します。
+        // 1色・3色以上の場合の既存表示は変更しません。
         const colorList = Array.isArray(color.colors) && color.colors.length > 0
             ? color.colors
             : [color.color || "#f8f5ef"];
-        const background = colorList.length === 1
-            ? colorList[0]
-            : `linear-gradient(90deg, ${colorList.map((value, index) => {
+        let background;
+        if (colorList.length === 1) {
+            background = colorList[0];
+        } else if (colorList.length === 2) {
+            background = `linear-gradient(135deg, ${colorList[0]} 0%, ${colorList[0]} 42%, ${colorList[1]} 58%, ${colorList[1]} 100%)`;
+        } else {
+            background = `linear-gradient(90deg, ${colorList.map((value, index) => {
                 const start = (index / colorList.length) * 100;
                 const end = ((index + 1) / colorList.length) * 100;
                 return `${value} ${start}%, ${value} ${end}%`;
             }).join(", ")})`;
+        }
         return `
             <button type="button" class="product-color-swatch" data-photo-index="${color.photoIndex}"
                 aria-label="${color.label}の画像を表示" title="${color.label}">
@@ -781,9 +697,19 @@ function renderProductInformation(product) {
 function showProduct(index) {
     if (!PRODUCT_DATA.length) return;
 
+    // 商品自体を切り替えたら、前の商品写真に関する未完了の切り替え処理を無効化します。
+    productPhotoChangeToken += 1;
     currentProductIndex = (index + PRODUCT_DATA.length) % PRODUCT_DATA.length;
     currentProductPhotoIndex = 0;
     const product = PRODUCT_DATA[currentProductIndex];
+    // 2・3枚目の商品は、カラー選択群とPURCHASEの間隔を自然に保つため表示位置だけを調整します。
+    if (productInfoPanel) {
+        productInfoPanel.classList.toggle(
+            "product-info--adjusted-color-gap",
+            currentProductIndex === 1 || currentProductIndex === 2
+        );
+    }
+    preloadAdjacentProductPhotos(product, 0);
 
     if (productMainImage) {
         productMainImage.style.opacity = "0";
@@ -796,8 +722,49 @@ function showProduct(index) {
     }
     if (productNumber) productNumber.textContent = product.number;
     if (productCategory) productCategory.textContent = product.category;
-    if (productName) productName.innerHTML = product.name;
+    if (productName) {
+        productName.innerHTML = product.name;
+        // nameFontSize が商品データに指定されている場合だけ、その商品の商品名サイズを上書きします。
+        // 未指定の場合は style.css の PC／タブレット／スマートフォン別の共通設定を使います。
+        if (product.nameFontSize) {
+            productName.style.setProperty("--product-name-font-size", product.nameFontSize);
+        } else {
+            productName.style.removeProperty("--product-name-font-size");
+        }
+    }
     if (productPrice) productPrice.innerHTML = `${product.price} <small>(tax included)</small>`;
+
+    // 販売状況は商品データの status だけで切り替えます。
+    const productStatusValue = product.status || "available";
+    const productStatusLabels = {
+        upcoming: `COMING SOON / ${product.upcomingText || "追加時期は決まり次第お知らせします"}`,
+        available: "販売中",
+        soldout: "SOLD OUT / 売り切れ"
+    };
+    if (productStatus) {
+        productStatus.dataset.status = productStatusValue;
+        productStatus.textContent = productStatusLabels[productStatusValue] || productStatusLabels.available;
+    }
+    // 販売予定・売り切れ商品は、メイン画像にも状態を反映して一目で分かるようにします。
+    const productImageFrame = productMainImage?.closest(".product-image");
+    if (productImageFrame) {
+        productImageFrame.dataset.productStatus = productStatusValue;
+        productImageFrame.dataset.statusLabel = productStatusValue === "upcoming"
+            ? "COMING SOON"
+            : productStatusValue === "soldout" ? "SOLD OUT" : "";
+    }
+    const isAvailable = productStatusValue === "available";
+    if (buyButton) {
+        buyButton.disabled = !isAvailable;
+        buyButton.setAttribute("aria-disabled", isAvailable ? "false" : "true");
+    }
+    if (buyButtonLabel) {
+        buyButtonLabel.textContent = productStatusValue === "upcoming"
+            ? "COMING SOON"
+            : productStatusValue === "soldout" ? "SOLD OUT" : "PURCHASE";
+    }
+    if (buyButtonArrow) buyButtonArrow.hidden = !isAvailable;
+
     if (productDescription) productDescription.textContent = product.description;
     if (productMaterial) productMaterial.textContent = product.material;
     if (productDetailPrice) productDetailPrice.textContent = product.price;
@@ -1069,6 +1036,7 @@ buildAllStaffImages();
 renderProductThumbnails();
 renderAllStaff();
 showProduct(0);
+preloadAdjacentProductPhotos(PRODUCT_DATA[0], 0);
 setTimeout(() => applyLoraToNumbers(), 220);
 
 if (productPrev) {
@@ -1274,4 +1242,67 @@ applyLoraToNumbers();
         if (event.key === "Escape" && secretPage && secretPage.classList.contains("active")) stopAllClips();
     });
     loadYouTubeApi();
+})();
+
+
+/* =========================================================
+   JOURNAL & NEWS: データからトップページの記事を生成
+   他の機能には影響しない独立処理です。
+========================================================= */
+(function initTellQJournalHome() {
+    const list = document.getElementById("homeJournalList");
+    const articles = Array.isArray(window.TELLQ_JOURNAL_DATA) ? window.TELLQ_JOURNAL_DATA : [];
+    if (!list) return;
+
+    const categoryLabels = {
+        important: "IMPORTANT",
+        journal: "JOURNAL",
+        information: "INFORMATION"
+    };
+    const published = articles
+        .filter(item => item.status === "published")
+        .slice()
+        .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+        .slice(0, 6);
+
+    const formatDate = value => {
+        const date = new Date(`${value}T00:00:00`);
+        if (Number.isNaN(date.getTime())) return { day: "", month: value || "" };
+        return {
+            day: String(date.getDate()).padStart(2, "0"),
+            month: `${date.toLocaleString("en-US", { month: "short" }).toUpperCase()}<br>${date.getFullYear()}`
+        };
+    };
+
+    list.innerHTML = published.map(item => {
+        const date = formatDate(item.date);
+        const summary = item.summary || "";
+        return `
+            <article class="news-item ${item.pinned ? "is-pinned" : ""}">
+                <div class="news-date">
+                    <span class="day">${date.day}</span>
+                    <span class="month">${date.month}</span>
+                </div>
+                <div class="news-content">
+                    <p class="news-category">
+                        ${categoryLabels[item.category] || "JOURNAL"}
+                        <span class="news-category-line"></span>
+                        ${item.pinned ? "FEATURED" : "TELLQ"}
+                    </p>
+                    <h3><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h3>
+                    <p>${escapeJournalText(summary)}</p>
+                    <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
+                </div>
+            </article>`;
+    }).join("");
+
+    if (!published.length) {
+        list.innerHTML = '<p class="news-empty">新しいお知らせを準備しています。</p>';
+    }
+
+    function escapeJournalText(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        }[char]));
+    }
 })();

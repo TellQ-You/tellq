@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TellQのブランドジャーナルと最新のお知らせ。">
+    <title>JOURNAL & NEWS. | TellQ</title>
+    <link rel="stylesheet" href="style.css?v=4.21">
+</head>
+<body>
+    <main class="journal-page">
+        <div class="journal-page-inner">
+            <a class="journal-back" href="index.html#news">← BACK TO TELLQ</a>
+            <header class="journal-page-heading">
+                <p class="section-label">TELLQ JOURNAL</p>
+                <h1>JOURNAL &amp;<br><span>NEWS.</span></h1>
+                <p>TellQの歩みと、これからの知らせ。</p>
+            </header>
+            <div id="journalListView">
+                <nav class="journal-filter" aria-label="記事カテゴリ">
+                    <button type="button" data-filter="all" aria-pressed="true">ALL</button>
+                    <button type="button" data-filter="important" aria-pressed="false">IMPORTANT</button>
+                    <button type="button" data-filter="journal" aria-pressed="false">JOURNAL</button>
+                    <button type="button" data-filter="information" aria-pressed="false">INFORMATION</button>
+                </nav>
+                <div id="journalArchiveList" class="journal-archive-list" aria-live="polite"></div>
+                <nav class="journal-pagination" id="journalPagination" aria-label="記事ページ"></nav>
+            </div>
+            <article id="journalDetailView" class="journal-detail" hidden></article>
+        </div>
+    </main>
+    <script src="journal-data.js?v=4.21"></script>
+    <script src="journal.js?v=4.21"></script>
+</body>
+</html>

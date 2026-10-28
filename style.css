@@ -109,6 +109,8 @@ select {
     --serif: "Noto Serif JP", serif;
     --english: "Cormorant Garamond", serif;
     --lora: "Lora", serif;
+    /* 商品データ（商品名・商品番号・価格など）のフォントはここで一括変更 */
+    --product-data-font: var(--lora);
     --sans: "Montserrat", sans-serif;
 }
 
@@ -835,7 +837,7 @@ select {
 
 .product-price {
     margin-top: 35px;
-    font-family: var(--sans);
+    font-family: var(--product-data-font);
     font-size: 20px;
     letter-spacing: 0.08em;
 }
@@ -882,6 +884,34 @@ select {
     font-weight: 400;
 }
 
+/* 商品販売状況（PRODUCT_DATA の status と連動） */
+.product-status {
+    display: inline-block;
+    margin: 12px 0 0;
+    padding: 6px 10px;
+    border: 1px solid #d7cec4;
+    color: #6d6258;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+}
+.product-status[data-status="upcoming"] {
+    background: #f5f0e8;
+    border-color: #d8c5a8;
+    color: #806548;
+}
+.product-status[data-status="available"] {
+    background: #f5f4ef;
+    border-color: #d7cec4;
+    color: #5f6253;
+}
+.product-status[data-status="soldout"] {
+    background: #f0ece8;
+    border-color: #cbbeb2;
+    color: #82766d;
+}
+
 .buy-button {
     width: 100%;
     margin-top: 60px;
@@ -902,6 +932,17 @@ select {
 .buy-button:hover {
     background: transparent;
     color: var(--dark-brown);
+}
+
+.buy-button:disabled {
+    background: #e8e0d7;
+    border-color: #d7cec4;
+    color: #887b70;
+    cursor: not-allowed;
+}
+.buy-button:disabled:hover {
+    background: #e8e0d7;
+    color: #887b70;
 }
 
 .product-thumbnails {
@@ -942,6 +983,26 @@ select {
     height: 100%;
     object-fit: cover;
 }
+
+.product-thumb .product-thumb-status {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    left: auto;
+    bottom: auto;
+    z-index: 2;
+    padding: 5px 6px;
+    background: rgba(250, 247, 242, 0.94);
+    color: #62564c;
+    font-family: var(--sans);
+    font-size: 7px;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-shadow: none;
+}
+.product-thumb .product-thumb-status--upcoming { background: rgba(245, 237, 224, 0.96); color: #806548; }
+.product-thumb .product-thumb-status--available { background: rgba(245, 244, 239, 0.94); color: #5f6253; }
+.product-thumb .product-thumb-status--soldout { background: rgba(240, 236, 232, 0.96); color: #82766d; }
 
 .product-thumb span {
     position: absolute;
@@ -3385,6 +3446,8 @@ select {
     align-items: center;
     gap: 12px;
     margin-top: 28px;
+    /* PURCHASEとの間隔を確保。ボタンの下端位置は既存レイアウトに任せ、上側の余白を使います。 */
+    margin-bottom: 28px;
     min-height: 34px;
 }
 .product-color-swatches[hidden] { display: none !important; }
@@ -3788,6 +3851,7 @@ select {
 }
 
 .product-info h3 {
+    font-family: var(--product-data-font);
     font-size: var(--product-name-font-size);
     line-height: 1.05;
     max-width: 100%;
@@ -3802,6 +3866,11 @@ select {
 }
 
 @media (min-width: 1101px) {
+    /* 商品名の行数が変わっても、価格以下の右側レイアウトが上下にずれないようにする */
+    .product-info h3 {
+        min-height: 4.2em;
+    }
+
     .product-main,
     .product-image {
         height: var(--product-image-height-desktop);
@@ -3878,6 +3947,7 @@ select {
 
 .product-number {
     z-index: 2;
+    font-family: var(--product-data-font);
 }
 
 .staff-slider {
@@ -3890,49 +3960,15 @@ select {
 }
 
 /* =========================================================
-   TELLQ UPDATE v3.0
-   - Match the main product photo background to the right information panel
-   - Reduce the photo itself slightly without moving the photo navigation arrows
-   - No other feature changes
+   PRODUCT NUMBER — v4.13
+   Keep the label near the actual photo frame's top-left edge.
+   The JavaScript uses the same fixed inset to prevent offset drift.
 ========================================================= */
-.product-image {
-    background: var(--white);
-}
-
-.product-image::before {
-    content: none;
-    display: none;
-}
-
-.product-image img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 90%;
-    height: 90%;
-    object-fit: contain;
-    object-position: center;
-    transform: translate(-50%, -50%);
-}
-
-
-/* =========================================================
-   TELLQ UPDATE v3.1
-   - Keep PRODUCT_DATA number inside the visible main photo area
-   - Raise PURCHASE so its bottom aligns with the displayed photo bottom
-   - No other layout or feature changes
-========================================================= */
-.product-number {
-    top: 12px;
-    left: 12px;
+.product-image .product-number {
+    top: 12px !important;
+    left: 12px !important;
     z-index: 2;
     white-space: nowrap;
-}
-
-@media (min-width: 901px) {
-    .product-info {
-        padding-bottom: 35px;
-    }
 }
 
 
@@ -3959,5 +3995,748 @@ select {
 @media (min-width: 901px) {
     .product-detail {
         margin-top: 34px;
+    }
+}
+
+
+/* Keep the price divider from shrinking inside the product information flex layout. */
+.product-line {
+    flex: 0 0 1px;
+    min-height: 1px;
+}
+
+/* Preserve the existing intermediate-width layout; only remove the old button offset. */
+@media (min-width: 901px) and (max-width: 1100px) {
+    :root {
+        --product-image-height-desktop: clamp(340px, 68vw, 560px);
+    }
+
+    .product-main,
+    .product-image,
+    .product-info {
+        height: var(--product-image-height-desktop);
+    }
+
+    .product-info {
+        box-sizing: border-box;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding-top: clamp(28px, 5vw, 48px);
+        padding-bottom: 0;
+    }
+
+    .product-info .buy-button {
+        margin-top: auto;
+        margin-bottom: 0;
+        flex: 0 0 auto;
+    }
+}
+
+/* =========================================================
+   TELLQ v4.10 — fill the main photo frame and align PURCHASE
+   - Remove the 90% inset that created extra margins around the main photo
+   - Let the photo fill its frame, matching the supplied reference screenshot
+   - Anchor PURCHASE to the same frame bottom
+   - Remove superseded margin-based alignment rules
+========================================================= */
+.product-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: none;
+}
+
+@media (min-width: 1101px) {
+    .product-info {
+        position: relative;
+        height: var(--product-image-height-desktop);
+        min-height: 0;
+        box-sizing: border-box;
+    }
+
+    .product-info .buy-button {
+        position: absolute;
+        left: 10%;
+        bottom: 0;
+        width: 80%;
+        box-sizing: border-box;
+        margin: 0;
+        flex: 0 0 auto;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v4.11 — natural spacing for products 2 and 3
+   Move MATERIAL / COLOR VARIATION and the swatches together,
+   leaving their internal spacing intact and keeping PURCHASE anchored.
+========================================================= */
+@media (min-width: 1101px) {
+    .product-info.product-info--adjusted-color-gap .product-detail,
+    .product-info.product-info--adjusted-color-gap .product-color-swatches {
+        /* カラーアイコンと固定位置のPURCHASEボタンが重ならないよう、上側へ移動 */
+        transform: translateY(-34px);
+    }
+}
+
+
+/* =========================================================
+   CONTACT / INSTAGRAM DM + FAQ (v4.14)
+   Instagram導線とお問い合わせを統合したセクション専用スタイル
+========================================================= */
+.contact {
+    position: relative;
+    padding: clamp(90px, 10vw, 145px) 7%;
+    background: radial-gradient(ellipse at 50% 0%, #faf6f0 0%, #f1e8dd 58%, #e8dbce 100%);
+}
+
+.contact-inner {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: clamp(45px, 8vw, 110px);
+}
+
+.contact-heading {
+    position: sticky;
+    top: 110px;
+}
+
+.contact-heading .section-label {
+    margin-bottom: 26px;
+}
+
+.contact-heading h2 {
+    margin: 0;
+    font-family: var(--english);
+    font-size: clamp(48px, 6vw, 82px);
+    line-height: 0.95;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+}
+
+.contact-heading h2 span {
+    color: var(--red);
+}
+
+.contact-lead {
+    max-width: 390px;
+    margin-top: 30px;
+    font-size: 12px;
+    line-height: 2.3;
+    color: #6e625a;
+}
+
+.contact-details {
+    padding-top: 8px;
+}
+
+.contact-faq-label {
+    margin: 0 0 14px;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    color: var(--brown);
+}
+
+.contact-details h3 {
+    margin: 0 0 28px;
+    font-family: var(--serif);
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--dark-brown);
+}
+
+.contact-faq-list {
+    border-top: 1px solid rgba(81, 63, 51, 0.28);
+}
+
+.contact-faq-item {
+    border-bottom: 1px solid rgba(81, 63, 51, 0.28);
+}
+
+.contact-faq-item summary {
+    position: relative;
+    padding: 20px 34px 20px 0;
+    list-style: none;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--dark-brown);
+}
+
+.contact-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.contact-faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--english);
+    font-size: 22px;
+    font-weight: 300;
+    transition: transform 0.25s ease;
+}
+
+.contact-faq-item[open] summary::after {
+    content: "−";
+}
+
+.contact-faq-item p {
+    margin: -2px 28px 20px 0;
+    font-size: 11px;
+    line-height: 2.1;
+    color: #6e625a;
+}
+
+.contact-instagram-note {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 32px 0 20px;
+}
+
+.contact-instagram-note .instagram-icon {
+    width: 25px;
+    height: 25px;
+    flex-basis: 25px;
+}
+
+.contact-instagram-note p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.8;
+    color: #6e625a;
+}
+
+.contact-instagram-button {
+    gap: 18px;
+    margin-top: 3px;
+    padding-bottom: 12px;
+    border-bottom-color: rgba(81, 63, 51, 0.6);
+}
+
+.contact-instagram-button:hover {
+    gap: 25px;
+}
+
+@media (max-width: 900px) {
+    .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 52px;
+    }
+
+    .contact-heading {
+        position: static;
+    }
+
+    .contact-lead {
+        max-width: 540px;
+    }
+}
+
+@media (max-width: 600px) {
+    .contact {
+        padding: 78px 7% 88px;
+    }
+
+    .contact-heading h2 {
+        font-size: clamp(47px, 13vw, 68px);
+    }
+
+    .contact-lead {
+        margin-top: 24px;
+        font-size: 11px;
+    }
+
+    .contact-desktop-break {
+        display: none;
+    }
+
+    .contact-inner {
+        gap: 42px;
+    }
+
+    .contact-details h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .contact-faq-item summary {
+        padding: 18px 30px 18px 0;
+        font-size: 11px;
+    }
+
+    .contact-faq-item p {
+        font-size: 10.5px;
+    }
+
+    .contact-instagram-button {
+        gap: 12px;
+        font-size: 9px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v4.17 — product status visibility + color spacing
+   - Keep PURCHASE button position unchanged
+   - Darken upcoming/sold-out product images and show a clear image label
+   - Make upcoming timing editable per product in PRODUCT_DATA
+========================================================= */
+.product-image[data-product-status="upcoming"] img,
+.product-image[data-product-status="soldout"] img {
+    filter: brightness(0.58) saturate(0.82);
+}
+
+.product-image[data-product-status="upcoming"]::after,
+.product-image[data-product-status="soldout"]::after {
+    content: attr(data-status-label);
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 16px;
+    background: rgba(35, 29, 25, 0.12);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: clamp(12px, 1.3vw, 17px);
+    letter-spacing: 0.24em;
+    text-align: center;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.42);
+    pointer-events: none;
+}
+
+.product-image[data-product-status="available"]::after {
+    content: none;
+}
+
+.product-image .product-number {
+    z-index: 4;
+}
+
+.product-thumb:has(.product-thumb-status--upcoming) img,
+.product-thumb:has(.product-thumb-status--soldout) img {
+    filter: brightness(0.62) saturate(0.82);
+}
+
+.product-thumb:has(.product-thumb-status--upcoming) .product-thumb-status,
+.product-thumb:has(.product-thumb-status--soldout) .product-thumb-status {
+    padding: 6px 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+}
+
+
+/* =========================================================
+   TELLQ v4.18 — balanced product detail spacing + centered thumbnail status
+   - Keep PURCHASE button anchored at its existing bottom position
+   - Reduce excess whitespace above MATERIAL / COLOR VARIATION
+   - Show thumbnail status only for upcoming / sold-out products
+========================================================= */
+.product-line {
+    margin-top: 28px;
+    margin-bottom: 24px;
+}
+
+.product-detail {
+    margin-top: 18px;
+    row-gap: 14px;
+}
+
+.product-color-swatches {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Replace the earlier product-specific vertical offset with consistent spacing. */
+.product-info.product-info--adjusted-color-gap .product-detail,
+.product-info.product-info--adjusted-color-gap .product-color-swatches {
+    transform: none;
+}
+
+/* Thumbnail statuses: centered text only, without a label box. */
+.product-thumb .product-thumb-status {
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: 50%;
+    z-index: 3;
+    width: max-content;
+    max-width: calc(100% - 12px);
+    padding: 0;
+    background: transparent;
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-align: center;
+    white-space: normal;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+    transform: translate(-50%, -50%);
+}
+
+.product-thumb .product-thumb-status--upcoming,
+.product-thumb .product-thumb-status--soldout {
+    background: transparent;
+    color: #fff;
+}
+
+.product-thumb:has(.product-thumb-status--upcoming) img,
+.product-thumb:has(.product-thumb-status--soldout) img {
+    filter: brightness(0.62) saturate(0.82);
+}
+
+
+/* =========================================================
+   JOURNAL & NEWS v4.20
+   記事データ表示・カテゴリ別の視覚的区別・詳細ページ
+========================================================= */
+.news-list { display: block; }
+.news-item .news-category {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.news-category-line {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    opacity: .55;
+}
+.news-category[data-category="important"] { color: #8a5144; }
+.news-category[data-category="journal"] { color: #8b7765; }
+.news-category[data-category="information"] { color: #566b5b; }
+.news-content h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity .25s ease;
+}
+.news-content h3 a:hover { opacity: .68; }
+.news-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: .2em;
+    color: var(--brown);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(60,51,46,.35);
+    padding-bottom: 7px;
+}
+.news-read-more span, .news-view-all span { font-size: 14px; }
+.news-item.is-pinned .news-category::after {
+    content: "PINNED";
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: .15em;
+    border: 1px solid currentColor;
+    padding: 4px 7px;
+}
+.news-actions { display: flex; justify-content: flex-end; margin-top: 56px; }
+.news-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(60,51,46,.5);
+    color: var(--brown);
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-decoration: none;
+    transition: opacity .25s ease;
+}
+.news-view-all:hover { opacity: .65; }
+.news-empty { font-size: 13px; line-height: 2; }
+
+/* 一覧・記事詳細ページ */
+.journal-page {
+    min-height: 70vh;
+    background: #ded3c6;
+    color: var(--brown);
+    padding: 120px 8% 150px;
+}
+.journal-page-inner { max-width: 1100px; margin: 0 auto; }
+.journal-back {
+    display: inline-block;
+    margin-bottom: 38px;
+    color: inherit;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(60,51,46,.35);
+    padding-bottom: 8px;
+}
+.journal-page-heading { margin-bottom: 54px; }
+.journal-page-heading .section-label {
+    font-size: 9px;
+    letter-spacing: .3em;
+    color: var(--red);
+}
+.journal-page-heading h1 {
+    margin-top: 16px;
+    font-family: var(--lora);
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1.08;
+    font-weight: 400;
+}
+.journal-page-heading h1 span { font-style: italic; }
+.journal-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 34px;
+}
+.journal-filter button {
+    appearance: none;
+    border: 1px solid rgba(60,51,46,.35);
+    background: transparent;
+    color: var(--brown);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: .12em;
+    transition: background .2s ease, color .2s ease;
+}
+.journal-filter button[aria-pressed="true"],
+.journal-filter button:hover { background: var(--brown); color: #f8f3ec; }
+.journal-archive-list { border-top: 1px solid rgba(60,51,46,.25); }
+.journal-archive-card {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 28px;
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(60,51,46,.25);
+}
+.journal-archive-date { font-family: var(--lora); font-size: 24px; }
+.journal-archive-date small {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: .12em;
+}
+.journal-archive-category {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 9px;
+    letter-spacing: .2em;
+}
+.journal-archive-category[data-category="important"] { color: #8a5144; }
+.journal-archive-category[data-category="journal"] { color: #8b7765; }
+.journal-archive-category[data-category="information"] { color: #566b5b; }
+.journal-archive-card h2 {
+    font-family: var(--lora);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+.journal-archive-card h2 a { color: inherit; text-decoration: none; }
+.journal-archive-card p { font-size: 12px; line-height: 2; }
+.journal-detail { max-width: 850px; margin: 0 auto; }
+.journal-detail-meta { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-bottom: 28px; }
+.journal-detail-date { font-family: var(--lora); font-size: 14px; letter-spacing: .08em; }
+.journal-detail-category { font-size: 9px; letter-spacing: .2em; }
+.journal-detail h1 {
+    font-family: var(--lora);
+    font-size: clamp(34px, 6vw, 64px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 28px;
+}
+.journal-detail-summary { font-size: 14px; line-height: 2.1; margin-bottom: 36px; }
+.journal-detail-content { border-top: 1px solid rgba(60,51,46,.25); padding-top: 30px; }
+.journal-detail-content p { font-size: 13px; line-height: 2.4; margin-bottom: 22px; }
+.journal-detail-links { margin-top: 44px; padding-top: 24px; border-top: 1px solid rgba(60,51,46,.25); }
+.journal-detail-links h2 { font-size: 10px; letter-spacing: .2em; margin-bottom: 16px; }
+.journal-detail-links a { display: block; margin: 12px 0; color: inherit; font-size: 12px; }
+.journal-no-results { padding: 40px 0; font-size: 13px; }
+@media (max-width: 700px) {
+    .news-actions { justify-content: flex-start; margin-top: 38px; }
+    .news-view-all { font-size: 9px; gap: 10px; }
+    .journal-page { padding: 90px 7% 100px; }
+    .journal-archive-card { grid-template-columns: 1fr; gap: 14px; padding: 24px 0; }
+    .journal-archive-date { font-size: 20px; }
+    .journal-detail h1 { font-size: 38px; }
+}
+
+.journal-pagination { display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; }
+.journal-pagination button {
+    border:1px solid rgba(60,51,46,.35); background:transparent; color:var(--brown);
+    min-width:36px; padding:9px 11px; cursor:pointer; font-size:10px;
+}
+.journal-pagination button[aria-current="page"] { background:var(--brown); color:#f8f3ec; }
+\n.journal-detail-image { display:block; width:100%; max-height:620px; object-fit:cover; margin:0 0 32px; }\n
+
+/* =========================================================
+   JOURNAL & NEWS v4.21
+   トップページの記事を仕切りなし・コンパクトな一覧にする
+========================================================= */
+.news-list .news-item {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    column-gap: 24px;
+    margin: 0;
+    padding: 22px 0;
+    border: 0;
+}
+.news-list .news-date {
+    gap: 10px;
+    padding-top: 5px;
+}
+.news-list .news-date .day {
+    font-size: 42px;
+}
+.news-list .news-date .month {
+    font-size: 8px;
+}
+.news-list .news-content h3 {
+    margin: 8px 0;
+}
+.news-list .news-content > p:not(.news-category) {
+    margin: 8px 0;
+    line-height: 1.8;
+}
+.news-list .news-read-more {
+    margin-top: 4px;
+    padding-bottom: 4px;
+}
+@media (max-width: 600px) {
+    .news-list .news-item {
+        grid-template-columns: 76px minmax(0, 1fr);
+        column-gap: 14px;
+        padding: 18px 0;
+    }
+    .news-list .news-date { gap: 7px; }
+    .news-list .news-date .day { font-size: 32px; }
+}
+
+
+/* =========================================================
+   JOURNAL & NEWS v4.22
+   トップページ：最新記事を先頭に、6件程度が見やすいコンパクト表示
+   ※他セクションのレイアウト・機能には影響させない
+========================================================= */
+.news {
+    padding: 76px 8%;
+}
+.news-list .news-item {
+    grid-template-columns: 82px minmax(0, 1fr);
+    column-gap: 18px;
+    align-items: start;
+    margin: 0;
+    padding: 11px 0;
+    border: 0;
+}
+.news-list .news-date {
+    gap: 6px;
+    padding-top: 3px;
+}
+.news-list .news-date .day {
+    font-size: 27px;
+    line-height: 1;
+}
+.news-list .news-date .month {
+    font-size: 7px;
+    line-height: 1.35;
+    letter-spacing: .08em;
+}
+.news-list .news-content {
+    min-width: 0;
+    padding: 0;
+}
+.news-list .news-content::before {
+    display: none;
+}
+.news-list .news-content .news-category {
+    margin: 0 0 3px;
+    font-size: 7px;
+    line-height: 1.4;
+    letter-spacing: .12em;
+    gap: 6px;
+}
+.news-list .news-category-line {
+    width: 14px;
+}
+.news-list .news-item.is-pinned .news-category::after {
+    font-size: 6px;
+    padding: 2px 4px;
+}
+.news-list .news-content h3 {
+    margin: 0 0 3px;
+    font-family: var(--lora);
+    font-size: 16px;
+    line-height: 1.35;
+    font-weight: 400;
+}
+.news-list .news-content > p:not(.news-category) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.5;
+}
+.news-list .news-read-more {
+    margin-top: 3px;
+    padding-bottom: 1px;
+    font-size: 7px;
+    line-height: 1.3;
+    letter-spacing: .14em;
+    gap: 5px;
+}
+.news-list .news-read-more span {
+    font-size: 10px;
+}
+.news-actions {
+    margin-top: 22px;
+}
+.news-view-all {
+    padding: 8px 0;
+    font-size: 8px;
+}
+@media (max-width: 700px) {
+    .news {
+        padding: 68px 7%;
+    }
+    .news-list .news-item {
+        grid-template-columns: 66px minmax(0, 1fr);
+        column-gap: 12px;
+        padding: 12px 0;
+    }
+    .news-list .news-date .day {
+        font-size: 24px;
+    }
+    .news-list .news-content h3 {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+    .news-list .news-content > p:not(.news-category) {
+        font-size: 9px;
     }
 }
