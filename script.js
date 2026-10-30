@@ -206,17 +206,21 @@ buyButton.addEventListener("click", () => {
 
     const product = PRODUCT_DATA[currentProductIndex];
 
-    // 販売予定・売り切れの商品では購入モーダルを開きません。
-    if (!product || (product.status || "available") !== "available") return;
+    // 商品全体または選択中カラーが販売予定・売り切れの場合は購入モーダルを開きません。
+    if (!product || getEffectiveProductStatus(product) !== "available") return;
 
     if (product && modalProductName && modalProductPrice) {
         modalProductName.innerHTML = product.name;
         modalProductPrice.textContent = product.price;
     }
 
-    // 商品ごとにBASEの商品ページURLを設定できます。未設定時はショップURLを使用します。
+    // 選択中カラー専用のBASE URLを優先し、未設定時は商品共通URLを使用します。
+    const selectedVariant = getCurrentProductVariant(product);
     if (modalBaseLink) {
-        modalBaseLink.href = product.baseUrl || BASE_SHOP_URL;
+        modalBaseLink.href =
+            (selectedVariant && selectedVariant.baseUrl) ||
+            product.baseUrl ||
+            BASE_SHOP_URL;
     }
 
     purchaseModal.classList.add("active");
@@ -343,32 +347,15 @@ window.addEventListener("load", () => {
    =========================================================
    保存場所：image/
 
-   商品メイン画像・商品一覧サムネイル（JPG）
-     商品A：image/test-A-M-01.jpg ～ image/test-A-M-06.jpg（6枚）
-     商品B：image/test-B-M-01.jpg ～ image/test-B-M-06.jpg（6枚）
-     商品C：image/test-C-M-01.jpg ～ image/test-C-M-08.jpg（8枚）
-     商品D：image/test-D-M-01.jpg ～ image/test-D-M-02.jpg（2枚）
+   商品メイン画像・商品一覧サムネイル
+     商品ごとの imagePrefix / photoCount / imageExtension を
+     product-data.js の PRODUCT_DATA で管理します。
 
-   ★写真枚数は product-data.js の PRODUCT_DATA 各商品の photoCount で管理
-     例）photoCount: 6 → 7 にすると、その商品は7枚表示します。
-     画像ファイルも同じ番号まで image/ フォルダに用意してください。
-
-   Staff Snap横スクロール・拡大表示（WebP）
-     image/test-A-S-01.webp ～ image/test-A-S-05.webp
-     image/test-B-S-01.webp ～ image/test-B-S-05.webp
-     image/test-C-S-01.webp ～ image/test-C-S-05.webp
-     image/test-D-S-01.webp ～ image/test-D-S-05.webp
-
-   ファイル名の意味：
-     A～D = 商品番号
-     M = 商品メイン画像（Main）
-     S = Staff Snap
-     01～05 = その商品内の画像番号
-
-   Staff Snapの画像はproduct-data.js の PRODUCT_DATA の staffPrefix と
-   numberedStaffImage() で管理しています。画像を差し替える場合は、
-   同じファイル名で image/ 内の画像を置き換えればコード変更は不要です。
-   商品は A～D の4種類です。
+   Staff Snap
+     画像ファイル名・表示枚数・拡張子は product-data.js の
+     STAFF_SNAP_DATA.images / imageExtension で独立して管理します。
+     images 配列にファイル名（拡張子なし）を追加・削除すると、
+     その配列の件数が表示枚数になります。
 
    商品名のサイズを商品ごとに変えたい場合：
    各商品の name の次の行に nameFontSize: "clamp(25px, 3vw, 40px)", のように追加します。
@@ -376,7 +363,6 @@ window.addEventListener("load", () => {
 */
 /* 商品情報・カラー設定・商品説明群の見出しは product-data.js で管理します。 */
 
-const PRODUCT_PHOTO_COUNT = 7;
 const productMainImage = document.getElementById("productMainImage");
 const productNumber = document.getElementById("productNumber");
 const productCategory = document.getElementById("productCategory");
@@ -390,6 +376,9 @@ const productMaterial = document.getElementById("productMaterial");
 const productDetailPrice = document.getElementById("productDetailPrice"); // 旧コードとの互換性維持
 const productColorSwatches = document.getElementById("productColorSwatches");
 const productColorLabel = document.getElementById("productColorLabel");
+const productPhotoIndicator = document.getElementById("productPhotoIndicator");
+const productPhotoIndicatorDots = document.getElementById("productPhotoIndicatorDots");
+const productPhotoIndicatorCount = document.getElementById("productPhotoIndicatorCount");
 const productInformation = document.getElementById("productInformation");
 const productInfoPanel = document.querySelector(".product-info");
 const productThumbnails = document.getElementById("productThumbnails");
@@ -404,6 +393,7 @@ const staffLightboxClose = document.getElementById("staffLightboxClose");
 
 let currentProductIndex = 0;
 let currentProductPhotoIndex = 0;
+let currentProductVariantIndex = 0;
 let currentStaffIndex = 0;
 let currentStaffTrackIndex = 0;
 let allStaffImages = [];
@@ -420,28 +410,54 @@ let staffSuppressClickUntil = 0;
 let staffLastStateUpdate = 0;
 const STAFF_SCROLL_SPEED = 18; // px/秒：一定速度でゆっくり横移動
 
-// ファイル名を組み立てる共通処理。拡張子は画像の用途ごとに下の関数で指定します。
-function buildImagePath(prefix, index, extension) {
-    return `image/${prefix}${String(index + 1).padStart(2, "0")}.${extension}`;
+// 現在の商品で選択されているカラー（variant）を取得します。
+function getCurrentProductVariant(product = PRODUCT_DATA[currentProductIndex]) {
+    if (!product || !Array.isArray(product.variants) || !product.variants.length) return null;
+    const safeIndex = Math.min(
+        Math.max(currentProductVariantIndex, 0),
+        product.variants.length - 1
+    );
+    return product.variants[safeIndex];
 }
 
-// 商品メイン画像・商品一覧サムネイルは、従来どおりJPGを使用します。
-function numberedProductImage(prefix, index) {
-    return buildImagePath(prefix, index, "jpg");
-}
+// カラーごとに独立した画像一覧を生成します。
+// variants.images を指定すれば個別ファイル名、
+// imagePrefix + photoNumbers なら連番ファイルを管理できます。
+function getProductImages(product, variant = null) {
+    if (!product) return [];
 
-// Staff Snapの横スクロール画像と拡大表示はWebPを使用します。
-function numberedStaffImage(prefix, index) {
-    return buildImagePath(prefix, index, "webp");
-}
+    const selectedVariant = variant || getCurrentProductVariant(product);
 
-function getProductImages(product) {
-    // 写真枚数は PRODUCT_DATA の photoCount で商品ごとに管理します。
-    // photoCount を変更すれば、メイン写真の切り替え・前後移動にも反映されます。
+    if (selectedVariant && Array.isArray(selectedVariant.images) && selectedVariant.images.length) {
+        return selectedVariant.images.map(fileName => {
+            const cleanName = String(fileName).replace(/^\/+/, "");
+            return cleanName.startsWith("image/") ? cleanName : `image/${cleanName}`;
+        });
+    }
+
+    if (selectedVariant && Array.isArray(selectedVariant.photoNumbers) && selectedVariant.photoNumbers.length) {
+        const prefix = selectedVariant.imagePrefix || product.imagePrefix || "";
+        const extension = String(
+            selectedVariant.imageExtension || product.imageExtension || "jpg"
+        ).replace(/^\\./, "");
+        return selectedVariant.photoNumbers.map(number =>
+            `image/${prefix}${String(number).padStart(2, "0")}.${extension}`
+        );
+    }
+
+    // variants が未設定の既存商品でも、従来の商品共通画像設定で動作します。
     const count = Number.isInteger(product.photoCount) && product.photoCount > 0
         ? product.photoCount
         : 1;
-    return Array.from({ length: count }, (_, index) => numberedProductImage(product.imagePrefix, index));
+    const extension = String(product.imageExtension || "jpg").replace(/^\\./, "");
+    return Array.from({ length: count }, (_, index) =>
+        `image/${product.imagePrefix}${String(index + 1).padStart(2, "0")}.${extension}`
+    );
+}
+
+function getFirstProductImage(product) {
+    const images = getProductImages(product, product && product.variants && product.variants[0]);
+    return images[0] || "";
 }
 
 // 商品メイン写真の前後画像を先読みし、矢印を押した際の読み込み待ちを減らします。
@@ -469,7 +485,9 @@ function preloadProductPhoto(src) {
 function preloadAdjacentProductPhotos(product = PRODUCT_DATA[currentProductIndex], photoIndex = currentProductPhotoIndex) {
     if (!product) return;
 
-    const images = getProductImages(product);
+    const images = getProductImages(product, product === PRODUCT_DATA[currentProductIndex]
+        ? getCurrentProductVariant(product)
+        : (product.variants && product.variants[0]));
     if (images.length <= 1) return;
 
     const previousIndex = (photoIndex - 1 + images.length) % images.length;
@@ -485,20 +503,74 @@ function preloadAdjacentProductPhotos(product = PRODUCT_DATA[currentProductIndex
     preloadProductPhoto(images[nextIndex]);
 }
 
-function getStaffImages(product) {
-    return Array.from({ length: 5 }, (_, index) => numberedStaffImage(product.staffPrefix, index));
+function getStaffImages() {
+    const extension = String(STAFF_SNAP_DATA.imageExtension || "webp").replace(/^\./, "");
+    const images = Array.isArray(STAFF_SNAP_DATA.images) ? STAFF_SNAP_DATA.images : [];
+
+    return images
+        .filter(item => item && item.fileName)
+        .map((item, index) => ({
+            src: `image/${item.fileName}.${extension}`,
+            alt: item.alt || `Staff Snap ${index + 1}`
+        }));
 }
 
 function buildAllStaffImages() {
-    allStaffImages = PRODUCT_DATA.flatMap((product, productIndex) =>
-        getStaffImages(product).map((src, photoIndex) => ({
-            src,
-            productIndex,
-            productNumber: product.number,
-            photoIndex,
-            alt: `商品${product.number}のスタッフスナップ ${photoIndex + 1}`
-        }))
-    );
+    // Staff Snapは商品と独立した画像リストを、そのまま表示します。
+    allStaffImages = getStaffImages();
+}
+
+function getEffectiveProductStatus(product = PRODUCT_DATA[currentProductIndex]) {
+    if (!product) return "available";
+    const productStatusValue = product.status || "available";
+    // 商品全体の販売予定・売り切れ設定を優先し、販売中商品の場合のみカラー別状況を反映します。
+    if (productStatusValue !== "available") return productStatusValue;
+    const variant = getCurrentProductVariant(product);
+    return variant && variant.status === "soldout" ? "soldout" : "available";
+}
+
+function updateProductVariantDisplay() {
+    const product = PRODUCT_DATA[currentProductIndex];
+    if (!product) return;
+
+    const variant = getCurrentProductVariant(product);
+    const productStatusValue = getEffectiveProductStatus(product);
+    const productStatusLabels = {
+        upcoming: `COMING SOON / ${product.upcomingText || "追加時期は決まり次第お知らせします"}`,
+        available: "販売中",
+        soldout: "SOLD OUT / 売り切れ"
+    };
+    if (productStatus) {
+        productStatus.dataset.status = productStatusValue;
+        productStatus.textContent = productStatusLabels[productStatusValue] || productStatusLabels.available;
+    }
+
+    const productImageFrame = productMainImage?.closest(".product-image");
+    if (productImageFrame) {
+        productImageFrame.dataset.productStatus = productStatusValue;
+        productImageFrame.dataset.statusLabel = productStatusValue === "upcoming"
+            ? "COMING SOON"
+            : productStatusValue === "soldout" ? "SOLD OUT" : "";
+    }
+
+    const isAvailable = productStatusValue === "available";
+    if (buyButton) {
+        buyButton.disabled = !isAvailable;
+        buyButton.setAttribute("aria-disabled", isAvailable ? "false" : "true");
+    }
+    if (buyButtonLabel) {
+        buyButtonLabel.textContent = productStatusValue === "upcoming"
+            ? "COMING SOON"
+            : productStatusValue === "soldout" ? "SOLD OUT" : "PURCHASE";
+    }
+    if (buyButtonArrow) buyButtonArrow.hidden = !isAvailable;
+
+    // COLOR VARIATION欄には、選択中カラーの表示名を出します。
+    if (productColorLabel) {
+        productColorLabel.textContent = variant
+            ? (variant.displayName || variant.label || "未設定")
+            : "未設定";
+    }
 }
 
 function renderProductThumbnails() {
@@ -514,7 +586,7 @@ function renderProductThumbnails() {
         const accessibleStatus = statusLabel ? `・${statusLabel}` : "";
         return `
             <button class="product-thumb${index === currentProductIndex ? " active" : ""}" data-product-index="${index}" aria-label="商品 ${product.number}${accessibleStatus}">
-                <img src="${numberedProductImage(product.imagePrefix, 0)}" alt="${product.name.replace(/<br>/g, " ")}">
+                <img src="${getFirstProductImage(product)}" alt="${product.name.replace(/<br>/g, " ")}">
                 <span>${product.number}</span>
                 ${statusMarkup}
             </button>
@@ -559,27 +631,50 @@ if (productMainImage) {
 
 let productPhotoChangeToken = 0;
 
+function updateProductPhotoIndicator() {
+    if (!productPhotoIndicator) return;
+    const product = PRODUCT_DATA[currentProductIndex];
+    if (!product) return;
+    const images = getProductImages(product, getCurrentProductVariant(product));
+    const total = images.length;
+    const current = total ? currentProductPhotoIndex + 1 : 0;
+
+    if (productPhotoIndicatorCount) {
+        productPhotoIndicatorCount.textContent = `${String(current).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+    }
+    if (productPhotoIndicatorDots) {
+        productPhotoIndicatorDots.innerHTML = images.map((_, index) => `
+            <span class="product-photo-indicator-dot${index === currentProductPhotoIndex ? " active" : ""}" aria-hidden="true"></span>
+        `).join("");
+    }
+    productPhotoIndicator.setAttribute("aria-label", `全${total}枚中${current}枚目の商品写真を表示中`);
+    productPhotoIndicator.hidden = total === 0;
+}
+
 function showProductPhoto(index) {
     const product = PRODUCT_DATA[currentProductIndex];
     if (!product || !productMainImage) return;
 
-    const images = getProductImages(product);
+    const variant = getCurrentProductVariant(product);
+    const images = getProductImages(product, variant);
+    if (!images.length) return;
+
     const nextPhotoIndex = (index + images.length) % images.length;
     const nextPhotoSrc = images[nextPhotoIndex];
     const changeToken = ++productPhotoChangeToken;
 
     currentProductPhotoIndex = nextPhotoIndex;
-    productMainImage.alt = `${product.name.replace(/<br>/g, " ")} 写真 ${nextPhotoIndex + 1}`;
-    updateProductColorSwatchState(nextPhotoIndex);
+    // 写真の切り替え操作ごとに、現在位置をインジケーターへ即時反映します。
+    updateProductPhotoIndicator();
+    productMainImage.alt = `${product.name.replace(/<br>/g, " ")} ${variant ? variant.label + " " : ""}写真 ${nextPhotoIndex + 1}`;
+    updateProductColorSwatchState();
 
     // 画像の読み込みが終わるまでは現在の写真を表示し、読み込み完了後に切り替えます。
-    // 前後画像は先読みされるため、通常は固定の160ms待ちを挟まず切り替わります。
     preloadProductPhoto(nextPhotoSrc).then(() => {
         if (changeToken !== productPhotoChangeToken) return;
 
         productMainImage.style.opacity = "0";
         window.setTimeout(() => {
-            // 連続タップ時に、古いリクエストが最新の選択を上書きしないようにします。
             if (changeToken !== productPhotoChangeToken) return;
 
             productMainImage.src = nextPhotoSrc;
@@ -591,43 +686,51 @@ function showProductPhoto(index) {
 }
 
 function getColorsForCurrentProduct() {
-    return COLOR_PHOTO_MAP[currentProductIndex] || [];
+    const product = PRODUCT_DATA[currentProductIndex];
+    return product && Array.isArray(product.variants) ? product.variants : [];
 }
 
 function renderProductColorSwatches(product) {
     if (!productColorSwatches) return;
-    const colors = getColorsForCurrentProduct();
-    const hasColorOptions = colors.length > 0;
+    const variants = Array.isArray(product.variants) ? product.variants : [];
+    const hasColorOptions = variants.length > 0;
     productColorSwatches.hidden = !hasColorOptions;
+
     if (productColorLabel) {
-        productColorLabel.textContent = colors.length === 1 ? "1 COLOR" : `${colors.length} COLORS`;
+        const selectedVariant = variants[currentProductVariantIndex] || variants[0];
+        productColorLabel.textContent = selectedVariant
+            ? (selectedVariant.displayName || selectedVariant.label || "未設定")
+            : "未設定";
     }
+
     if (!hasColorOptions) {
         productColorSwatches.innerHTML = "";
         return;
     }
 
-    productColorSwatches.innerHTML = colors.map(color => {
-        // 2色の場合は、斜め分割と柔らかな色の移り変わりで表示します。
-        // 1色・3色以上の場合の既存表示は変更しません。
-        const colorList = Array.isArray(color.colors) && color.colors.length > 0
-            ? color.colors
-            : [color.color || "#f8f5ef"];
+    productColorSwatches.innerHTML = variants.map((variant, index) => {
+        const colorList = Array.isArray(variant.colors) && variant.colors.length > 0
+            ? variant.colors
+            : [variant.color || "#f8f5ef"];
+
         let background;
         if (colorList.length === 1) {
             background = colorList[0];
         } else if (colorList.length === 2) {
             background = `linear-gradient(135deg, ${colorList[0]} 0%, ${colorList[0]} 42%, ${colorList[1]} 58%, ${colorList[1]} 100%)`;
         } else {
-            background = `linear-gradient(90deg, ${colorList.map((value, index) => {
-                const start = (index / colorList.length) * 100;
-                const end = ((index + 1) / colorList.length) * 100;
-                return `${value} ${start}%, ${value} ${end}%`;
+            background = `linear-gradient(90deg, ${colorList.map((value, colorIndex) => {
+                const start = (colorIndex / colorList.length) * 100;
+                const finish = ((colorIndex + 1) / colorList.length) * 100;
+                return `${value} ${start}%, ${value} ${finish}%`;
             }).join(", ")})`;
         }
+
         return `
-            <button type="button" class="product-color-swatch" data-photo-index="${color.photoIndex}"
-                aria-label="${color.label}の画像を表示" title="${color.label}">
+            <button type="button" class="product-color-swatch"
+                data-variant-index="${index}"
+                aria-label="${variant.label}の商品画像を表示"
+                title="${variant.label}">
                 <span class="product-color-dot" style="--swatch-color:${background}"></span>
             </button>
         `;
@@ -635,26 +738,38 @@ function renderProductColorSwatches(product) {
 
     productColorSwatches.querySelectorAll(".product-color-swatch").forEach(button => {
         button.addEventListener("click", () => {
-            const photoIndex = Number(button.dataset.photoIndex);
-            showProductPhoto(photoIndex);
-            updateProductColorSwatchState(photoIndex);
-            // カラー選択後、メイン商品画像が見える位置へスムーズに移動します。
+            selectProductVariant(Number(button.dataset.variantIndex));
             window.setTimeout(() => {
                 const mainImageArea = document.querySelector(".product-main");
                 if (mainImageArea) mainImageArea.scrollIntoView({ behavior: "smooth", block: "center" });
             }, 180);
         });
     });
-    updateProductColorSwatchState(currentProductPhotoIndex);
+
+    updateProductColorSwatchState();
 }
 
-function updateProductColorSwatchState(photoIndex) {
+function selectProductVariant(index) {
+    const product = PRODUCT_DATA[currentProductIndex];
+    if (!product || !Array.isArray(product.variants) || !product.variants.length) return;
+
+    currentProductVariantIndex = (index + product.variants.length) % product.variants.length;
+    currentProductPhotoIndex = 0;
+    productPhotoChangeToken += 1;
+
+    const images = getProductImages(product, getCurrentProductVariant(product));
+    if (!images.length) return;
+
+    updateProductColorSwatchState();
+    updateProductVariantDisplay();
+    showProductPhoto(0);
+}
+
+function updateProductColorSwatchState() {
     if (!productColorSwatches) return;
-    const colors = getColorsForCurrentProduct();
-    const matchingColor = colors.find(color => color.photoIndex === photoIndex);
-    productColorSwatches.querySelectorAll(".product-color-swatch").forEach(button => {
-        const active = matchingColor && Number(button.dataset.photoIndex) === matchingColor.photoIndex;
-        button.classList.toggle("active", Boolean(active));
+    productColorSwatches.querySelectorAll(".product-color-swatch").forEach((button, index) => {
+        const active = index === currentProductVariantIndex;
+        button.classList.toggle("active", active);
         button.setAttribute("aria-pressed", active ? "true" : "false");
     });
 }
@@ -701,7 +816,9 @@ function showProduct(index) {
     productPhotoChangeToken += 1;
     currentProductIndex = (index + PRODUCT_DATA.length) % PRODUCT_DATA.length;
     currentProductPhotoIndex = 0;
+    currentProductVariantIndex = 0;
     const product = PRODUCT_DATA[currentProductIndex];
+    const initialProductImage = getFirstProductImage(product);
     // 2・3枚目の商品は、カラー選択群とPURCHASEの間隔を自然に保つため表示位置だけを調整します。
     if (productInfoPanel) {
         productInfoPanel.classList.toggle(
@@ -714,7 +831,7 @@ function showProduct(index) {
     if (productMainImage) {
         productMainImage.style.opacity = "0";
         window.setTimeout(() => {
-            productMainImage.src = numberedProductImage(product.imagePrefix, 0);
+            productMainImage.src = initialProductImage;
             updateProductImageBackdrop(productMainImage.src);
             productMainImage.alt = product.name.replace(/<br>/g, " ");
             productMainImage.style.opacity = "1";
@@ -734,41 +851,15 @@ function showProduct(index) {
     }
     if (productPrice) productPrice.innerHTML = `${product.price} <small>(tax included)</small>`;
 
-    // 販売状況は商品データの status だけで切り替えます。
-    const productStatusValue = product.status || "available";
-    const productStatusLabels = {
-        upcoming: `COMING SOON / ${product.upcomingText || "追加時期は決まり次第お知らせします"}`,
-        available: "販売中",
-        soldout: "SOLD OUT / 売り切れ"
-    };
-    if (productStatus) {
-        productStatus.dataset.status = productStatusValue;
-        productStatus.textContent = productStatusLabels[productStatusValue] || productStatusLabels.available;
-    }
-    // 販売予定・売り切れ商品は、メイン画像にも状態を反映して一目で分かるようにします。
-    const productImageFrame = productMainImage?.closest(".product-image");
-    if (productImageFrame) {
-        productImageFrame.dataset.productStatus = productStatusValue;
-        productImageFrame.dataset.statusLabel = productStatusValue === "upcoming"
-            ? "COMING SOON"
-            : productStatusValue === "soldout" ? "SOLD OUT" : "";
-    }
-    const isAvailable = productStatusValue === "available";
-    if (buyButton) {
-        buyButton.disabled = !isAvailable;
-        buyButton.setAttribute("aria-disabled", isAvailable ? "false" : "true");
-    }
-    if (buyButtonLabel) {
-        buyButtonLabel.textContent = productStatusValue === "upcoming"
-            ? "COMING SOON"
-            : productStatusValue === "soldout" ? "SOLD OUT" : "PURCHASE";
-    }
-    if (buyButtonArrow) buyButtonArrow.hidden = !isAvailable;
+    // 商品全体の販売状況と、選択中カラーの販売状況を反映します。
+    updateProductVariantDisplay();
 
     if (productDescription) productDescription.textContent = product.description;
     if (productMaterial) productMaterial.textContent = product.material;
     if (productDetailPrice) productDetailPrice.textContent = product.price;
     renderProductColorSwatches(product);
+    updateProductVariantDisplay();
+    updateProductPhotoIndicator();
     renderProductInformation(product);
 
     if (productThumbnails) {
@@ -777,14 +868,10 @@ function showProduct(index) {
         });
     }
 
-    // 商品選択に連動して、全Staff Snapの中から該当商品の先頭写真へ移動する
-    focusStaffForProduct(currentProductIndex);
 }
 
 function renderAllStaff() {
     if (!staffTrack || !allStaffImages.length) return;
-
-    // Staff Snapの画像URLは上の numberedStaffImage() が .webp として生成します。
 
     const count = allStaffImages.length;
     // 同じ写真群を2セット配置し、1セット分移動したら位置を戻して継ぎ目のないループにする。
@@ -793,7 +880,7 @@ function renderAllStaff() {
     currentStaffTrackIndex = 0;
 
     staffTrack.innerHTML = loopedImages.map((item, trackIndex) => `
-        <button class="staff-slide" data-track-index="${trackIndex}" data-staff-index="${trackIndex % count}" data-product-index="${item.productIndex}" aria-label="${item.alt}">
+        <button class="staff-slide" data-track-index="${trackIndex}" data-staff-index="${trackIndex % count}" aria-label="${item.alt}">
             <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async">
         </button>
     `).join("");
@@ -811,7 +898,7 @@ function renderAllStaff() {
     // 画像とレイアウトの計算後にループ幅を取得して、連続スクロールを開始する
     requestAnimationFrame(() => {
         measureStaffTrack();
-        showStaff(0, true);
+        showStaff(0);
         startStaffAutoPlay();
     });
 }
@@ -824,7 +911,7 @@ function renderStaffDots() {
     `).join("");
 
     staffDots.querySelectorAll(".staff-dot").forEach(dot => {
-        dot.addEventListener("click", () => showStaff(Number(dot.dataset.staffIndex), true));
+        dot.addEventListener("click", () => showStaff(Number(dot.dataset.staffIndex)));
     });
 }
 
@@ -875,7 +962,7 @@ function updateStaffActiveStates() {
     }
 }
 
-function showStaff(index, jump = false) {
+function showStaff(index) {
     if (!allStaffImages.length || !staffTrack) return;
     const count = allStaffImages.length;
     currentStaffIndex = (index + count) % count;
@@ -883,11 +970,6 @@ function showStaff(index, jump = false) {
     currentStaffTrackIndex = currentStaffIndex;
     updateStaffTrackPosition(false);
     updateStaffActiveStates();
-}
-
-function focusStaffForProduct(productIndex) {
-    const firstStaffIndex = productIndex * PRODUCT_PHOTO_COUNT;
-    showStaff(firstStaffIndex, true);
 }
 
 function startStaffAutoPlay() {
@@ -937,12 +1019,6 @@ function updateNearestStaffState() {
     currentStaffTrackIndex = Math.round((center - first.offsetWidth / 2) / step);
     currentStaffIndex = ((currentStaffTrackIndex % allStaffImages.length) + allStaffImages.length) % allStaffImages.length;
     updateStaffActiveStates();
-}
-
-if (staffTrack) {
-    // 2セット目の先頭に到達したら、同じ見た目の1セット目へ瞬時に戻す。
-    // transformは同じ位置に見えるため、連続した動きは途切れない。
-    staffTrack.addEventListener("transitionend", () => {});
 }
 
 // Staff Snapは、左右の矢印に加えてマウス/指で直接横へドラッグできます。
@@ -1247,7 +1323,8 @@ applyLoraToNumbers();
 
 /* =========================================================
    JOURNAL & NEWS: データからトップページの記事を生成
-   他の機能には影響しない独立処理です。
+   アーカイブページと共通のカードデザインで表示します。
+   記事データ・リンク先・表示件数など既存の仕様は維持します。
 ========================================================= */
 (function initTellQJournalHome() {
     const list = document.getElementById("homeJournalList");
@@ -1259,50 +1336,48 @@ applyLoraToNumbers();
         journal: "JOURNAL",
         information: "INFORMATION"
     };
+
     const published = articles
         .filter(item => item.status === "published")
         .slice()
         .sort((a, b) => String(b.date).localeCompare(String(a.date)))
         .slice(0, 6);
 
+    const escapeJournalText = value => String(value ?? "").replace(/[&<>\"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&#39;"
+    }[char]));
+
     const formatDate = value => {
         const date = new Date(`${value}T00:00:00`);
-        if (Number.isNaN(date.getTime())) return { day: "", month: value || "" };
-        return {
-            day: String(date.getDate()).padStart(2, "0"),
-            month: `${date.toLocaleString("en-US", { month: "short" }).toUpperCase()}<br>${date.getFullYear()}`
-        };
+        if (Number.isNaN(date.getTime())) return escapeJournalText(value || "");
+        return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
     };
 
-    list.innerHTML = published.map(item => {
-        const date = formatDate(item.date);
-        const summary = item.summary || "";
-        return `
-            <article class="news-item ${item.pinned ? "is-pinned" : ""}">
-                <div class="news-date">
-                    <span class="day">${date.day}</span>
-                    <span class="month">${date.month}</span>
-                </div>
-                <div class="news-content">
-                    <p class="news-category">
-                        ${categoryLabels[item.category] || "JOURNAL"}
-                        <span class="news-category-line"></span>
-                        ${item.pinned ? "FEATURED" : "TELLQ"}
-                    </p>
-                    <h3><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h3>
-                    <p>${escapeJournalText(summary)}</p>
-                    <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
-                </div>
-            </article>`;
-    }).join("");
+    list.innerHTML = published.map(item => `
+        <article class="journal-archive-card" data-category="${escapeJournalText(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
+            <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
+            <div>
+                <span class="journal-archive-category" data-category="${escapeJournalText(item.category)}">${categoryLabels[item.category] || "JOURNAL"}</span>
+                <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h2>
+                <p>${escapeJournalText(item.summary || "")}</p>
+                <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
+            </div>
+        </article>`).join("");
 
     if (!published.length) {
         list.innerHTML = '<p class="news-empty">新しいお知らせを準備しています。</p>';
     }
-
-    function escapeJournalText(value) {
-        return String(value ?? "").replace(/[&<>"']/g, char => ({
-            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-        }[char]));
-    }
 })();
+
+// ========================================
+// COPYRIGHT YEAR
+// 現在の年を自動表示
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const yearElement = document.getElementById('current-year');
+
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+});

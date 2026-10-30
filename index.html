@@ -10,7 +10,7 @@
     <meta name="description"
         content="TellQ - 捨てられるはずの物を美しく生まれ変わらせる。100年のものづくりを、今のあなたへ。">
 
-    <link rel="stylesheet" href="style.css?v=4.22">
+    <link rel="stylesheet" href="style.css?v=4.26">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,7 +129,12 @@
                 </p>
 
                 <a href="#products" class="hero-button">
-                    DISCOVER TELLQ
+                    TellQの商品はこちら
+                    <span>→</span>
+                </a>
+
+                <a href="#news" class="hero-button hero-button-news">
+                    TellQの最新情報はこちら
                     <span>→</span>
                 </a>
 
@@ -367,6 +372,11 @@
                         <button class="product-arrow product-next" id="productNext" aria-label="次の商品">→</button>
 
                     </div>
+
+                    <div class="product-photo-indicator" id="productPhotoIndicator" aria-label="商品写真の表示位置" aria-live="polite">
+                        <div class="product-photo-indicator-dots" id="productPhotoIndicatorDots"></div>
+                        <span class="product-photo-indicator-count" id="productPhotoIndicatorCount">01 / 01</span>
+                    </div>
                 </div>
 
                 <div class="product-info">
@@ -588,7 +598,7 @@
         <div class="footer-bottom">
 
             <p>
-                © 2026 TellQ. All Rights Reserved.
+                © <span id="current-year"></span> TellQ. All Rights Reserved.
             </p>
 
         </div>
@@ -765,9 +775,9 @@
     </button>
 
 
-    <script src="product-data.js?v=4.22"></script>
-    <script src="journal-data.js?v=4.22"></script>
-    <script src="script.js?v=4.22"></script>
+    <script src="product-data.js?v=4.29"></script>
+    <script src="journal-data.js?v=4.26"></script>
+    <script src="script.js?v=4.30"></script>
 
 </body>
 

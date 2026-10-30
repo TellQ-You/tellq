@@ -31,7 +31,10 @@
         detailView.hidden = false;
         const paragraphs = Array.isArray(item.content) ? item.content : [item.content || item.summary || ""];
         const links = Array.isArray(item.relatedLinks) ? item.relatedLinks.filter(link => link && link.url && link.label) : [];
+        detailView.dataset.category = item.category || "journal";
+        detailView.dataset.pinned = item.pinned ? "true" : "false";
         detailView.innerHTML = `
+            <div class="journal-detail-kicker"><span>TELLQ</span><i></i><span>JOURNAL / ${escapeHTML(labels[item.category] || "JOURNAL")}</span></div>
             <div class="journal-detail-meta">
                 <span class="journal-detail-date">${formatDate(item.date)}</span>
                 <span class="journal-detail-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
@@ -39,10 +42,13 @@
             </div>
             <h1>${escapeHTML(item.title)}</h1>
             ${item.image ? `<img class="journal-detail-image" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)}" loading="lazy">` : ""}
-            <p class="journal-detail-summary">${escapeHTML(item.summary || "")}</p>
             <div class="journal-detail-content">${paragraphs.map(p => `<p>${escapeHTML(p)}</p>`).join("")}</div>
             ${links.length ? `<section class="journal-detail-links"><h2>RELATED LINKS</h2>${links.map(link => `<a href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(link.label)} ↗</a>`).join("")}</section>` : ""}
-            <p style="margin-top:42px"><a class="journal-back" href="journal.html">← ALL JOURNAL &amp; NEWS</a></p>`;
+            <div class="journal-detail-footer">
+                <span class="journal-detail-footer-mark">TELLQ</span>
+                <p>BEAUTY FROM WHAT REMAINS.</p>
+                <a class="journal-back" href="journal.html">← ALL JOURNAL &amp; NEWS</a>
+            </div>`;
         document.title = `${item.title} | TellQ JOURNAL`;
     }
 
@@ -54,7 +60,7 @@
         currentPage = Math.min(currentPage, pageCount);
         const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
         list.innerHTML = pageItems.length ? pageItems.map(item => `
-            <article class="journal-archive-card">
+            <article class="journal-archive-card" data-category="${escapeHTML(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
                 <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
                 <div>
                     <span class="journal-archive-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
