@@ -25,14 +25,14 @@ const PRODUCT_DATA = [
         baseUrl: "",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
-            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5], baseUrl: "" },
-            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 7, 8, 9, 10], baseUrl: "" },
+            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5], baseUrl: "https://tellqyou.base.shop/items/164334669" },
+            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 7, 8, 9, 10], baseUrl: "https://tellqyou.base.shop/items/164345045" },
             //{ key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "available", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 12, 13, 14, 15, 16, 17], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "TellQ<br>Cashmere 100% Compact Scarf</br>カシミヤ100％ </br>コンパクトマフラー",
-        price: "¥14,800",
+        price: "¥19,800",
         description: "現在検討中の商品です。",
         material: "Cashmere 100%",
         information: [
@@ -58,14 +58,14 @@ const PRODUCT_DATA = [
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
             //{ key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 7], baseUrl: "" },
-            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#b3b0b0", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 14], baseUrl: "" },
-            { key: "wine red", label: "WINE RED", displayName: "WINE RED", status: "available", color: "#862210", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 21], baseUrl: "" },
+            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#b3b0b0", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 14], baseUrl: "https://tellqyou.base.shop/items/164329829" },
+            { key: "wine red", label: "WINE RED", displayName: "WINE RED", status: "available", color: "#862210", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 21], baseUrl: "https://tellqyou.base.shop/items/164329470" },
             //{ key: "brown", label: "BROWN", displayName: "BROWN", status: "available", color: "#cc9e7d", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "TellQ<br>Cashmere 100% Compact Scarf</br>カシミヤ100％ </br>コンパクトマフラー",
-        price: "¥14,800",
+        price: "¥19,800",
         description: "現在検討中の商品です。",
         material: "Cashmere 100%",
         information: [
