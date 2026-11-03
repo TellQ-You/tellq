@@ -453,7 +453,10 @@ select {
 ========================================================= */
 
 .intro {
-    background: var(--cream);
+    background:
+        radial-gradient(ellipse at 16% 24%, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0) 43%),
+        radial-gradient(ellipse at 86% 78%, rgba(184,151,132,0.13) 0%, rgba(184,151,132,0) 42%),
+        linear-gradient(135deg, #d9b9a6 0%, #f3eee4 52%, #e6d1bc 100%);
     text-align: center;
 }
 
@@ -658,15 +661,18 @@ select {
     overflow: hidden;
 }
 
-.about-second-quote::before {
-    content: "TELLQ / PHILOSOPHY";
-    position: absolute;
-    top: 28px;
-    left: 30px;
-    font-family: var(--sans);
-    font-size: 7px;
-    letter-spacing: 0.32em;
-    color: rgba(60,51,46,0.5);
+/* MY STORY：写真を表示する領域 */
+.about-second-quote {
+    padding: 0;
+}
+
+.about-second-quote-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    object-position: center;
 }
 
 .about-second-quote::after {

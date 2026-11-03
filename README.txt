@@ -1,16 +1,13 @@
-TellQ v4.31 — スマートフォン商品画像・シークレット動画修正
+TellQ v4.34 - MY STORY photo placeholder
 
-今回の変更
-1. スマートフォン（幅600px以下）のメイン商品画像を、元画像の縦横比を維持して全体表示するよう変更。PC・タブレットの画像表示は変更していません。
-2. シークレットページのVIDEO NOTE / 01をYouTube埋め込みプレイヤーで再生する処理を調整。対象区間は8:24〜9:02（504〜542秒）です。再生中はミュートで開始し、38秒後に停止・サムネイルへ戻ります。
-3. VIDEO NOTE / 02と、そのYouTubeリンクを削除。VIDEO NOTE / 01の外部YouTubeリンクは残しています。
+Based on all four files from TellQ v4.33.
 
-更新対象ファイル
-- index.html
-- style.css
-- script.js
+Changes:
+- Replaced the MY STORY right-side text card (TELLQ / PHILOSOPHY) with an image element.
+- Placeholder image path: image/Test0099.jpg
+- Added image sizing styles while preserving the existing card layout and responsive height rules.
+- Updated the stylesheet cache version to 4.34.
 
-既存の product-data.js、journal-data.js、journal.html、journal.js、imageフォルダなどは変更不要です。既存TellQ_HPフォルダに上記3ファイルを上書きしてください。imageフォルダと.gitフォルダはそのまま残してください。
-
-注意
-YouTube側で埋め込み再生が制限されている動画は、サイト側のコードだけでは再生できません。また、ブラウザや端末の自動再生制限により、再生開始後にプレイヤー内の再生操作が必要になる場合があります。
+Files included: index.html, style.css, script.js, README.txt.
+script.js is unchanged. Keep the existing image/ directory and place Test0099.jpg directly inside it.
+No other site functionality was intentionally changed.

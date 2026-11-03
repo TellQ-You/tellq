@@ -22,12 +22,12 @@ const PRODUCT_DATA = [
         // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
         upcomingText: "追加時期は決まり次第お知らせします",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
-        baseUrl: "",
+        baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
-            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5], baseUrl: "https://tellqyou.base.shop/items/164334669" },
-            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 7, 8, 9, 10], baseUrl: "https://tellqyou.base.shop/items/164345045" },
-            //{ key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "available", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 12, 13, 14, 15, 16, 17], baseUrl: "" }
+            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 16, 17], baseUrl: "https://tellqyou.base.shop/items/164334669" },
+            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 7, 8, 9, 10, 16, 17], baseUrl: "https://tellqyou.base.shop/items/164345045" },
+            { key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "soldout", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 12, 13, 14, 15, 16, 17], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -54,13 +54,13 @@ const PRODUCT_DATA = [
         // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
         upcomingText: "追加時期は決まり次第お知らせします",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
-        baseUrl: "",
+        baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
-            //{ key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 7], baseUrl: "" },
-            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#b3b0b0", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 14], baseUrl: "https://tellqyou.base.shop/items/164329829" },
-            { key: "wine red", label: "WINE RED", displayName: "WINE RED", status: "available", color: "#862210", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 21], baseUrl: "https://tellqyou.base.shop/items/164329470" },
-            //{ key: "brown", label: "BROWN", displayName: "BROWN", status: "available", color: "#cc9e7d", imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28], baseUrl: "" }
+            { key: "navy-black-grey", label: "NAVY / BLACK / GREY", displayName: "NAVY / BLACK / GREY", status: "available", colors: ["#171717","#6a5c47", "#130051"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 7], baseUrl: "" },
+            { key: "black-wineRed", label: "BLACK / WINERED", displayName: "BLACK / WINERED", status: "available", colors: ["#171717", "#8f2a26"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 21], baseUrl: "https://tellqyou.base.shop/items/164329470" },
+            { key: "black-grey", label: "BLACK / GREY", displayName: "BLACK / GREY", status: "available", colors: ["#171717", "#c9c9c9"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 14], baseUrl: "https://tellqyou.base.shop/items/164329829" },
+            { key: "greige-Camel", label: "GREIGE / CAMEL", displayName: "GREIGE / CAMEL", status: "available", colors: ["#a48686", "#d89b31"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -87,7 +87,7 @@ const PRODUCT_DATA = [
         // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
         upcomingText: "11月中旬に販売予定。",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
-        baseUrl: "",
+        baseUrl: "https://tellqyou.base.shop/",
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
         variants: [
             { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "test-A-M-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" },
@@ -119,7 +119,7 @@ const PRODUCT_DATA = [
         // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
         upcomingText: "11月中旬に販売予定。",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
-        baseUrl: "",
+        baseUrl: "https://tellqyou.base.shop/",
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
         variants: [
             { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "test-D-M-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" }
