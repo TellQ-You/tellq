@@ -19,8 +19,10 @@ const PRODUCT_DATA = [
         number: "TellQ-01",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "available",
-        // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
+        // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "追加時期は決まり次第お知らせします",
+        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
+        moreItemsUpcomingText: "",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
@@ -51,8 +53,10 @@ const PRODUCT_DATA = [
         number: "TellQ-02",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "available",
-        // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
+        // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "追加時期は決まり次第お知らせします",
+        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
+        moreItemsUpcomingText: "",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
@@ -84,8 +88,10 @@ const PRODUCT_DATA = [
         number: "TellQ-03",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "upcoming",
-        // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
+        // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "11月中旬に販売予定。",
+        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
+        moreItemsUpcomingText: "11月中旬に販売予定。",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
@@ -116,8 +122,10 @@ const PRODUCT_DATA = [
         number: "TellQ-04",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "upcoming",
-        // status が upcoming の場合に表示する追加予定時期。商品ごとに編集できます。
+        // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "11月中旬に販売予定。",
+        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
+        moreItemsUpcomingText: "11月中旬に販売予定。",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。

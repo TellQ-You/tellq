@@ -578,12 +578,32 @@ function renderProductThumbnails() {
 
     productThumbnails.innerHTML = PRODUCT_DATA.map((product, index) => {
         const status = product.status || "available";
-        const statusLabels = { upcoming: "COMING SOON", soldout: "SOLD OUT" };
-        const statusLabel = statusLabels[status] || "";
-        const statusMarkup = statusLabel
-            ? `<span class="product-thumb-status product-thumb-status--${status}">${statusLabel}</span>`
-            : "";
-        const accessibleStatus = statusLabel ? `・${statusLabel}` : "";
+        // 商品ごとの発売予定文言。product-data.js の moreItemsUpcomingText で編集します。
+        const upcomingDetail = String(product.moreItemsUpcomingText || "").trim();
+        const escapeThumbnailText = value => String(value).replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[character]);
+
+        let statusLabel = "";
+        let statusMarkup = "";
+
+        if (status === "upcoming") {
+            statusLabel = upcomingDetail ? `COMING SOON / ${upcomingDetail}` : "COMING SOON";
+            statusMarkup = `
+                <span class="product-thumb-status product-thumb-status--upcoming">
+                    <strong>COMING SOON</strong>
+                    ${upcomingDetail ? `<small><bdi dir="ltr">${escapeThumbnailText(upcomingDetail)}</bdi></small>` : ""}
+                </span>`;
+        } else if (status === "soldout") {
+            statusLabel = "SOLD OUT";
+            statusMarkup = '<span class="product-thumb-status product-thumb-status--soldout">SOLD OUT</span>';
+        }
+
+        const accessibleStatus = statusLabel ? `・${escapeThumbnailText(statusLabel)}` : "";
         return `
             <button class="product-thumb${index === currentProductIndex ? " active" : ""}" data-product-index="${index}" aria-label="商品 ${product.number}${accessibleStatus}">
                 <img src="${getFirstProductImage(product)}" alt="${product.name.replace(/<br>/g, " ")}">
@@ -1139,6 +1159,8 @@ function applyLoraToNumbers(root = document.body) {
         ".product-price",
         ".product-detail",
         ".modal-price",
+        // MORE ITEMSの販売状況バッジ内の数字は、位置指定用spanに変換しない。
+        ".product-thumb .product-thumb-status",
         "script",
         "style"
     ];

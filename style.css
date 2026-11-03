@@ -1010,7 +1010,7 @@ select {
 .product-thumb .product-thumb-status--available { background: rgba(245, 244, 239, 0.94); color: #5f6253; }
 .product-thumb .product-thumb-status--soldout { background: rgba(240, 236, 232, 0.96); color: #82766d; }
 
-.product-thumb span {
+.product-thumb > span:not(.product-thumb-status) {
     position: absolute;
     left: 10px;
     bottom: 8px;
@@ -1518,7 +1518,7 @@ select {
         height: 72px;
     }
 
-    .product-thumb span {
+    .product-thumb > span:not(.product-thumb-status) {
         font-size: 6px;
         left: 6px;
         bottom: 5px;
@@ -2869,7 +2869,7 @@ select {
         height: 74px;
     }
 
-    .product-thumb span {
+    .product-thumb > span:not(.product-thumb-status) {
         font-size: 5.5px;
         left: 5px;
         bottom: 5px;
@@ -5194,4 +5194,1631 @@ select {
     max-width: 760px;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+/* =========================================================
+   TELLQ-HP v5.1 — requested refinements only
+   1) Subtle Rococo lace texture in OUR PHILOSOPHY
+   2) Tighter section spacing around OUR PHILOSOPHY / ITEM
+   3) Main item gallery follows MORE ITEMS selector
+   4) Sold-out main image remains clear and unfiltered
+   5) Mobile spacing refinements
+   6) JOURNAL & NEWS letter / envelope presentation
+========================================================= */
+
+/* OUR PHILOSOPHY: faint Rococo lace, kept behind the existing gradient */
+.intro {
+    position: relative;
+    isolation: isolate;
+}
+.intro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyODAiIGhlaWdodD0iMjgwIiB2aWV3Qm94PSIwIDAgMjgwIDI4MCI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOGQ3NDY1IiBzdHJva2Utd2lkdGg9IjEuMDUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgb3BhY2l0eT0iLjgiPjxjaXJjbGUgY3g9IjE0MCIgY3k9IjE0MCIgcj0iNzIiLz48Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9IjYyIi8+PGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSI0OCIvPjxwYXRoIGQ9Ik0xNDAgMTIgQzExNyAzNCAxMTcgNTIgMTQwIDY4IEMxNjMgNTIgMTYzIDM0IDE0MCAxMlogTTE0MCAyNjggQzExNyAyNDYgMTE3IDIyOCAxNDAgMjEyIEMxNjMgMjI4IDE2MyAyNDYgMTQwIDI2OFogTTEyIDE0MCBDMzQgMTE3IDUyIDExNyA2OCAxNDAgQzUyIDE2MyAzNCAxNjMgMTIgMTQwWiBNMjY4IDE0MCBDMjQ2IDExNyAyMjggMTE3IDIxMiAxNDAgQzIyOCAxNjMgMjQ2IDE2MyAyNjggMTQwWiIvPjxwYXRoIGQ9Ik0xNDAgNjggQzEyNCA4NiAxMTIgOTIgOTUgOTEgQzEwMyAxMDcgOTggMTE5IDgyIDEyOCBDMTAzIDEzNCAxMTEgMTQ1IDEwOCAxNjQgQzEyNSAxNTUgMTM5IDE2MCAxNTAgMTc3IEMxNTggMTU2IDE3MSAxNTEgMTkwIDE1NyBDMTg1IDEzNyAxOTMgMTI0IDIxMCAxMTUgQzE5MCAxMDggMTg0IDk2IDE4NyA3OCBDMTY5IDg4IDE1NSA4MyAxNDAgNjhaIi8+PHBhdGggZD0iTTE0MCA4NyBDMTI4IDEwMSAxMjcgMTE2IDE0MCAxMjcgQzE1MyAxMTYgMTUyIDEwMSAxNDAgODdaIE0xOTMgMTQwIEMxNzkgMTI4IDE2NCAxMjcgMTUzIDE0MCBDMTY0IDE1MyAxNzkgMTUyIDE5MyAxNDBaIE0xNDAgMTkzIEMxNTIgMTc5IDE1MyAxNjQgMTQwIDE1MyBDMTI3IDE2NCAxMjggMTc5IDE0MCAxOTNaIE04NyAxNDAgQzEwMSAxNTIgMTE2IDE1MyAxMjcgMTQwIEMxMTYgMTI3IDEwMSAxMjggODcgMTQwWiIvPjxwYXRoIGQ9Ik00MCA0MCBDNjMgNDAgNzQgNTIgNzUgNzIgQzU1IDcxIDQzIDYwIDQwIDQwWiBNMjQwIDQwIEMyMTcgNDAgMjA2IDUyIDIwNSA3MiBDMjI1IDcxIDIzNyA2MCAyNDAgNDBaIE00MCAyNDAgQzYzIDI0MCA3NCAyMjggNzUgMjA4IEM1NSAyMDkgNDMgMjIwIDQwIDI0MFogTTI0MCAyNDAgQzIxNyAyNDAgMjA2IDIyOCAyMDUgMjA4IEMyMjUgMjA5IDIzNyAyMjAgMjQwIDI0MFoiLz48cGF0aCBkPSJNMTQwIDI1IEMxMzIgMzggMTMyIDQ4IDE0MCA1NiBDMTQ4IDQ4IDE0OCAzOCAxNDAgMjVaIE0xNDAgMjU1IEMxMzIgMjQyIDEzMiAyMzIgMTQwIDIyNCBDMTQ4IDIzMiAxNDggMjQyIDE0MCAyNTVaIE0yNSAxNDAgQzM4IDEzMiA0OCAxMzIgNTYgMTQwIEM0OCAxNDggMzggMTQ4IDI1IDE0MFogTTI1NSAxNDAgQzI0MiAxMzIgMjMyIDEzMiAyMjQgMTQwIEMyMzIgMTQ4IDI0MiAxNDggMjU1IDE0MFoiLz48L2c+PGcgZmlsbD0iIzhkNzQ2NSIgb3BhY2l0eT0iLjU1Ij48Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9IjMiLz48Y2lyY2xlIGN4PSIxNDAiIGN5PSI2OCIgcj0iMiIvPjxjaXJjbGUgY3g9IjE0MCIgY3k9IjIxMiIgcj0iMiIvPjxjaXJjbGUgY3g9IjY4IiBjeT0iMTQwIiByPSIyIi8+PGNpcmNsZSBjeD0iMjEyIiBjeT0iMTQwIiByPSIyIi8+PGNpcmNsZSBjeD0iNzUiIGN5PSI3NSIgcj0iMiIvPjxjaXJjbGUgY3g9IjIwNSIgY3k9Ijc1IiByPSIyIi8+PGNpcmNsZSBjeD0iNzUiIGN5PSIyMDUiIHI9IjIiLz48Y2lyY2xlIGN4PSIyMDUiIGN5PSIyMDUiIHI9IjIiLz48L2c+PC9zdmc+");
+    background-repeat: repeat;
+    background-size: 280px 280px;
+    opacity: 0.075;
+    pointer-events: none;
+}
+.intro.section-padding {
+    padding-bottom: 92px;
+}
+
+/* ITEM: reduce the gap after the philosophy section and keep the selector
+   immediately under the heading, before the main product image. */
+.products.section-padding {
+    padding-top: 108px;
+}
+.products .section-title {
+    margin-bottom: 0;
+}
+.products .more-items-label {
+    margin-top: 34px;
+}
+.products .product-showcase {
+    margin-top: 48px;
+}
+
+/* Main product image only: do not darken or stamp SOLD OUT over sold-out colors.
+   Upcoming status and MORE ITEMS thumbnail status remain unchanged. */
+.product-image[data-product-status="soldout"] img {
+    filter: none !important;
+}
+.product-image[data-product-status="soldout"]::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* JOURNAL & NEWS: make each entry feel like a letter being drawn from an envelope.
+   Existing links, filtering, article data and navigation remain untouched. */
+.journal-archive-card {
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: 48px;
+    background-image:
+        linear-gradient(145deg, transparent 49.55%, rgba(151, 126, 105, .16) 49.8%, rgba(151, 126, 105, .16) 50.2%, transparent 50.45%),
+        linear-gradient(215deg, transparent 49.55%, rgba(151, 126, 105, .16) 49.8%, rgba(151, 126, 105, .16) 50.2%, transparent 50.45%),
+        linear-gradient(180deg, rgba(255,253,248,.94), rgba(245,237,225,.88));
+    background-position: center bottom, center bottom, center;
+    background-size: 100% 58%, 100% 58%, 100% 100%;
+    background-repeat: no-repeat;
+}
+.journal-archive-card::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 46%;
+    background: linear-gradient(145deg, rgba(222,207,189,.34), rgba(250,245,237,.18));
+    clip-path: polygon(0 0, 50% 72%, 100% 0, 100% 100%, 0 100%);
+    pointer-events: none;
+}
+.journal-archive-card::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 10px;
+    left: 22px;
+    right: 22px;
+    height: 30px;
+    border: 1px solid rgba(145, 121, 101, .17);
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,.88) 0 8px, rgba(164,143,123,.12) 8px 9px);
+    box-shadow: 0 3px 8px rgba(65,51,40,.045);
+    transform: translateY(-2px) rotate(-.35deg);
+    pointer-events: none;
+}
+.journal-archive-card > * {
+    position: relative;
+    z-index: 1;
+}
+.journal-archive-card:hover::after {
+    transform: translateY(-5px) rotate(-.7deg);
+    transition: transform .35s ease;
+}
+
+/* Mobile: trim vertical gaps without changing the layout or functionality
+   of Staff Snap, product details, or other sections. */
+@media (max-width: 700px) {
+    .intro.section-padding {
+        padding-top: 76px;
+        padding-bottom: 62px;
+    }
+    .products.section-padding {
+        padding-top: 64px;
+        padding-bottom: 72px;
+    }
+    .products .more-items-label {
+        margin-top: 25px;
+    }
+    .products .product-showcase {
+        margin-top: 30px;
+    }
+    .journal-archive-card {
+        padding-top: 43px;
+    }
+    .journal-archive-card::after {
+        left: 15px;
+        right: 15px;
+        height: 26px;
+    }
+}
+
+@media (max-width: 380px) {
+    .intro.section-padding {
+        padding-top: 68px;
+        padding-bottom: 54px;
+    }
+    .products.section-padding {
+        padding-top: 56px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ-HP v5.2 — visual direction refinement only
+   OUR PHILOSOPHY: opened Rococo lace bed-curtain at the upper edge
+   JOURNAL & NEWS: a letter visibly pulled out of its envelope
+   No content, links, data, or interaction changes.
+========================================================= */
+
+/* Opened lace curtains: the center stays calm so the philosophy copy remains clear. */
+.intro {
+    position: relative;
+    isolation: isolate;
+}
+.intro::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(145px, 19vw, 245px);
+    inset: 0 0 auto;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDE2MDAgMzAwIj4KPGRlZnM+CiA8bGluZWFyR3JhZGllbnQgaWQ9ImNsb3RoIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMCI+PHN0b3Agc3RvcC1jb2xvcj0iI2JjYTg5NSIgc3RvcC1vcGFjaXR5PSIuMjIiLz48c3RvcCBvZmZzZXQ9Ii4xNiIgc3RvcC1jb2xvcj0iI2ZmZmFmMiIgc3RvcC1vcGFjaXR5PSIuNzYiLz48c3RvcCBvZmZzZXQ9Ii40MiIgc3RvcC1jb2xvcj0iI2Q4YzhiNiIgc3RvcC1vcGFjaXR5PSIuMTYiLz48c3RvcCBvZmZzZXQ9Ii41OCIgc3RvcC1jb2xvcj0iI2Q4YzhiNiIgc3RvcC1vcGFjaXR5PSIuMTYiLz48c3RvcCBvZmZzZXQ9Ii44NCIgc3RvcC1jb2xvcj0iI2ZmZmFmMiIgc3RvcC1vcGFjaXR5PSIuNzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiY2E4OTUiIHN0b3Atb3BhY2l0eT0iLjIyIi8+PC9saW5lYXJHcmFkaWVudD4KIDxwYXR0ZXJuIGlkPSJsYWNlIiB3aWR0aD0iNDYiIGhlaWdodD0iMzgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0yMyAyIEMxMyAxMCAxMyAxOCAyMyAyNCBDMzMgMTggMzMgMTAgMjMgMlogTTIzIDI0IEMxMyAyOSAxMyAzNCAyMyAzNyBDMzMgMzQgMzMgMjkgMjMgMjRaIiBmaWxsPSJub25lIiBzdHJva2U9IiM5YjgwNmMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iLjU4Ii8+PGNpcmNsZSBjeD0iMjMiIGN5PSIxOSIgcj0iMiIgZmlsbD0iIzliODA2YyIgb3BhY2l0eT0iLjU1Ii8+PC9wYXR0ZXJuPgo8L2RlZnM+CjxwYXRoIGQ9Ik0wIDBIMTYwMFY0MiBDMTQ1MCAyMCAxMzIwIDI4IDExOTAgNjYgQzEwODAgOTcgMTAyMCAxMTggOTQwIDEwOCBDMTAzNSA3MCAxMDg1IDQ1IDExNTAgMFoiIGZpbGw9IiNlOWRlZDEiIG9wYWNpdHk9Ii4zMCIvPgo8cGF0aCBkPSJNMCAwSDE2MDBWMjQgQzE0NjAgMTggMTM1MCAzMSAxMjM1IDc2IEMxMTI1IDExOSAxMDQ4IDE0NSA5NTAgMTI1IEMxMDU1IDg0IDExMDUgNTAgMTE2MCAwWiIgZmlsbD0idXJsKCNjbG90aCkiLz4KPCEtLSBsZWZ0IGN1cnRhaW4sIGRyYXduIG91dHdhcmQgLS0+CjxwYXRoIGQ9Ik0wIDBIMzAwIEMyNTAgNTAgMjI4IDEwNSAyNDggMTY1IEMyNjQgMjE1IDI5MiAyNTUgMzI1IDMwMCBIMFoiIGZpbGw9InVybCgjY2xvdGgpIiBzdHJva2U9IiNiMzliODUiIHN0cm9rZS1vcGFjaXR5PSIuMzQiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMTggMCBDNzAgNzIgNTUgMTgwIDExNiAzMDAgTTc1IDAgQzEyNSA3MiAxMTEgMTkwIDE2OCAzMDAgTTEzNSAwIEMxODIgNzAgMTcyIDE5MCAyMjAgMzAwIE0xOTUgMCBDMjM1IDY2IDIyOCAxODAgMjc2IDI3OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTU4Yjc2IiBzdHJva2Utb3BhY2l0eT0iLjI2IiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTAgMEgzMDAgQzI3MCAzNSAyNTAgNTUgMjM4IDc4IEMyMjAgNTIgMjAyIDUyIDE4NCA3OCBDMTY2IDUyIDE0OCA1MiAxMzAgNzggQzExMiA1MiA5NCA1MiA3NiA3OCBDNTggNTIgNDAgNTIgMjIgNzhaIiBmaWxsPSJ1cmwoI2xhY2UpIiBvcGFjaXR5PSIuNyIvPgo8cGF0aCBkPSJNMCA3MiBDNTUgODggNzUgMTA4IDEwNCAxMjggQzEzNCAxMDYgMTU1IDEwNiAxODQgMTI4IEMyMTQgMTA2IDIzNSAxMDYgMjY1IDEyOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOWI4MDZjIiBzdHJva2Utb3BhY2l0eT0iLjQyIiBzdHJva2Utd2lkdGg9IjIiLz4KPCEtLSByaWdodCBjdXJ0YWluIC0tPgo8cGF0aCBkPSJNMTYwMCAwSDEzMDAgQzEzNTAgNTAgMTM3MiAxMDUgMTM1MiAxNjUgQzEzMzYgMjE1IDEzMDggMjU1IDEyNzUgMzAwIEgxNjAwWiIgZmlsbD0idXJsKCNjbG90aCkiIHN0cm9rZT0iI2IzOWI4NSIgc3Ryb2tlLW9wYWNpdHk9Ii4zNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0xNTgyIDAgQzE1MzAgNzIgMTU0NSAxODAgMTQ4NCAzMDAgTTE1MjUgMCBDMTQ3NSA3MiAxNDg5IDE5MCAxNDMyIDMwMCBNMTQ2NSAwIEMxNDE4IDcwIDE0MjggMTkwIDEzODAgMzAwIE0xNDA1IDAgQzEzNjUgNjYgMTM3MiAxODAgMTMyNCAyNzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2E1OGI3NiIgc3Ryb2tlLW9wYWNpdHk9Ii4yNiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik0xNjAwIDBIMTMwMCBDMTMzMCAzNSAxMzUwIDU1IDEzNjIgNzggQzEzODAgNTIgMTM5OCA1MiAxNDE2IDc4IEMxNDM0IDUyIDE0NTIgNTIgMTQ3MCA3OCBDMTQ4OCA1MiAxNTA2IDUyIDE1MjQgNzggQzE1NDIgNTIgMTU2MCA1MiAxNTc4IDc4WiIgZmlsbD0idXJsKCNsYWNlKSIgb3BhY2l0eT0iLjciLz4KPHBhdGggZD0iTTE2MDAgNzIgQzE1NDUgODggMTUyNSAxMDggMTQ5NiAxMjggQzE0NjYgMTA2IDE0NDUgMTA2IDE0MTYgMTI4IEMxMzg2IDEwNiAxMzY1IDEwNiAxMzM1IDEyOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOWI4MDZjIiBzdHJva2Utb3BhY2l0eT0iLjQyIiBzdHJva2Utd2lkdGg9IjIiLz4KPCEtLSBzY2FsbG9wZWQgbGFjZSBlZGdlIC0tPgo8cGF0aCBkPSJNMCAyODQgUTE4IDI2NiAzNiAyODQgVDcyIDI4NCBUMTA4IDI4NCBUMTQ0IDI4NCBUMTgwIDI4NCBUMjE2IDI4NCBUMjUyIDI4NCBUMjg4IDI4NCBNMTMxMiAyODQgUTEzMzAgMjY2IDEzNDggMjg0IFQxMzg0IDI4NCBUMTQyMCAyODQgVDE0NTYgMjg0IFQxNDkyIDI4NCBUMTUyOCAyODQgVDE1NjQgMjg0IFQxNjAwIDI4NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOWI4MDZjIiBzdHJva2Utb3BhY2l0eT0iLjUiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100%;
+    opacity: .20;
+    pointer-events: none;
+}
+
+/* Envelope body with a separate sheet of stationery visibly emerging above it. */
+.journal-archive-card {
+    overflow: visible;
+    isolation: isolate;
+    padding-top: 56px;
+    margin-top: 28px;
+    border: 1px solid rgba(126, 101, 81, .18);
+    border-left: 1px solid rgba(126, 101, 81, .18);
+    border-radius: 3px 3px 5px 5px;
+    background: linear-gradient(180deg, rgba(255,253,248,.96) 0%, rgba(250,246,238,.98) 55%, rgba(235,222,205,.96) 100%);
+    box-shadow: 0 9px 22px rgba(65,51,40,.075);
+}
+.journal-archive-card::after {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    left: 8%;
+    right: 8%;
+    top: -27px;
+    height: 102px;
+    border: 1px solid rgba(148, 125, 103, .28);
+    background:
+        linear-gradient(to bottom, transparent 0 21px, rgba(170,147,125,.14) 21px 22px, transparent 22px 39px, rgba(170,147,125,.12) 39px 40px, transparent 40px),
+        linear-gradient(180deg, #fffefa, #f8f1e7);
+    box-shadow: 0 2px 7px rgba(65,51,40,.08);
+    transform: rotate(-1.2deg);
+    pointer-events: none;
+}
+.journal-archive-card::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 47%;
+    background: linear-gradient(145deg, rgba(225,210,191,.92), rgba(246,239,229,.98));
+    clip-path: polygon(0 0, 50% 66%, 100% 0, 100% 100%, 0 100%);
+    border-top: 1px solid rgba(145,119,96,.18);
+    pointer-events: none;
+}
+.journal-archive-card > * {
+    position: relative;
+    z-index: 1;
+}
+.journal-archive-card:hover::after {
+    transform: translateY(-5px) rotate(-1.8deg);
+    transition: transform .35s ease;
+}
+
+@media (max-width: 700px) {
+    .intro::before {
+        height: 150px;
+        background-size: auto 100%;
+        background-position: center top;
+        opacity: .17;
+    }
+    .journal-archive-card {
+        margin-top: 23px;
+        padding-top: 49px;
+    }
+    .journal-archive-card::after {
+        top: -22px;
+        left: 7%;
+        right: 7%;
+        height: 83px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ-HP v5.3 — visual refinement only
+   OUR PHILOSOPHY: richer Rococo lace curtains, same placement and translucency
+   JOURNAL & NEWS: unmistakably open envelope with a letter being read
+   No HTML content, JavaScript, data, links, or interactions changed.
+========================================================= */
+
+/* Keep the existing top-edge placement and open-center composition,
+   while enriching the lace with embroidery, scallops, gathered silk and tassels. */
+.intro::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(145px, 19vw, 245px);
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjMzMCIgdmlld0JveD0iMCAwIDE2MDAgMzMwIj4KPGRlZnM+CiA8bGluZWFyR3JhZGllbnQgaWQ9InNpbGsiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIwIj48c3RvcCBzdG9wLWNvbG9yPSIjYjg5YTgzIiBzdG9wLW9wYWNpdHk9Ii4zNCIvPjxzdG9wIG9mZnNldD0iLjIyIiBzdG9wLWNvbG9yPSIjZmZmYWYzIiBzdG9wLW9wYWNpdHk9Ii43OCIvPjxzdG9wIG9mZnNldD0iLjQ4IiBzdG9wLWNvbG9yPSIjZDdjMWFkIiBzdG9wLW9wYWNpdHk9Ii4yMiIvPjxzdG9wIG9mZnNldD0iLjcyIiBzdG9wLWNvbG9yPSIjZmZmYWYzIiBzdG9wLW9wYWNpdHk9Ii43MiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2I4OWE4MyIgc3RvcC1vcGFjaXR5PSIuMzQiLz48L2xpbmVhckdyYWRpZW50PgogPGxpbmVhckdyYWRpZW50IGlkPSJmb2xkIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMCI+PHN0b3Agc3RvcC1jb2xvcj0iIzllN2Q2OCIgc3RvcC1vcGFjaXR5PSIuMTYiLz48c3RvcCBvZmZzZXQ9Ii40NSIgc3RvcC1jb2xvcj0iI2ZmZmFmNCIgc3RvcC1vcGFjaXR5PSIuMTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM5ZTdkNjgiIHN0b3Atb3BhY2l0eT0iLjEyIi8+PC9saW5lYXJHcmFkaWVudD4KIDxwYXR0ZXJuIGlkPSJuZXQiIHdpZHRoPSIzMCIgaGVpZ2h0PSIyNiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTE1IDEgQzggNyA4IDEzIDE1IDE4IEMyMiAxMyAyMiA3IDE1IDFaIE0wIDEzIFE3IDcgMTUgMTMgUTIzIDE5IDMwIDEzIE0xNSAxOCBROCAyMyAxNSAyNiBRMjIgMjMgMTUgMTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2E5ODk3MyIgc3Ryb2tlLXdpZHRoPSIuOCIgb3BhY2l0eT0iLjY2Ii8+PGNpcmNsZSBjeD0iMTUiIGN5PSIxMyIgcj0iMS41IiBmaWxsPSIjYTk4OTczIiBvcGFjaXR5PSIuNTUiLz48L3BhdHRlcm4+CiA8ZyBpZD0iZmxvcmFsIiBmaWxsPSJub25lIiBzdHJva2U9IiM5Yzc5NWYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgPHBhdGggZD0iTTAgMCBDLTE4IC0xMCAtMjUgLTI5IC0xMCAtMzkgQy00IC0yNiAtMiAtMTYgMCAwIEMyIC0xNiA0IC0yNiAxMCAtMzkgQzI1IC0yOSAxOCAtMTAgMCAwWiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KICA8cGF0aCBkPSJNMCAwIEMtMjggLTUgLTM3IC0yMCAtMzEgLTMxIEMtMTggLTI0IC0xMCAtMTMgMCAwIEMxMCAtMTMgMTggLTI0IDMxIC0zMSBDMzcgLTIwIDI4IC01IDAgMFoiIHN0cm9rZS13aWR0aD0iMS4zIi8+CiAgPHBhdGggZD0iTTAgMCBDLTE0IDcgLTE4IDIyIC01IDI5IEMtMiAxNyAtMSA4IDAgMCBDMSA4IDIgMTcgNSAyOSBDMTggMjIgMTQgNyAwIDBaIiBzdHJva2Utd2lkdGg9IjEuNCIvPgogIDxwYXRoIGQ9Ik0tMzEgLTEzIEMtNDggLTI0IC01NSAtOCAtNDMgMCBDLTM1IDUgLTI2IDEgLTIwIC01IE0zMSAtMTMgQzQ4IC0yNCA1NSAtOCA0MyAwIEMzNSA1IDI2IDEgMjAgLTUiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSByPSI0IiBmaWxsPSIjYTk4NzcwIiBmaWxsLW9wYWNpdHk9Ii4zMiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiA8L2c+CiA8ZyBpZD0ic2Nyb2xsIiBmaWxsPSJub25lIiBzdHJva2U9IiNhMTg0NmYiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICA8cGF0aCBkPSJNMCAwIEMxOCAtMTcgMzkgLTE1IDQyIC0xIEM0NCAxMSAzMCAxNiAyMyA3IEMxNyAtMSAyOCAtNyAzNCAtMSBNMCAwIEMtMTggLTE3IC0zOSAtMTUgLTQyIC0xIEMtNDQgMTEgLTMwIDE2IC0yMyA3IEMtMTcgLTEgLTI4IC03IC0zNCAtMSIvPgogIDxwYXRoIGQ9Ik0wIDAgQy01IC0xNSAtMSAtMjUgOCAtMjkgQzE0IC0xOSA5IC05IDAgMCBNMCAwIEM1IC0xNSAxIC0yNSAtOCAtMjkgQy0xNCAtMTkgLTkgLTkgMCAwIi8+CiA8L2c+CjwvZGVmcz4KPCEtLSB1cHBlciBnYXRoZXJlZCB2YWxhbmNlIC0tPgo8cGF0aCBkPSJNMCAwIEgxNjAwIFYyNCBDMTQ1MCAyMiAxMzcwIDQ1IDEyODUgODQgQzExOTUgMTI1IDExMTAgMTI2IDEwMzAgODMgQzk2MCA0NiA5MDUgMzcgODAwIDU3IEM2OTUgMzcgNjQwIDQ2IDU3MCA4MyBDNDkwIDEyNiA0MDUgMTI1IDMxNSA4NCBDMjMwIDQ1IDE1MCAyMiAwIDI0WiIgZmlsbD0idXJsKCNzaWxrKSIgc3Ryb2tlPSIjYWQ4YjczIiBzdHJva2Utb3BhY2l0eT0iLjQyIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTAgMjQgQzE1MCAyMiAyMzAgNDUgMzE1IDg0IEM0MDUgMTI1IDQ5MCAxMjYgNTcwIDgzIEM2NDAgNDYgNjk1IDM3IDgwMCA1NyBDOTA1IDM3IDk2MCA0NiAxMDMwIDgzIEMxMTEwIDEyNiAxMTk1IDEyNSAxMjg1IDg0IEMxMzcwIDQ1IDE0NTAgMjIgMTYwMCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZGY4IiBzdHJva2Utb3BhY2l0eT0iLjgyIiBzdHJva2Utd2lkdGg9IjciLz4KPHBhdGggZD0iTTAgMzAgQzE1MCAyOCAyMzAgNTEgMzE1IDkwIEM0MDUgMTMxIDQ5MCAxMzIgNTcwIDg5IEM2NDAgNTIgNjk1IDQzIDgwMCA2MyBDOTA1IDQzIDk2MCA1MiAxMDMwIDg5IEMxMTEwIDEzMiAxMTk1IDEzMSAxMjg1IDkwIEMxMzcwIDUxIDE0NTAgMjggMTYwMCAzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTk4OTczIiBzdHJva2Utb3BhY2l0eT0iLjUyIiBzdHJva2Utd2lkdGg9IjEuNCIvPgo8IS0tIHNjYWxsb3BlZCBsYWNlIG9uIHRoZSB2YWxhbmNlIC0tPgo8cGF0aCBkPSJNMCAzMiBRMTggNTMgMzYgMzIgVDcyIDMyIFQxMDggMzIgVDE0NCAzMiBUMTgwIDMyIFQyMTYgMzIgVDI1MiAzMiBUMjg4IDMyIFQzMjQgMzIgVDM2MCAzMiBUMzk2IDMyIFQ0MzIgMzIgVDQ2OCAzMiBUNTA0IDMyIFQ1NDAgMzIgVDU3NiAzMiBUNjEyIDMyIFQ2NDggMzIgVDY4NCAzMiBUNzIwIDMyIFQ3NTYgMzIgVDc5MiAzMiBUODI4IDMyIFQ4NjQgMzIgVDkwMCAzMiBUOTM2IDMyIFQ5NzIgMzIgVDEwMDggMzIgVDEwNDQgMzIgVDEwODAgMzIgVDExMTYgMzIgVDExNTIgMzIgVDExODggMzIgVDEyMjQgMzIgVDEyNjAgMzIgVDEyOTYgMzIgVDEzMzIgMzIgVDEzNjggMzIgVDE0MDQgMzIgVDE0NDAgMzIgVDE0NzYgMzIgVDE1MTIgMzIgVDE1NDggMzIgVDE1ODQgMzIgVDE2MDAgMzIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzljN2Q2OCIgc3Ryb2tlLW9wYWNpdHk9Ii43IiBzdHJva2Utd2lkdGg9IjEuMyIvPgo8cGF0aCBkPSJNMCAzNiBRMTggNTUgMzYgMzYgVDcyIDM2IFQxMDggMzYgVDE0NCAzNiBUMTgwIDM2IFQyMTYgMzYgVDI1MiAzNiBUMjg4IDM2IFQzMjQgMzYgVDM2MCAzNiBUMzk2IDM2IFQ0MzIgMzYgVDQ2OCAzNiBUNTA0IDM2IFQ1NDAgMzYgVDU3NiAzNiBUNjEyIDM2IFQ2NDggMzYgVDY4NCAzNiBUNzIwIDM2IFQ3NTYgMzYgVDc5MiAzNiBUODI4IDM2IFQ4NjQgMzYgVDkwMCAzNiBUOTM2IDM2IFQ5NzIgMzYgVDEwMDggMzYgVDEwNDQgMzYgVDEwODAgMzYgVDExMTYgMzYgVDExNTIgMzYgVDExODggMzYgVDEyMjQgMzYgVDEyNjAgMzYgVDEyOTYgMzYgVDEzMzIgMzYgVDEzNjggMzYgVDE0MDQgMzYgVDE0NDAgMzYgVDE0NzYgMzYgVDE1MTIgMzYgVDE1NDggMzYgVDE1ODQgMzYgVDE2MDAgMzYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmFmNCIgc3Ryb2tlLW9wYWNpdHk9Ii44IiBzdHJva2Utd2lkdGg9IjIuMiIvPgo8IS0tIGxlZnQgYW5kIHJpZ2h0IGN1cnRhaW5zLCBzd2VwdCBvdXR3YXJkIHRvIGxlYXZlIHRoZSBtaWRkbGUgb3BlbiAtLT4KPHBhdGggZD0iTTAgMCBIMzUwIEMyOTIgNDggMjc1IDk2IDMwMCAxNDIgQzMyMSAxOTAgMzQ0IDI0NCAzODUgMzMwIEgwWiIgZmlsbD0idXJsKCNzaWxrKSIgc3Ryb2tlPSIjYTk4OTczIiBzdHJva2Utb3BhY2l0eT0iLjM4IiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTAgMCBDOTUgNzQgNjMgMTkwIDE0OCAzMzAgTTcwIDAgQzE1MSA4MiAxMjIgMjAyIDIwOCAzMzAgTTE0MiAwIEMyMTUgODQgMTkwIDIxMSAyNzAgMzMwIE0yMTggMCBDMjc0IDcwIDI1NCAxOTAgMzMwIDMzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZGY4IiBzdHJva2Utb3BhY2l0eT0iLjY0IiBzdHJva2Utd2lkdGg9IjEwIi8+CjxwYXRoIGQ9Ik0wIDAgQzcwIDg1IDQ0IDE5MCAxMDggMzMwIE00NSAwIEMxMTkgNzggOTIgMTk4IDE2OCAzMzAgTTEwNSAwIEMxNzYgODIgMTUyIDIxMCAyMzUgMzMwIE0xNzQgMCBDMjQwIDgyIDIyMCAyMTYgMzA1IDMzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTk4OTczIiBzdHJva2Utb3BhY2l0eT0iLjM0IiBzdHJva2Utd2lkdGg9IjEuNiIvPgo8cGF0aCBkPSJNMTYwMCAwIEgxMjUwIEMxMzA4IDQ4IDEzMjUgOTYgMTMwMCAxNDIgQzEyNzkgMTkwIDEyNTYgMjQ0IDEyMTUgMzMwIEgxNjAwWiIgZmlsbD0idXJsKCNzaWxrKSIgc3Ryb2tlPSIjYTk4OTczIiBzdHJva2Utb3BhY2l0eT0iLjM4IiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTE2MDAgMCBDMTUwNSA3NCAxNTM3IDE5MCAxNDUyIDMzMCBNMTUzMCAwIEMxNDQ5IDgyIDE0NzggMjAyIDEzOTIgMzMwIE0xNDU4IDAgQzEzODUgODQgMTQxMCAyMTEgMTMzMCAzMzAgTTEzODIgMCBDMTMyNiA3MCAxMzQ2IDE5MCAxMjcwIDMzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZGY4IiBzdHJva2Utb3BhY2l0eT0iLjY0IiBzdHJva2Utd2lkdGg9IjEwIi8+CjxwYXRoIGQ9Ik0xNjAwIDAgQzE1MzAgODUgMTU1NiAxOTAgMTQ5MiAzMzAgTTE1NTUgMCBDMTQ4MSA3OCAxNTA4IDE5OCAxNDMyIDMzMCBNMTQ5NSAwIEMxNDI0IDgyIDE0NDggMjEwIDEzNjUgMzMwIE0xNDI2IDAgQzEzNjAgODIgMTM4MCAyMTYgMTI5NSAzMzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2E5ODk3MyIgc3Ryb2tlLW9wYWNpdHk9Ii4zNCIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KPCEtLSBmaW5lIGxhY2UgbWVzaCBvbiBzaWRlIHBhbmVscyAtLT4KPHBhdGggZD0iTTAgNDggSDMwMCBMMzY1IDMzMCBIMFogTTE2MDAgNDggSDEzMDAgTDEyMzUgMzMwIEgxNjAwWiIgZmlsbD0idXJsKCNuZXQpIiBvcGFjaXR5PSIuNDQiLz4KPCEtLSBlbWJyb2lkZXJlZCBzY3JvbGx3b3JrIGF0IHVwcGVyIGNvcm5lcnMgYW5kIHNpZGUgcGFuZWxzIC0tPgo8dXNlIGhyZWY9IiNzY3JvbGwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwNSA5Mikgc2NhbGUoMS41NSkiLz48dXNlIGhyZWY9IiNzY3JvbGwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0OTUgOTIpIHNjYWxlKC0xLjU1IDEuNTUpIi8+Cjx1c2UgaHJlZj0iI2Zsb3JhbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTcwIDE3Mikgc2NhbGUoMS4yKSIvPjx1c2UgaHJlZj0iI2Zsb3JhbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQzMCAxNzIpIHNjYWxlKC0xLjIgMS4yKSIvPgo8dXNlIGhyZWY9IiNzY3JvbGwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzNSAyMzUpIHNjYWxlKDEuMTUpIi8+PHVzZSBocmVmPSIjc2Nyb2xsIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMzY1IDIzNSkgc2NhbGUoLTEuMTUgMS4xNSkiLz4KPCEtLSBvcm5hbWVudGFsIHJvc2V0dGVzIGFsb25nIHRoZSB1cHBlciBkcmFwZSAtLT4KPHVzZSBocmVmPSIjZmxvcmFsIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjAgOTEpIHNjYWxlKC43KSIvPjx1c2UgaHJlZj0iI2Zsb3JhbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTI0MCA5MSkgc2NhbGUoLS43IC43KSIvPgo8dXNlIGhyZWY9IiNmbG9yYWwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDgwMCA2Nykgc2NhbGUoLjcyKSIvPgo8IS0tIHNjYWxsb3BlZCBsb3dlciBoZW1zIGFuZCBsYWNlIGZyaW5nZSAtLT4KPHBhdGggZD0iTTAgMjk0IFExOCAyNzIgMzYgMjk0IFQ3MiAyOTQgVDEwOCAyOTQgVDE0NCAyOTQgVDE4MCAyOTQgVDIxNiAyOTQgVDI1MiAyOTQgVDI4OCAyOTQgVDMyNCAyOTQgVDM2MCAyOTQgVDM4NSAyOTQgTTEyMTUgMjk0IFExMjMzIDI3MiAxMjUxIDI5NCBUMTI4NyAyOTQgVDEzMjMgMjk0IFQxMzU5IDI5NCBUMTM5NSAyOTQgVDE0MzEgMjk0IFQxNDY3IDI5NCBUMTUwMyAyOTQgVDE1MzkgMjk0IFQxNTc1IDI5NCBUMTYwMCAyOTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlkN2U2OSIgc3Ryb2tlLW9wYWNpdHk9Ii43MiIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0wIDMwMiBRMTggMjgwIDM2IDMwMiBUNzIgMzAyIFQxMDggMzAyIFQxNDQgMzAyIFQxODAgMzAyIFQyMTYgMzAyIFQyNTIgMzAyIFQyODggMzAyIFQzMjQgMzAyIFQzNjAgMzAyIFQzODUgMzAyIE0xMjE1IDMwMiBRMTIzMyAyODAgMTI1MSAzMDIgVDEyODcgMzAyIFQxMzIzIDMwMiBUMTM1OSAzMDIgVDEzOTUgMzAyIFQxNDMxIDMwMiBUMTQ2NyAzMDIgVDE1MDMgMzAyIFQxNTM5IDMwMiBUMTU3NSAzMDIgVDE2MDAgMzAyIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZkZjgiIHN0cm9rZS1vcGFjaXR5PSIuOSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjwhLS0gdGllYmFja3MgYW5kIHRhc3NlbHMgLS0+CjxwYXRoIGQ9Ik02NSAxNzQgQzExMCAxNTUgMTQ4IDE1NyAxOTAgMTgzIEMyMjIgMjAzIDI0NSAyMDIgMjcwIDE4NCBNMTUzNSAxNzQgQzE0OTAgMTU1IDE0NTIgMTU3IDE0MTAgMTgzIEMxMzc4IDIwMyAxMzU1IDIwMiAxMzMwIDE4NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOWU3YzY0IiBzdHJva2Utb3BhY2l0eT0iLjc4IiBzdHJva2Utd2lkdGg9IjMiLz4KPGNpcmNsZSBjeD0iMTkwIiBjeT0iMTgzIiByPSIxMCIgZmlsbD0iI2Q5YzNhZSIgc3Ryb2tlPSIjOWU3YzY0IiBzdHJva2Utd2lkdGg9IjEuNiIvPjxjaXJjbGUgY3g9IjE0MTAiIGN5PSIxODMiIHI9IjEwIiBmaWxsPSIjZDljM2FlIiBzdHJva2U9IiM5ZTdjNjQiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxwYXRoIGQ9Ik0xOTAgMTkzIEMxODMgMjE5IDE4MSAyNDQgMTkwIDI2NyBDMTk5IDI0NCAxOTcgMjE5IDE5MCAxOTMgTTE0MTAgMTkzIEMxNDAzIDIxOSAxNDAxIDI0NCAxNDEwIDI2NyBDMTQxOSAyNDQgMTQxNyAyMTkgMTQxMCAxOTMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ExODQ2ZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0xOTAgMjU5IFExNjkgMjgxIDE5MCAzMDkgUTIxMSAyODEgMTkwIDI1OSBNMTQxMCAyNTkgUTEzODkgMjgxIDE0MTAgMzA5IFExNDMxIDI4MSAxNDEwIDI1OSIgZmlsbD0iI2Q4YzJhZCIgZmlsbC1vcGFjaXR5PSIuOCIgc3Ryb2tlPSIjOWU3YzY0IiBzdHJva2Utd2lkdGg9IjEuNSIvPgo8L3N2Zz4=");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100%;
+    opacity: .24;
+    pointer-events: none;
+}
+
+/* The archive card is the envelope. A large stationery sheet rises from its
+   opening; the lower triangular fold and wax-seal detail sit in front of it. */
+.journal-archive-card {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    min-height: 245px;
+    margin-top: 42px;
+    padding: 76px 34px 86px;
+    border: 1px solid rgba(139, 108, 88, .28);
+    border-radius: 3px 3px 7px 7px;
+    background-color: #e9d9cc;
+    background-image:
+        linear-gradient(145deg, transparent 49.35%, rgba(171, 137, 112, .28) 49.8%, rgba(255, 249, 241, .52) 50.2%, transparent 50.65%),
+        linear-gradient(215deg, transparent 49.35%, rgba(171, 137, 112, .28) 49.8%, rgba(255, 249, 241, .52) 50.2%, transparent 50.65%),
+        linear-gradient(180deg, #f0e5da 0%, #e8d8ca 100%);
+    background-position: center bottom, center bottom, center;
+    background-size: 100% 56%, 100% 56%, 100% 100%;
+    background-repeat: no-repeat;
+    box-shadow: 0 12px 28px rgba(65, 51, 40, .09), inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+/* Letter paper: visible above the envelope with stationery rules and a stamp. */
+.journal-archive-card::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -42px;
+    left: 10%;
+    right: 10%;
+    height: 184px;
+    border: 1px solid rgba(153, 127, 105, .34);
+    border-radius: 2px 2px 0 0;
+    background-color: #fffdf8;
+    background-image:
+        linear-gradient(rgba(255,255,255,0) 0 0),
+        repeating-linear-gradient(to bottom, transparent 0 25px, rgba(166, 145, 126, .16) 25px 26px),
+        linear-gradient(90deg, transparent 0 76%, rgba(255,255,255,0) 76%),
+        linear-gradient(135deg, #fffefa 0%, #f8f1e7 100%);
+    background-size: 100% 100%, calc(100% - 34px) 112px, 100% 100%, 100% 100%;
+    background-position: center, 17px 59px, center, center;
+    background-repeat: no-repeat;
+    box-shadow: 0 5px 13px rgba(66, 48, 36, .12);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    pointer-events: none;
+}
+
+/* Envelope's front pocket folds upward over the lower edge of the letter.
+   The centered muted rose seal makes the envelope opening immediately legible. */
+.journal-archive-card::before {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 39%;
+    min-height: 78px;
+    background:
+        radial-gradient(circle at 50% 79%, #a87569 0 10px, #d9b5a7 11px 13px, rgba(255,255,255,.34) 14px 15px, transparent 16px),
+        linear-gradient(145deg, rgba(226, 207, 190, .98), rgba(247, 237, 226, .98));
+    clip-path: polygon(0 0, 50% 70%, 100% 0, 100% 100%, 0 100%);
+    border-top: 1px solid rgba(145, 113, 91, .24);
+    filter: drop-shadow(0 -2px 3px rgba(85, 61, 46, .07));
+    pointer-events: none;
+}
+
+.journal-archive-card > * {
+    position: relative;
+    z-index: 2;
+}
+.journal-archive-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(65, 51, 40, .12), inset 0 1px 0 rgba(255,255,255,.72);
+}
+.journal-archive-card:hover::after {
+    transform: translateY(-5px) rotate(-.8deg);
+    transition: transform .35s ease;
+}
+
+@media (max-width: 700px) {
+    .intro::before {
+        height: 150px;
+        background-size: auto 100%;
+        background-position: center top;
+        opacity: .22;
+    }
+    .journal-archive-card {
+        min-height: 230px;
+        margin-top: 34px;
+        padding: 68px 19px 78px;
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+    .journal-archive-card::after {
+        top: -31px;
+        left: 7%;
+        right: 7%;
+        height: 164px;
+    }
+    .journal-archive-card::before {
+        height: 34%;
+        min-height: 70px;
+    }
+}
+
+/* v5.3 category variants: preserve the envelope construction for every type. */
+.journal-archive-card[data-category="important"],
+.journal-archive-card[data-category="journal"],
+.journal-archive-card[data-category="information"] {
+    border-left: 1px solid rgba(139, 108, 88, .28);
+    background-color: #e9d9cc;
+    background-image:
+        linear-gradient(145deg, transparent 49.35%, rgba(171, 137, 112, .28) 49.8%, rgba(255, 249, 241, .52) 50.2%, transparent 50.65%),
+        linear-gradient(215deg, transparent 49.35%, rgba(171, 137, 112, .28) 49.8%, rgba(255, 249, 241, .52) 50.2%, transparent 50.65%),
+        linear-gradient(180deg, #f0e5da 0%, #e8d8ca 100%);
+    background-position: center bottom, center bottom, center;
+    background-size: 100% 56%, 100% 56%, 100% 100%;
+    background-repeat: no-repeat;
+}
+.news-list .journal-archive-card {
+    margin-top: 42px;
+}
+@media (max-width: 700px) {
+    .news-list .journal-archive-card {
+        margin-top: 34px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ-HP v5.4 — focused visual refinement
+   OUR PHILOSOPHY: extend the existing Rococo lace curtains
+   JOURNAL & NEWS: multiple readable letters emerging from one envelope
+   The uploaded product-data.js is adopted without content edits.
+   Existing article data, links, filters, pagination and product logic stay intact.
+========================================================= */
+
+/* Extend the same ornate curtain down the sides to roughly the middle
+   of the philosophy section. The SVG's open center and scalloped hem
+   create a soft, naturally disappearing edge rather than a hard cutoff. */
+.intro {
+    position: relative;
+    isolation: isolate;
+}
+.intro::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(320px, 36vw, 470px);
+    background-position: center top;
+    background-size: 100% 100%;
+    opacity: .24;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, rgba(0,0,0,.78) 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 78%, rgba(0,0,0,.78) 90%, transparent 100%);
+}
+
+/* One shared envelope holds the whole group of journal/news letters.
+   The list itself becomes the envelope body; individual entries are
+   stationery sheets, not separate envelopes. */
+.news-list,
+.journal-archive-list {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+    padding: 30px clamp(16px, 4.2vw, 54px) 94px;
+    border: 1px solid rgba(143, 111, 91, .34);
+    border-radius: 3px 3px 8px 8px;
+    background: linear-gradient(145deg, #f1e4d8 0%, #e8d6c8 58%, #dfc9b9 100%);
+    box-shadow: 0 15px 34px rgba(75, 54, 42, .10), inset 0 1px 0 rgba(255,255,255,.82);
+}
+
+/* Back flap of the single envelope, visible behind all stationery sheets. */
+.news-list::before,
+.journal-archive-list::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 104px;
+    background: linear-gradient(155deg, rgba(255,250,243,.66), rgba(194,158,132,.18));
+    clip-path: polygon(0 0, 50% 78%, 100% 0, 100% 100%, 0 100%);
+    pointer-events: none;
+}
+
+/* Front pocket of the shared envelope. It occupies only the reserved
+   lower margin, so it never covers a date, headline or summary. */
+.news-list::after,
+.journal-archive-list::after {
+    content: "";
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 78px;
+    border-top: 1px solid rgba(143, 111, 91, .26);
+    background:
+        linear-gradient(145deg, transparent 49.5%, rgba(255,249,241,.46) 50%, transparent 50.5%),
+        linear-gradient(215deg, transparent 49.5%, rgba(172,135,109,.22) 50%, transparent 50.5%),
+        linear-gradient(180deg, #ead8c9 0%, #e2cdbd 100%);
+    clip-path: polygon(0 0, 50% 66%, 100% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 -3px 5px rgba(83, 60, 45, .08));
+    pointer-events: none;
+}
+
+/* Each article is a separate sheet from the same envelope.
+   Keep the content fully readable and use only a small stagger to suggest
+   several sheets fanned out together. */
+.journal-archive-card,
+.news-list .journal-archive-card {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(104px, 18%) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(13px, 2vw, 25px);
+    min-width: 0;
+    margin: 0;
+    padding: 19px clamp(16px, 2.6vw, 30px) 20px;
+    border: 1px solid rgba(153, 125, 104, .34);
+    border-left: 1px solid rgba(153, 125, 104, .34);
+    border-radius: 2px 2px 4px 4px;
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 27px, rgba(166,145,126,.12) 27px 28px),
+        linear-gradient(135deg, #fffefa 0%, #f8f0e6 100%);
+    box-shadow: 0 5px 13px rgba(66, 48, 36, .12), inset 0 1px 0 rgba(255,255,255,.9);
+    transform: translateX(0) rotate(0deg);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.journal-archive-card:nth-child(3n + 2),
+.news-list .journal-archive-card:nth-child(3n + 2) {
+    transform: translateX(8px) rotate(.22deg);
+}
+.journal-archive-card:nth-child(3n),
+.news-list .journal-archive-card:nth-child(3n) {
+    transform: translateX(-5px) rotate(-.18deg);
+}
+.journal-archive-card::before,
+.journal-archive-card::after {
+    content: none !important;
+    display: none !important;
+}
+.journal-archive-card > * {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+.journal-archive-card .journal-archive-date {
+    padding-top: 4px;
+    font-size: clamp(15px, 1.6vw, 20px);
+    line-height: 1.5;
+}
+.journal-archive-card .journal-archive-category {
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.journal-archive-card h2 {
+    margin: 0 0 7px;
+    font-size: clamp(19px, 2.15vw, 27px);
+    line-height: 1.45;
+}
+.journal-archive-card p {
+    margin: 0 0 8px;
+    font-size: 12px;
+    line-height: 1.9;
+}
+.journal-archive-card .news-read-more {
+    margin-top: 2px;
+}
+.journal-archive-card:hover,
+.journal-archive-card:nth-child(3n + 2):hover,
+.journal-archive-card:nth-child(3n):hover {
+    z-index: 3;
+    transform: translateY(-3px) rotate(0deg);
+    box-shadow: 0 9px 19px rgba(66, 48, 36, .16);
+}
+
+/* On the archive page, keep the shared envelope compact while allowing
+   pagination and category filters to retain their original behavior. */
+.journal-archive-list {
+    gap: 12px;
+}
+
+@media (max-width: 700px) {
+    .intro::before {
+        height: clamp(245px, 68vw, 340px);
+        background-size: auto 100%;
+        background-position: center top;
+        opacity: .22;
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%);
+    }
+    .news-list,
+    .journal-archive-list {
+        gap: 10px;
+        padding: 22px 12px 82px;
+    }
+    .news-list::before,
+    .journal-archive-list::before {
+        height: 76px;
+    }
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 66px;
+    }
+    .journal-archive-card,
+    .news-list .journal-archive-card {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 5px;
+        padding: 14px 15px 15px;
+    }
+    .journal-archive-card:nth-child(3n + 2),
+    .news-list .journal-archive-card:nth-child(3n + 2) {
+        transform: translateX(3px) rotate(.12deg);
+    }
+    .journal-archive-card:nth-child(3n),
+    .news-list .journal-archive-card:nth-child(3n) {
+        transform: translateX(-2px) rotate(-.1deg);
+    }
+    .journal-archive-card .journal-archive-date {
+        font-size: 15px;
+    }
+    .journal-archive-card h2 {
+        font-size: 21px;
+        line-height: 1.4;
+    }
+    .journal-archive-card p {
+        font-size: 11px;
+        line-height: 1.8;
+    }
+}
+
+
+/* =========================================================
+   TELLQ-HP v5.5 — visual refinement only
+   OUR PHILOSOPHY: close the upper gap and let the curtain sweep outward
+   JOURNAL & NEWS: clearer ornate envelope with compact letter sheets
+   No scripts, content, product data, links or interactions are changed.
+========================================================= */
+
+/* Keep the same ornate lace artwork and translucency. Pull it slightly
+   above the section edge, then widen it from the top so the side panels
+   sweep outward instead of appearing to stop short near the center. */
+.intro {
+    overflow: visible;
+}
+.intro::before {
+    top: -18px;
+    height: calc(clamp(320px, 36vw, 470px) + 18px);
+    background-position: center top;
+    background-size: 100% 100%;
+    transform: scaleX(1.045);
+    transform-origin: center top;
+    opacity: .24;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, rgba(0,0,0,.78) 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 78%, rgba(0,0,0,.78) 90%, transparent 100%);
+}
+
+/* One unmistakable envelope holds the complete bundle of journal letters.
+   The double inset border, open back flap and raised front pocket make the
+   envelope silhouette visible without taking space from the article copy. */
+.news-list,
+.journal-archive-list {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 11px;
+    width: min(100%, 970px);
+    margin: 42px auto 0;
+    padding: 45px clamp(16px, 3.4vw, 40px) 106px;
+    border: 1px solid rgba(145, 105, 78, .48);
+    border-radius: 5px 5px 12px 12px;
+    background:
+        linear-gradient(145deg, transparent 0 49.7%, rgba(255,255,255,.16) 50%, transparent 50.3%),
+        linear-gradient(215deg, transparent 0 49.7%, rgba(156,112,83,.13) 50%, transparent 50.3%),
+        linear-gradient(135deg, #f1e3d6 0%, #ead7c8 48%, #e4cdbb 100%);
+    box-shadow:
+        0 19px 38px rgba(75, 54, 42, .13),
+        inset 0 0 0 6px rgba(255,255,255,.22),
+        inset 0 0 0 7px rgba(158,119,90,.16),
+        inset 0 1px 0 rgba(255,255,255,.88);
+}
+
+/* Back flap: a clearly visible downward-pointing fold behind the letters. */
+.news-list::before,
+.journal-archive-list::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 128px;
+    border-radius: 4px 4px 0 0;
+    background:
+        linear-gradient(155deg, transparent 49.35%, rgba(153,111,82,.42) 49.75%, rgba(255,250,243,.72) 50.15%, transparent 50.55%),
+        linear-gradient(205deg, transparent 49.35%, rgba(153,111,82,.34) 49.75%, rgba(255,250,243,.66) 50.15%, transparent 50.55%),
+        linear-gradient(180deg, #f6e9dc 0%, #e9d5c5 100%);
+    clip-path: polygon(0 0, 50% 88%, 100% 0, 100% 100%, 0 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+    pointer-events: none;
+}
+
+/* Front pocket: an upward fold, gilded seam and a small rose-gold seal. */
+.news-list::after,
+.journal-archive-list::after {
+    content: "";
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 91px;
+    border-radius: 0 0 11px 11px;
+    background:
+        radial-gradient(circle at 50% 69%, #986b5f 0 10px, #c79b83 11px 13px, #f6e4d6 14px 15px, transparent 16px),
+        radial-gradient(circle at 50% 69%, rgba(255,241,222,.75) 0 2px, transparent 3px),
+        linear-gradient(145deg, transparent 49.35%, rgba(147,104,76,.52) 49.75%, rgba(255,248,237,.7) 50.15%, transparent 50.55%),
+        linear-gradient(215deg, transparent 49.35%, rgba(147,104,76,.42) 49.75%, rgba(255,248,237,.62) 50.15%, transparent 50.55%),
+        linear-gradient(180deg, #efddce 0%, #e4cbbb 100%);
+    clip-path: polygon(0 0, 50% 67%, 100% 0, 100% 100%, 0 100%);
+    border-top: 1px solid rgba(145,105,78,.32);
+    filter: drop-shadow(0 -4px 6px rgba(83,60,45,.10));
+    pointer-events: none;
+}
+
+/* Each published story is one of the sheets emerging from that same envelope.
+   The narrower paper, reduced vertical padding and layered paper-edge shadows
+   keep the contents compact while retaining a visible fan of multiple sheets. */
+.journal-archive-list .journal-archive-card,
+.news-list .journal-archive-card {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(88px, 15%) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(12px, 1.8vw, 22px);
+    justify-self: center;
+    width: 90%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 13px clamp(18px, 2.5vw, 28px) 14px;
+    border: 1px solid rgba(159, 127, 101, .38);
+    border-radius: 2px 2px 4px 4px;
+    background:
+        radial-gradient(ellipse at 96% 8%, rgba(194,155,126,.12), transparent 24%),
+        linear-gradient(135deg, #fffefa 0%, #faf3e9 62%, #f6ecdf 100%);
+    box-shadow:
+        0 6px 13px rgba(66,48,36,.12),
+        0 2px 0 1px rgba(255,255,255,.52),
+        4px 6px 0 -2px rgba(225,210,193,.92),
+        -3px 8px 0 -2px rgba(255,250,243,.92),
+        inset 0 0 0 4px rgba(255,255,255,.38),
+        inset 0 0 0 5px rgba(174,137,105,.10);
+    transform: translateX(0) rotate(0deg);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.journal-archive-list .journal-archive-card:nth-child(3n + 2),
+.news-list .journal-archive-card:nth-child(3n + 2) {
+    transform: translateX(10px) rotate(.28deg);
+}
+.journal-archive-list .journal-archive-card:nth-child(3n),
+.news-list .journal-archive-card:nth-child(3n) {
+    transform: translateX(-7px) rotate(-.22deg);
+}
+.journal-archive-card::before,
+.journal-archive-card::after {
+    content: none !important;
+    display: none !important;
+}
+.journal-archive-card > * {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+.journal-archive-card .journal-archive-date {
+    padding-top: 2px;
+    color: rgba(91,68,54,.88);
+    font-size: clamp(14px, 1.35vw, 17px);
+    line-height: 1.45;
+    letter-spacing: .035em;
+}
+.journal-archive-card .journal-archive-date small {
+    display: inline-block;
+    margin: 4px 0 0 5px;
+    color: #9a6d5d;
+    font-size: 8px;
+    letter-spacing: .16em;
+}
+.journal-archive-card .journal-archive-category {
+    display: inline-block;
+    margin: 0 0 4px;
+    font-size: 8px;
+    letter-spacing: .2em;
+}
+.journal-archive-card h2 {
+    margin: 0 0 4px;
+    color: #594335;
+    font-size: clamp(18px, 1.8vw, 23px);
+    line-height: 1.34;
+}
+.journal-archive-card p {
+    margin: 0 0 5px;
+    color: rgba(73,57,46,.84);
+    font-size: 11px;
+    line-height: 1.65;
+}
+.journal-archive-card .news-read-more {
+    margin-top: 1px;
+    padding-bottom: 3px;
+    font-size: 8px;
+    letter-spacing: .2em;
+}
+.journal-archive-list .journal-archive-card:hover,
+.news-list .journal-archive-card:hover,
+.journal-archive-list .journal-archive-card:nth-child(3n + 2):hover,
+.news-list .journal-archive-card:nth-child(3n + 2):hover,
+.journal-archive-list .journal-archive-card:nth-child(3n):hover,
+.news-list .journal-archive-card:nth-child(3n):hover {
+    z-index: 3;
+    transform: translateY(-3px) rotate(0deg);
+    box-shadow:
+        0 10px 18px rgba(66,48,36,.16),
+        0 2px 0 1px rgba(255,255,255,.58),
+        4px 6px 0 -2px rgba(225,210,193,.92),
+        -3px 8px 0 -2px rgba(255,250,243,.92),
+        inset 0 0 0 4px rgba(255,255,255,.38),
+        inset 0 0 0 5px rgba(174,137,105,.10);
+}
+
+@media (max-width: 700px) {
+    .intro::before {
+        top: -10px;
+        height: calc(clamp(245px, 68vw, 340px) + 10px);
+        background-position: center top;
+        background-size: 100% 100%;
+        transform: scaleX(1.06);
+        transform-origin: center top;
+        opacity: .22;
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 76%, rgba(0,0,0,.76) 89%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 0%, #000 76%, rgba(0,0,0,.76) 89%, transparent 100%);
+    }
+    .news-list,
+    .journal-archive-list {
+        gap: 9px;
+        width: calc(100% - 8px);
+        margin-top: 27px;
+        padding: 34px 7px 88px;
+        border-radius: 4px 4px 10px 10px;
+    }
+    .news-list::before,
+    .journal-archive-list::before {
+        height: 88px;
+        clip-path: polygon(0 0, 50% 86%, 100% 0, 100% 100%, 0 100%);
+    }
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 74px;
+        border-radius: 0 0 9px 9px;
+    }
+    .journal-archive-list .journal-archive-card,
+    .news-list .journal-archive-card {
+        grid-template-columns: minmax(70px, 22%) minmax(0, 1fr);
+        gap: 9px;
+        width: 94%;
+        padding: 11px 12px 12px;
+    }
+    .journal-archive-list .journal-archive-card:nth-child(3n + 2),
+    .news-list .journal-archive-card:nth-child(3n + 2) {
+        transform: translateX(3px) rotate(.15deg);
+    }
+    .journal-archive-list .journal-archive-card:nth-child(3n),
+    .news-list .journal-archive-card:nth-child(3n) {
+        transform: translateX(-2px) rotate(-.12deg);
+    }
+    .journal-archive-card .journal-archive-date {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .journal-archive-card .journal-archive-date small {
+        display: block;
+        margin: 3px 0 0;
+    }
+    .journal-archive-card .journal-archive-category {
+        margin-bottom: 3px;
+        font-size: 7px;
+    }
+    .journal-archive-card h2 {
+        margin-bottom: 3px;
+        font-size: 17px;
+        line-height: 1.35;
+    }
+    .journal-archive-card p {
+        margin-bottom: 4px;
+        font-size: 10px;
+        line-height: 1.55;
+    }
+    .journal-archive-card .news-read-more {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 380px) {
+    .journal-archive-list .journal-archive-card,
+    .news-list .journal-archive-card {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 5px;
+        width: 95%;
+        padding: 10px 12px 11px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ-HP v5.6 — requested visual refinements only
+   OUR PHILOSOPHY: ornate lace starts at the section top and flows
+   down the full section like curtains drawn open to the sides.
+   JOURNAL & NEWS: a more recognizable envelope with a TellQ wax seal.
+   No scripts, product data, journal data, links, or interactions changed.
+========================================================= */
+
+/* The lace artwork now fills the entire OUR PHILOSOPHY section.
+   The new top embroidery removes the visually empty upper strip; the
+   side drapes taper outward and fade away without a horizontal hem. */
+.intro {
+    position: relative;
+    isolation: isolate;
+}
+.intro::before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KPGRlZnM+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJzaWxrIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMCI+CiAgICA8c3RvcCBzdG9wLWNvbG9yPSIjOWQ3OTYzIiBzdG9wLW9wYWNpdHk9Ii4yNSIvPjxzdG9wIG9mZnNldD0iLjE4IiBzdG9wLWNvbG9yPSIjZmZmYWYyIiBzdG9wLW9wYWNpdHk9Ii44MiIvPgogICAgPHN0b3Agb2Zmc2V0PSIuNDYiIHN0b3AtY29sb3I9IiNkOWMwYWIiIHN0b3Atb3BhY2l0eT0iLjI0Ii8+PHN0b3Agb2Zmc2V0PSIuNzIiIHN0b3AtY29sb3I9IiNmZmZhZjIiIHN0b3Atb3BhY2l0eT0iLjc4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOWQ3OTYzIiBzdG9wLW9wYWNpdHk9Ii4yNSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJmb2xkIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMCI+CiAgICA8c3RvcCBzdG9wLWNvbG9yPSIjOGY3MDViIiBzdG9wLW9wYWNpdHk9Ii4yMiIvPjxzdG9wIG9mZnNldD0iLjUiIHN0b3AtY29sb3I9IiNmZmZkZjgiIHN0b3Atb3BhY2l0eT0iLjQyIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGY3MDViIiBzdG9wLW9wYWNpdHk9Ii4xNiIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHBhdHRlcm4gaWQ9Im5ldCIgd2lkdGg9IjM0IiBoZWlnaHQ9IjMwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgIDxwYXRoIGQ9Ik0xNyAxIEM4IDggOCAxNyAxNyAyMyBDMjYgMTcgMjYgOCAxNyAxWiBNMCAxNSBROCA3IDE3IDE1IFEyNiAyMyAzNCAxNSBNMTcgMjMgUTggMjcgMTcgMzAgUTI2IDI3IDE3IDIzIiBmaWxsPSJub25lIiBzdHJva2U9IiNhOTg5NzMiIHN0cm9rZS13aWR0aD0iLjkiIG9wYWNpdHk9Ii42OCIvPgogICAgPGNpcmNsZSBjeD0iMTciIGN5PSIxNSIgcj0iMS40IiBmaWxsPSIjYTk4OTczIiBvcGFjaXR5PSIuNTgiLz4KICA8L3BhdHRlcm4+CiAgPGcgaWQ9ImZsb3dlciIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOWM3OTVmIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgPHBhdGggZD0iTTAgMCBDLTE4IC0xMyAtMjAgLTMyIC04IC00MyBDLTMgLTI5IC0xIC0xNiAwIDAgQzEgLTE2IDMgLTI5IDggLTQzIEMyMCAtMzIgMTggLTEzIDAgMFoiIHN0cm9rZS13aWR0aD0iMS43Ii8+CiAgICA8cGF0aCBkPSJNMCAwIEMtMzAgLTcgLTQxIC0yMyAtMzIgLTM0IEMtMTggLTI1IC05IC0xMyAwIDAgQzkgLTEzIDE4IC0yNSAzMiAtMzQgQzQxIC0yMyAzMCAtNyAwIDBaIiBzdHJva2Utd2lkdGg9IjEuMzUiLz4KICAgIDxwYXRoIGQ9Ik0wIDAgQy0xNSA5IC0xOCAyNiAtNSAzNCBDLTIgMjAgLTEgOCAwIDAgQzEgOCAyIDIwIDUgMzQgQzE4IDI2IDE1IDkgMCAwWiIgc3Ryb2tlLXdpZHRoPSIxLjQiLz4KICAgIDxwYXRoIGQ9Ik0tMzMgLTE0IEMtNTIgLTI2IC02MCAtOCAtNDUgMSBDLTM1IDcgLTI2IDIgLTIwIC02IE0zMyAtMTQgQzUyIC0yNiA2MCAtOCA0NSAxIEMzNSA3IDI2IDIgMjAgLTYiIHN0cm9rZS13aWR0aD0iMS4yNSIvPgogICAgPGNpcmNsZSByPSI0LjUiIGZpbGw9IiNhOTg3NzAiIGZpbGwtb3BhY2l0eT0iLjMzIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8L2c+CiAgPGcgaWQ9InNjcm9sbCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTE4NDZmIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICAgIDxwYXRoIGQ9Ik0wIDAgQzIwIC0yMCA0MyAtMTcgNDYgLTEgQzQ5IDEzIDMyIDE5IDI0IDggQzE3IC0yIDMwIC04IDM3IC0xIE0wIDAgQy0yMCAtMjAgLTQzIC0xNyAtNDYgLTEgQy00OSAxMyAtMzIgMTkgLTI0IDggQy0xNyAtMiAtMzAgLTggLTM3IC0xIi8+CiAgICA8cGF0aCBkPSJNMCAwIEMtNiAtMTcgLTEgLTI5IDkgLTM0IEMxNiAtMjIgMTAgLTEwIDAgMCBNMCAwIEM2IC0xNyAxIC0yOSAtOSAtMzQgQy0xNiAtMjIgLTEwIC0xMCAwIDAiLz4KICA8L2c+CiAgPGcgaWQ9InNtYWxsbGFjZSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTE4NDZmIiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgPHBhdGggZD0iTTAgMCBRMTIgMTggMjQgMCBUNDggMCBUNzIgMCBUOTYgMCBUMTIwIDAiIHN0cm9rZS13aWR0aD0iMS4xNSIvPgogICAgPHBhdGggZD0iTTAgNSBRMTIgMjIgMjQgNSBUNDggNSBUNzIgNSBUOTYgNSBUMTIwIDUiIHN0cm9rZS13aWR0aD0iLjgiIG9wYWNpdHk9Ii44Ii8+CiAgICA8cGF0aCBkPSJNMTIgMCBRMTIgLTEwIDI0IC0xMiBRMzYgLTEwIDM2IDAgTTYwIDAgUTYwIC0xMCA3MiAtMTIgUTg0IC0xMCA4NCAwIiBzdHJva2Utd2lkdGg9Ii43NSIvPgogIDwvZz4KPC9kZWZzPgoKPCEtLSBGdWxsLXdpZHRoIG9ybmF0ZSBsYWNlIGhlYWRlcjogb3JuYW1lbnQgYmVnaW5zIGF0IHRoZSB2ZXJ5IHRvcCBlZGdlLiAtLT4KPHBhdGggZD0iTTAgMCBIMTYwMCBWMTIyIEMxNDUwIDk0IDEzNjAgMTIyIDEyNjUgMTc3IEMxMTc1IDIyOCAxMDgwIDIzNCAxMDAwIDE5MCBDOTMwIDE1MCA4NzUgMTM2IDgwMCAxNjQgQzcyNSAxMzYgNjcwIDE1MCA2MDAgMTkwIEM1MjAgMjM0IDQyNSAyMjggMzM1IDE3NyBDMjQwIDEyMiAxNTAgOTQgMCAxMjJaIiBmaWxsPSJ1cmwoI3NpbGspIiBzdHJva2U9IiNhOTg5NzMiIHN0cm9rZS1vcGFjaXR5PSIuNDIiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMCA5IEMxNTAgMCAyMzUgMjUgMzM1IDcwIEM0MjUgMTExIDUyMCAxMTkgNjAwIDc4IEM2NzAgNDIgNzI1IDI3IDgwMCA1NCBDODc1IDI3IDkzMCA0MiAxMDAwIDc4IEMxMDgwIDExOSAxMTc1IDExMSAxMjY1IDcwIEMxMzY1IDI1IDE0NTAgMCAxNjAwIDkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmRmOCIgc3Ryb2tlLW9wYWNpdHk9Ii44IiBzdHJva2Utd2lkdGg9IjciLz4KPHBhdGggZD0iTTAgMTUgQzE1MCA3IDIzNSAzMiAzMzUgNzcgQzQyNSAxMTggNTIwIDEyNiA2MDAgODUgQzY3MCA0OSA3MjUgMzQgODAwIDYxIEM4NzUgMzQgOTMwIDQ5IDEwMDAgODUgQzEwODAgMTI2IDExNzUgMTE4IDEyNjUgNzcgQzEzNjUgMzIgMTQ1MCA3IDE2MDAgMTUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlkN2M2NyIgc3Ryb2tlLW9wYWNpdHk9Ii41NSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KCjwhLS0gRGVuc2UgdG9wLWVkZ2UgZW1icm9pZGVyeSBhbmQgc2NhbGxvcGVkIGxhY2UsIHJlYWNoaW5nIHRoZSBmaXJzdCBwaXhlbC4gLS0+CjxwYXRoIGQ9Ik0wIDIgUTE4IDIyIDM2IDIgVDcyIDIgVDEwOCAyIFQxNDQgMiBUMTgwIDIgVDIxNiAyIFQyNTIgMiBUMjg4IDIgVDMyNCAyIFQzNjAgMiBUMzk2IDIgVDQzMiAyIFQ0NjggMiBUNTA0IDIgVDU0MCAyIFQ1NzYgMiBUNjEyIDIgVDY0OCAyIFQ2ODQgMiBUNzIwIDIgVDc1NiAyIFQ3OTIgMiBUODI4IDIgVDg2NCAyIFQ5MDAgMiBUOTM2IDIgVDk3MiAyIFQxMDA4IDIgVDEwNDQgMiBUMTA4MCAyIFQxMTE2IDIgVDExNTIgMiBUMTE4OCAyIFQxMjI0IDIgVDEyNjAgMiBUMTI5NiAyIFQxMzMyIDIgVDEzNjggMiBUMTQwNCAyIFQxNDQwIDIgVDE0NzYgMiBUMTUxMiAyIFQxNTQ4IDIgVDE1ODQgMiBUMTYwMCAyIiBmaWxsPSJub25lIiBzdHJva2U9IiM5YzdkNjgiIHN0cm9rZS1vcGFjaXR5PSIuOCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KPHBhdGggZD0iTTAgOCBRMTggMjggMzYgOCBUNzIgOCBUMTA4IDggVDE0NCA4IFQxODAgOCBUMjE2IDggVDI1MiA4IFQyODggOCBUMzI0IDggVDM2MCA4IFQzOTYgOCBUNDMyIDggVDQ2OCA4IFQ1MDQgOCBUNTQwIDggVDU3NiA4IFQ2MTIgOCBUNjQ4IDggVDY4NCA4IFQ3MjAgOCBUNzU2IDggVDc5MiA4IFQ4MjggOCBUODY0IDggVDkwMCA4IFQ5MzYgOCBUOTcyIDggVDEwMDggOCBUMTA0NCA4IFQxMDgwIDggVDExMTYgOCBUMTE1MiA4IFQxMTg4IDggVDEyMjQgOCBUMTI2MCA4IFQxMjk2IDggVDEzMzIgOCBUMTM2OCA4IFQxNDA0IDggVDE0NDAgOCBUMTQ3NiA4IFQxNTEyIDggVDE1NDggOCBUMTU4NCA4IFQxNjAwIDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmFmMyIgc3Ryb2tlLW9wYWNpdHk9Ii45MiIgc3Ryb2tlLXdpZHRoPSIyLjQiLz4KPHBhdGggZD0iTTAgMjQgUTE4IDQyIDM2IDI0IFQ3MiAyNCBUMTA4IDI0IFQxNDQgMjQgVDE4MCAyNCBUMjE2IDI0IFQyNTIgMjQgVDI4OCAyNCBUMzI0IDI0IFQzNjAgMjQgVDM5NiAyNCBUNDMyIDI0IFQ0NjggMjQgVDUwNCAyNCBUNTQwIDI0IFQ1NzYgMjQgVDYxMiAyNCBUNjQ4IDI0IFQ2ODQgMjQgVDcyMCAyNCBUNzU2IDI0IFQ3OTIgMjQgVDgyOCAyNCBUODY0IDI0IFQ5MDAgMjQgVDkzNiAyNCBUOTcyIDI0IFQxMDA4IDI0IFQxMDQ0IDI0IFQxMDgwIDI0IFQxMTE2IDI0IFQxMTUyIDI0IFQxMTg4IDI0IFQxMjI0IDI0IFQxMjYwIDI0IFQxMjk2IDI0IFQxMzMyIDI0IFQxMzY4IDI0IFQxNDA0IDI0IFQxNDQwIDI0IFQxNDc2IDI0IFQxNTEyIDI0IFQxNTQ4IDI0IFQxNTg0IDI0IFQxNjAwIDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNhMTg0NmYiIHN0cm9rZS1vcGFjaXR5PSIuNTgiIHN0cm9rZS13aWR0aD0iMSIvPgoKPCEtLSBMYWNlIGRyb3BzIGFuZCBmbG9yYWwga25vdHMgYWxvbmcgdGhlIHVwcGVyIHZhbGFuY2UuIC0tPgo8dXNlIGhyZWY9IiNzbWFsbGxhY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQwIDM2KSBzY2FsZSgxLjA1KSIvPgo8dXNlIGhyZWY9IiNzbWFsbGxhY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI4MCAzNikgc2NhbGUoMS4wNSkiLz4KPHVzZSBocmVmPSIjc21hbGxsYWNlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1MjAgMzYpIHNjYWxlKDEuMDUpIi8+Cjx1c2UgaHJlZj0iI3NtYWxsbGFjZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzYwIDM2KSBzY2FsZSguNykiLz4KPHVzZSBocmVmPSIjc21hbGxsYWNlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5MjAgMzYpIHNjYWxlKDEuMDUpIi8+Cjx1c2UgaHJlZj0iI3NtYWxsbGFjZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTE2MCAzNikgc2NhbGUoMS4wNSkiLz4KPHVzZSBocmVmPSIjc21hbGxsYWNlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNDAwIDM2KSBzY2FsZSgxLjA1KSIvPgo8dXNlIGhyZWY9IiNmbG93ZXIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDgwMCA5MSkgc2NhbGUoLjc4KSIvPgo8dXNlIGhyZWY9IiNzY3JvbGwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1MCAxMDUpIHNjYWxlKDEuNDUpIi8+Cjx1c2UgaHJlZj0iI3Njcm9sbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ1MCAxMDUpIHNjYWxlKC0xLjQ1IDEuNDUpIi8+Cgo8IS0tIEEgc29mdCBzd2FnZWQgbGFjZSBlZGdlLCBsaWtlIGN1cnRhaW5zIGRyYXduIG9wZW4gZnJvbSB0aGUgY2VudGVyLiAtLT4KPHBhdGggZD0iTTAgMTUwIEMyMTAgMTgzIDMzMCAxMTggNDcwIDExMiBDNTkwIDEwNyA2NTAgMTY2IDgwMCAxNzggQzk1MCAxNjYgMTAxMCAxMDcgMTEzMCAxMTIgQzEyNzAgMTE4IDEzOTAgMTgzIDE2MDAgMTUwIiBmaWxsPSJub25lIiBzdHJva2U9IiNhMTg0NmYiIHN0cm9rZS1vcGFjaXR5PSIuMzIiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMCAxNTggQzIxMCAxOTEgMzMwIDEyNiA0NzAgMTIwIEM1OTAgMTE1IDY1MCAxNzQgODAwIDE4NiBDOTUwIDE3NCAxMDEwIDExNSAxMTMwIDEyMCBDMTI3MCAxMjYgMTM5MCAxOTEgMTYwMCAxNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmFmMyIgc3Ryb2tlLW9wYWNpdHk9Ii43MiIgc3Ryb2tlLXdpZHRoPSI1Ii8+Cgo8IS0tIExlZnQgY3VydGFpbjogZ2F0aGVyZWQgYXQgdGhlIHVwcGVyIGNlbnRlciwgdGhlbiBzd2VlcGluZyBvdXR3YXJkIHRvIHRoZSBsZWZ0LiAtLT4KPHBhdGggZD0iTTAgMCBINTA1IEM0NDUgODIgMzk3IDE2OSAzNTUgMjUxIEMzMjIgMzE4IDI5NSAzNzQgMjcwIDQzMiBDMjMwIDUyNiAxNDUgNjU1IDcyIDc3MCBDNDIgODE4IDE4IDg2NCAwIDkwMCBaIiBmaWxsPSJ1cmwoI3NpbGspIiBzdHJva2U9IiNhOTg5NzMiIHN0cm9rZS1vcGFjaXR5PSIuMzgiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMCAwIEM5MiAxMjUgNTUgMjUzIDEzNSAzOTAgQzE5MCA0ODYgMTM5IDY0NiAwIDkwMCBNNzQgMCBDMTYzIDExMiAxMjQgMjYwIDIwOCAzODggQzI1MCA0NTMgMjIwIDYxNiA1NSA5MDAgTTE2MCAwIEMyMzkgMTE1IDIwNCAyNTUgMjc1IDM3MiBDMzA5IDQyOCAyODMgNTc5IDExNyA5MDAgTTI2MCAwIEMzMjUgOTUgMjkzIDIyNyAzNDUgMzI2IEMzNzQgMzgxIDMzOCA1MjMgMTkwIDkwMCBNMzc1IDAgQzQxNyA3NCAzNzUgMTgyIDQwNSAyNjYgQzQyOSAzMzIgMzkxIDQ2MiAyNzAgOTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZkZjgiIHN0cm9rZS1vcGFjaXR5PSIuNTgiIHN0cm9rZS13aWR0aD0iMTEiLz4KPHBhdGggZD0iTTAgMCBDNjYgMTMyIDM2IDI2NCAxMDggNDA1IEMxNTAgNDg3IDEwNiA2NTQgMCA5MDAgTTEwOCAwIEMxODQgMTE4IDE1MSAyNTAgMjMwIDM3NiBDMjcwIDQ0MyAyMzkgNjAxIDg4IDkwMCBNMjEwIDAgQzI3OCAxMTIgMjQ4IDIzNyAzMTAgMzUwIEMzNDQgNDEyIDMwOSA1NTEgMTYwIDkwMCBNMzMwIDAgQzM4MiA4MiAzNTAgMTk3IDM4MiAyODAgQzQwOSAzNDggMzY5IDQ4OSAyNDAgOTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM5ZTdjNjQiIHN0cm9rZS1vcGFjaXR5PSIuMyIgc3Ryb2tlLXdpZHRoPSIxLjgiLz4KPHBhdGggZD0iTTAgNzIgSDM5MCBDMzUwIDIxMCAyOTEgMzc2IDIxMCA1MjUgQzE0MiA2NTEgNjcgNzg5IDAgOTAwWiIgZmlsbD0idXJsKCNuZXQpIiBvcGFjaXR5PSIuNDIiLz4KCjwhLS0gUmlnaHQgY3VydGFpbiBtaXJyb3JlZC4gLS0+CjxwYXRoIGQ9Ik0xNjAwIDAgSDEwOTUgQzExNTUgODIgMTIwMyAxNjkgMTI0NSAyNTEgQzEyNzggMzE4IDEzMDUgMzc0IDEzMzAgNDMyIEMxMzcwIDUyNiAxNDU1IDY1NSAxNTI4IDc3MCBDMTU1OCA4MTggMTU4MiA4NjQgMTYwMCA5MDAgWiIgZmlsbD0idXJsKCNzaWxrKSIgc3Ryb2tlPSIjYTk4OTczIiBzdHJva2Utb3BhY2l0eT0iLjM4IiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTE2MDAgMCBDMTUwOCAxMjUgMTU0NSAyNTMgMTQ2NSAzOTAgQzE0MTAgNDg2IDE0NjEgNjQ2IDE2MDAgOTAwIE0xNTI2IDAgQzE0MzcgMTEyIDE0NzYgMjYwIDEzOTIgMzg4IEMxMzUwIDQ1MyAxMzgwIDYxNiAxNTQ1IDkwMCBNMTQ0MCAwIEMxMzYxIDExNSAxMzk2IDI1NSAxMzI1IDM3MiBDMTI5MSA0MjggMTMxNyA1NzkgMTQ4MyA5MDAgTTEzNDAgMCBDMTI3NSA5NSAxMzA3IDIyNyAxMjU1IDMyNiBDMTIyNiAzODEgMTI2MiA1MjMgMTQxMCA5MDAgTTEyMjUgMCBDMTE4MyA3NCAxMjI1IDE4MiAxMTk1IDI2NiBDMTE3MSAzMzIgMTIwOSA0NjIgMTMzMCA5MDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmRmOCIgc3Ryb2tlLW9wYWNpdHk9Ii41OCIgc3Ryb2tlLXdpZHRoPSIxMSIvPgo8cGF0aCBkPSJNMTYwMCAwIEMxNTM0IDEzMiAxNTY0IDI2NCAxNDkyIDQwNSBDMTQ1MCA0ODcgMTQ5NCA2NTQgMTYwMCA5MDAgTTE0OTIgMCBDMTQxNiAxMTggMTQ0OSAyNTAgMTM3MCAzNzYgQzEzMzAgNDQzIDEzNjEgNjAxIDE1MTIgOTAwIE0xMzkwIDAgQzEzMjIgMTEyIDEzNTIgMjM3IDEyOTAgMzUwIEMxMjU2IDQxMiAxMjkxIDU1MSAxNDQwIDkwMCBNMTI3MCAwIEMxMjE4IDgyIDEyNTAgMTk3IDEyMTggMjgwIEMxMTkxIDM0OCAxMjMxIDQ4OSAxMzYwIDkwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOWU3YzY0IiBzdHJva2Utb3BhY2l0eT0iLjMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CjxwYXRoIGQ9Ik0xNjAwIDcyIEgxMjEwIEMxMjUwIDIxMCAxMzA5IDM3NiAxMzkwIDUyNSBDMTQ1OCA2NTEgMTUzMyA3ODkgMTYwMCA5MDBaIiBmaWxsPSJ1cmwoI25ldCkiIG9wYWNpdHk9Ii40MiIvPgoKPCEtLSBUaWViYWNrcyBhbmQgZGVzY2VuZGluZyB0YXNzZWwgZGV0YWlscyBlbXBoYXNpemUgdGhlIGdhdGhlcmVkLCBvcGVuZWQgY3VydGFpbi4gLS0+CjxwYXRoIGQ9Ik02NSAzNDQgQzEzMCAzMTAgMjA1IDMxNCAyNzAgMzUyIEMzMDAgMzY5IDMyMiAzNjggMzQ0IDM0OCBNMTUzNSAzNDQgQzE0NzAgMzEwIDEzOTUgMzE0IDEzMzAgMzUyIEMxMzAwIDM2OSAxMjc4IDM2OCAxMjU2IDM0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTE4NDZmIiBzdHJva2Utb3BhY2l0eT0iLjc4IiBzdHJva2Utd2lkdGg9IjMiLz4KPGNpcmNsZSBjeD0iMjcwIiBjeT0iMzUyIiByPSIxMyIgZmlsbD0iI2VhZDhjNyIgc3Ryb2tlPSIjOWU3YzY0IiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTMzMCIgY3k9IjM1MiIgcj0iMTMiIGZpbGw9IiNlYWQ4YzciIHN0cm9rZT0iIzllN2M2NCIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjI3MCIgY3k9IjM1MiIgcj0iNCIgZmlsbD0iI2ExODQ2ZiIgb3BhY2l0eT0iLjciLz48Y2lyY2xlIGN4PSIxMzMwIiBjeT0iMzUyIiByPSI0IiBmaWxsPSIjYTE4NDZmIiBvcGFjaXR5PSIuNyIvPgo8cGF0aCBkPSJNMjcwIDM2NiBDMjU3IDQxNSAyNTcgNDU0IDI3MCA0OTAgQzI4MyA0NTQgMjgzIDQxNSAyNzAgMzY2IE0xMzMwIDM2NiBDMTMxNyA0MTUgMTMxNyA0NTQgMTMzMCA0OTAgQzEzNDMgNDU0IDEzNDMgNDE1IDEzMzAgMzY2IiBmaWxsPSJub25lIiBzdHJva2U9IiNhMTg0NmYiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMjcwIDQ4MiBRMjQ0IDUyMCAyNzAgNTUzIFEyOTYgNTIwIDI3MCA0ODIgTTEzMzAgNDgyIFExMzA0IDUyMCAxMzMwIDU1MyBRMTM1NiA1MjAgMTMzMCA0ODIiIGZpbGw9IiNkOGMyYWQiIGZpbGwtb3BhY2l0eT0iLjgiIHN0cm9rZT0iIzllN2M2NCIgc3Ryb2tlLXdpZHRoPSIxLjciLz4KCjwhLS0gUm9jb2NvIGVtYnJvaWRlcnkgb24gdGhlIHNpZGUgcGFuZWxzLiAtLT4KPHVzZSBocmVmPSIjc2Nyb2xsIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTIgMjIwKSBzY2FsZSgxLjkpIi8+Cjx1c2UgaHJlZj0iI3Njcm9sbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ4OCAyMjApIHNjYWxlKC0xLjkgMS45KSIvPgo8dXNlIGhyZWY9IiNmbG93ZXIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5MCA0NzApIHNjYWxlKDEuOCkiLz4KPHVzZSBocmVmPSIjZmxvd2VyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNDEwIDQ3MCkgc2NhbGUoLTEuOCAxLjgpIi8+Cjx1c2UgaHJlZj0iI3Njcm9sbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUwIDY1MCkgc2NhbGUoMS40KSIvPgo8dXNlIGhyZWY9IiNzY3JvbGwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0NTAgNjUwKSBzY2FsZSgtMS40IDEuNCkiLz4KPHVzZSBocmVmPSIjZmxvd2VyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5MCA3NjApIHNjYWxlKDEuMCkiLz4KPHVzZSBocmVmPSIjZmxvd2VyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTEwIDc2MCkgc2NhbGUoLTEuMCAxLjApIi8+Cgo8L3N2Zz4K");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100%;
+    transform: none;
+    transform-origin: center top;
+    opacity: .22;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 87%, rgba(0,0,0,.76) 95%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 87%, rgba(0,0,0,.76) 95%, transparent 100%);
+}
+
+/* A single shared envelope contains all article sheets on both the
+   homepage and archive page. Warm parchment and gold seams blend with
+   the existing beige palette instead of introducing a separate color. */
+.news-list,
+.journal-archive-list {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: min(100%, 970px);
+    margin: 42px auto 0;
+    padding: 48px clamp(16px, 3.4vw, 40px) 142px;
+    border: 1px solid rgba(151, 116, 89, .48);
+    border-radius: 5px 5px 15px 15px;
+    background:
+        linear-gradient(135deg, transparent 49.55%, rgba(148,111,82,.27) 49.82%, rgba(255,249,240,.7) 50.1%, transparent 50.42%),
+        linear-gradient(225deg, transparent 49.55%, rgba(148,111,82,.23) 49.82%, rgba(255,249,240,.62) 50.1%, transparent 50.42%),
+        radial-gradient(ellipse at 50% 3%, rgba(255,255,255,.64), transparent 43%),
+        linear-gradient(145deg, #f0e1d4 0%, #ead7c8 52%, #e3cbb9 100%);
+    box-shadow:
+        0 19px 38px rgba(75, 54, 42, .12),
+        inset 0 0 0 5px rgba(255,255,255,.26),
+        inset 0 0 0 6px rgba(158,119,90,.13),
+        inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* Rear envelope flap: the downward point and outlined folded edges are
+   intentionally visible above and between the raised letter sheets. */
+.news-list::before,
+.journal-archive-list::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 160px;
+    border-radius: 4px 4px 0 0;
+    background:
+        linear-gradient(155deg, transparent 49.35%, rgba(145,103,75,.48) 49.72%, rgba(255,250,243,.76) 50.08%, transparent 50.48%),
+        linear-gradient(205deg, transparent 49.35%, rgba(145,103,75,.42) 49.72%, rgba(255,250,243,.7) 50.08%, transparent 50.48%),
+        linear-gradient(180deg, #f6e9df 0%, #ead6c6 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 13%, 50% 92%, 0 13%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+    pointer-events: none;
+}
+
+/* Front envelope pocket: distinct diagonal folds, a fine double-gold
+   seam, and a small raised wax seal with TellQ lettering. */
+.news-list::after,
+.journal-archive-list::after {
+    content: "TellQ";
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 130px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 0 19px;
+    border-radius: 0 0 14px 14px;
+    color: #f8e9dc;
+    font-family: var(--english);
+    font-size: 11px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1;
+    text-shadow: 0 1px 1px rgba(75,43,39,.48), 0 -1px 0 rgba(255,226,210,.25);
+    background:
+        radial-gradient(circle at 50% 81%, rgba(255,227,208,.5) 0 1px, transparent 2px),
+        radial-gradient(circle at 50% 81%, #754b47 0 12px, #98655c 12.8px 14.4px, #c18d76 15px 17px, #e4c3ad 18px 19px, rgba(156,111,91,.12) 20px 21px, transparent 22px),
+        radial-gradient(circle at 50% 81%, rgba(255,244,229,.4) 0 25px, transparent 26px),
+        linear-gradient(145deg, transparent 49.2%, rgba(137,94,68,.57) 49.62%, rgba(255,249,240,.8) 50%, transparent 50.42%),
+        linear-gradient(215deg, transparent 49.2%, rgba(137,94,68,.5) 49.62%, rgba(255,249,240,.72) 50%, transparent 50.42%),
+        linear-gradient(180deg, #efddce 0%, #e4cbbb 100%);
+    clip-path: polygon(0 0, 50% 63%, 100% 0, 100% 100%, 0 100%);
+    border-top: 1px solid rgba(145,105,78,.38);
+    filter: drop-shadow(0 -4px 6px rgba(83,60,45,.1));
+    pointer-events: none;
+}
+
+/* Individual messages remain separate article sheets, but visually read
+   as stationery emerging from the same envelope. The warm ivory paper,
+   fine writing lines and gilded edge keep the effect integrated. */
+.journal-archive-list .journal-archive-card,
+.news-list .journal-archive-card {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(88px, 15%) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(12px, 1.8vw, 22px);
+    justify-self: center;
+    width: 89%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 13px clamp(18px, 2.5vw, 28px) 14px;
+    border: 1px solid rgba(171,139,112,.42);
+    border-radius: 2px 2px 4px 4px;
+    background:
+        radial-gradient(ellipse at 96% 8%, rgba(194,157,127,.15), transparent 25%),
+        radial-gradient(ellipse at 4% 100%, rgba(211,179,151,.1), transparent 28%),
+        repeating-linear-gradient(to bottom, transparent 0 31px, rgba(178,151,128,.055) 31px 32px),
+        linear-gradient(135deg, #fffefa 0%, #fbf5ec 62%, #f5ecdf 100%);
+    box-shadow:
+        0 7px 15px rgba(66,48,36,.11),
+        0 2px 0 1px rgba(255,255,255,.54),
+        4px 6px 0 -2px rgba(225,210,193,.9),
+        -3px 8px 0 -2px rgba(255,250,243,.88),
+        inset 0 0 0 4px rgba(255,255,255,.38),
+        inset 0 0 0 5px rgba(174,137,105,.1);
+    transform: translateX(0) rotate(0deg);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.journal-archive-list .journal-archive-card:nth-child(3n + 2),
+.news-list .journal-archive-card:nth-child(3n + 2) {
+    transform: translateX(9px) rotate(.25deg);
+}
+.journal-archive-list .journal-archive-card:nth-child(3n),
+.news-list .journal-archive-card:nth-child(3n) {
+    transform: translateX(-7px) rotate(-.2deg);
+}
+.journal-archive-card::before,
+.journal-archive-card::after {
+    content: none !important;
+    display: none !important;
+}
+.journal-archive-card > * {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+.journal-archive-card .journal-archive-date {
+    padding-top: 2px;
+    color: rgba(91,68,54,.88);
+    font-size: clamp(14px, 1.35vw, 17px);
+    line-height: 1.45;
+    letter-spacing: .035em;
+}
+.journal-archive-card .journal-archive-date small {
+    display: inline-block;
+    margin: 4px 0 0 5px;
+    color: #9a6d5d;
+    font-size: 8px;
+    letter-spacing: .16em;
+}
+.journal-archive-card .journal-archive-category {
+    display: inline-block;
+    margin: 0 0 4px;
+    color: #9a7963;
+    font-size: 8px;
+    letter-spacing: .2em;
+}
+.journal-archive-card h2 {
+    margin: 0 0 4px;
+    color: #594335;
+    font-size: clamp(18px, 1.8vw, 23px);
+    line-height: 1.34;
+}
+.journal-archive-card p {
+    margin: 0 0 5px;
+    color: rgba(73,57,46,.84);
+    font-size: 11px;
+    line-height: 1.65;
+}
+.journal-archive-card .news-read-more {
+    margin-top: 1px;
+    padding-bottom: 3px;
+    color: #9a7661;
+    font-size: 8px;
+    letter-spacing: .2em;
+}
+.journal-archive-list .journal-archive-card:hover,
+.news-list .journal-archive-card:hover,
+.journal-archive-list .journal-archive-card:nth-child(3n + 2):hover,
+.news-list .journal-archive-card:nth-child(3n + 2):hover,
+.journal-archive-list .journal-archive-card:nth-child(3n):hover,
+.news-list .journal-archive-card:nth-child(3n):hover {
+    z-index: 3;
+    transform: translateY(-3px) rotate(0deg);
+    box-shadow:
+        0 10px 18px rgba(66,48,36,.15),
+        0 2px 0 1px rgba(255,255,255,.6),
+        4px 6px 0 -2px rgba(225,210,193,.9),
+        -3px 8px 0 -2px rgba(255,250,243,.88),
+        inset 0 0 0 4px rgba(255,255,255,.38),
+        inset 0 0 0 5px rgba(174,137,105,.1);
+}
+
+@media (max-width: 700px) {
+    .intro::before {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        background-size: 100% 100%;
+        background-position: center top;
+        opacity: .19;
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 89%, rgba(0,0,0,.72) 96%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 0%, #000 89%, rgba(0,0,0,.72) 96%, transparent 100%);
+    }
+    .news-list,
+    .journal-archive-list {
+        gap: 9px;
+        width: calc(100% - 8px);
+        margin-top: 27px;
+        padding: 35px 7px 116px;
+        border-radius: 4px 4px 11px 11px;
+    }
+    .news-list::before,
+    .journal-archive-list::before {
+        height: 112px;
+        clip-path: polygon(0 0, 100% 0, 100% 13%, 50% 90%, 0 13%);
+    }
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 104px;
+        padding-bottom: 13px;
+        font-size: 10px;
+        border-radius: 0 0 10px 10px;
+        clip-path: polygon(0 0, 50% 63%, 100% 0, 100% 100%, 0 100%);
+    }
+    .journal-archive-list .journal-archive-card,
+    .news-list .journal-archive-card {
+        grid-template-columns: minmax(70px, 22%) minmax(0, 1fr);
+        gap: 9px;
+        width: 94%;
+        padding: 11px 12px 12px;
+    }
+    .journal-archive-list .journal-archive-card:nth-child(3n + 2),
+    .news-list .journal-archive-card:nth-child(3n + 2) {
+        transform: translateX(3px) rotate(.14deg);
+    }
+    .journal-archive-list .journal-archive-card:nth-child(3n),
+    .news-list .journal-archive-card:nth-child(3n) {
+        transform: translateX(-2px) rotate(-.1deg);
+    }
+    .journal-archive-card .journal-archive-date {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .journal-archive-card .journal-archive-date small {
+        display: block;
+        margin: 3px 0 0;
+    }
+    .journal-archive-card .journal-archive-category {
+        margin-bottom: 3px;
+        font-size: 7px;
+    }
+    .journal-archive-card h2 {
+        margin-bottom: 3px;
+        font-size: 17px;
+        line-height: 1.35;
+    }
+    .journal-archive-card p {
+        margin-bottom: 4px;
+        font-size: 10px;
+        line-height: 1.55;
+    }
+    .journal-archive-card .news-read-more {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 380px) {
+    .journal-archive-list .journal-archive-card,
+    .news-list .journal-archive-card {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 5px;
+        width: 95%;
+        padding: 10px 12px 11px;
+    }
+}
+
+/* =========================================================
+   TellQ v5.7 — simplified open Western envelope for JOURNAL & NEWS
+   OUR PHILOSOPHY lace is intentionally untouched.
+   The rear triangular flap and single front-pocket V make the envelope
+   immediately recognizable without the previous intersecting seams.
+========================================================= */
+.news-list,
+.journal-archive-list {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: min(100%, 970px);
+    margin: 42px auto 0;
+    padding: 52px clamp(16px, 3.4vw, 40px) 112px;
+    border: 1px solid rgba(157, 124, 99, .42);
+    border-radius: 7px 7px 15px 15px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.28), transparent 26%),
+        linear-gradient(145deg, #f1e4d9 0%, #ead9cb 54%, #e5d0c0 100%);
+    box-shadow:
+        0 17px 34px rgba(75, 54, 42, .11),
+        inset 0 0 0 4px rgba(255,255,255,.3),
+        inset 0 1px 0 rgba(255,255,255,.78);
+}
+
+/* Open back flap: one simple upward-pointing triangle behind the letters. */
+.news-list::before,
+.journal-archive-list::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 132px;
+    border-radius: 7px 7px 0 0;
+    background: linear-gradient(145deg, #f7eee6 0%, #ead7c7 56%, #f4e8dd 100%);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    filter: drop-shadow(0 2px 3px rgba(93, 66, 48, .12));
+    pointer-events: none;
+}
+
+/* One clean V-shaped front pocket; no extra crossed seams or wax seal. */
+.news-list::after,
+.journal-archive-list::after {
+    content: "TellQ";
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 88px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 0 13px;
+    border-radius: 0 0 14px 14px;
+    clip-path: polygon(0 0, 50% 62%, 100% 0, 100% 100%, 0 100%);
+    background:
+        linear-gradient(150deg, transparent 49.55%, rgba(151, 111, 82, .33) 49.9%, rgba(255, 249, 241, .55) 50.2%, transparent 50.55%),
+        linear-gradient(210deg, transparent 49.55%, rgba(151, 111, 82, .3) 49.9%, rgba(255, 249, 241, .5) 50.2%, transparent 50.55%),
+        linear-gradient(180deg, #efdfd2 0%, #e6d1c1 100%);
+    color: rgba(126, 91, 70, .72);
+    font-family: var(--english);
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: .08em;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(255,255,255,.58);
+    filter: drop-shadow(0 -3px 5px rgba(83, 60, 45, .08));
+    pointer-events: none;
+}
+
+/* Keep the existing paper cards and article content unchanged. */
+.journal-archive-list .journal-archive-card,
+.news-list .journal-archive-card {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 700px) {
+    .news-list,
+    .journal-archive-list {
+        gap: 9px;
+        width: calc(100% - 8px);
+        margin-top: 27px;
+        padding: 39px 7px 91px;
+        border-radius: 6px 6px 11px 11px;
+    }
+
+    .news-list::before,
+    .journal-archive-list::before {
+        height: 96px;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 70px;
+        padding-bottom: 10px;
+        font-size: 9px;
+        border-radius: 0 0 10px 10px;
+    }
+}
+
+@media (max-width: 380px) {
+    .news-list,
+    .journal-archive-list {
+        padding-top: 34px;
+        padding-bottom: 82px;
+    }
+
+    .news-list::before,
+    .journal-archive-list::before {
+        height: 84px;
+    }
+
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 64px;
+        padding-bottom: 9px;
+    }
+}
+
+
+/* =========================================================
+   TellQ v5.8 — simple open Western envelope with a red TellQ wax seal
+   OUR PHILOSOPHY lace remains exactly as it was in v5.7.
+========================================================= */
+.news-list::before,
+.journal-archive-list::before {
+    top: -1px;
+    height: 124px;
+    background: linear-gradient(145deg, #fbf4ed 0%, #eddbcc 52%, #f8eee5 100%);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    filter: drop-shadow(0 2px 4px rgba(91, 62, 46, .16));
+}
+
+.news-list::after,
+.journal-archive-list::after {
+    content: "TellQ";
+    height: 104px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 0 13px;
+    box-sizing: border-box;
+    clip-path: polygon(0 0, 50% 62%, 100% 0, 100% 100%, 0 100%);
+    background:
+        radial-gradient(circle at 50% 83%, #a52f34 0 13px, #81262b 13.5px 15px, #d88983 15.5px 17px, rgba(255, 233, 222, .9) 17.5px 18.5px, transparent 19px),
+        linear-gradient(180deg, #f0dfd2 0%, #e8d4c5 55%, #e3cbbb 100%);
+    color: #fff4ed;
+    font-family: var(--english);
+    font-size: 8px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(77, 20, 24, .65);
+    filter: drop-shadow(0 -3px 5px rgba(83, 60, 45, .12));
+    pointer-events: none;
+}
+
+/* Keep all letter sheets above the envelope's rear flap and inside its opening. */
+.news-list > *,
+.journal-archive-list > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* MORE ITEMS: keep COMING SOON prominent and put the product-specific date below it. */
+.product-thumb .product-thumb-status--upcoming {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
+    padding: 0;
+    white-space: normal;
+    text-align: center;
+}
+.product-thumb .product-thumb-status--upcoming strong {
+    display: block;
+    font-size: 8px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: .1em;
+}
+.product-thumb .product-thumb-status--upcoming small {
+    display: block;
+    max-width: 100%;
+    font-size: 6px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: .015em;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+    .news-list::before,
+    .journal-archive-list::before {
+        height: 96px;
+    }
+
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 82px;
+        padding-bottom: 10px;
+        font-size: 7px;
+        background:
+            radial-gradient(circle at 50% 83%, #a52f34 0 11px, #81262b 11.5px 13px, #d88983 13.5px 15px, rgba(255, 233, 222, .9) 15.5px 16px, transparent 16.5px),
+            linear-gradient(180deg, #f0dfd2 0%, #e8d4c5 55%, #e3cbbb 100%);
+    }
+}
+
+@media (max-width: 380px) {
+    .news-list::after,
+    .journal-archive-list::after {
+        height: 76px;
+    }
+
+    .product-thumb .product-thumb-status--upcoming {
+        gap: 2px;
+    }
+
+    .product-thumb .product-thumb-status--upcoming strong {
+        font-size: 7px;
+    }
+
+    .product-thumb .product-thumb-status--upcoming small {
+        font-size: 5.5px;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v5.9 — MORE ITEMS upcoming label alignment
+   - Center the complete release-date text as one line group
+   - Keep the COMING SOON heading at 13px on desktop and mobile
+   - No changes to product status logic or other page sections
+========================================================= */
+.product-thumb .product-thumb-status--upcoming {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 3px;
+    left: 50%;
+    right: auto;
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
+    box-sizing: border-box;
+    padding: 0;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.product-thumb .product-thumb-status--upcoming strong {
+    display: block;
+    width: 100%;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.product-thumb .product-thumb-status--upcoming small {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    font-size: 6px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.015em;
+    text-align: center;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+
+/* =========================================================
+   TELLQ v5.10 — MORE ITEMS release-date alignment controls
+   - Keep the complete release-date string together and centered.
+   - Change both text sizes using the two variables below.
+   - No other page layout, content, or product behavior is changed.
+========================================================= */
+.product-thumb .product-thumb-status--upcoming {
+    --more-items-coming-soon-font-size: 18px;
+    --more-items-release-detail-font-size: 13px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    left: 50%;
+    right: auto;
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
+    box-sizing: border-box;
+    padding: 0;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.product-thumb .product-thumb-status--upcoming strong {
+    display: block;
+    width: 100%;
+    margin: 0;
+    font-size: var(--more-items-coming-soon-font-size);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.product-thumb .product-thumb-status--upcoming small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    font-size: var(--more-items-release-detail-font-size);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.015em;
+    text-align: center;
+}
+
+.product-thumb .product-thumb-status--upcoming small bdi {
+    display: inline-block;
+    position: static !important;
+    inset: auto !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: max-content;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    transform: none !important;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+
+/* =========================================================
+   TELLQ v5.11 — Prevent thumbnail badge text from inheriting
+   the absolute positioning used by the product-number label.
+   The direct-child selectors above intentionally target only
+   the product number, never spans nested inside status badges.
+========================================================= */
+.product-thumb .product-thumb-status .lora-number {
+    position: static !important;
+    inset: auto !important;
+    display: inline !important;
+    float: none !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: inherit;
+    text-shadow: none;
+}
+
+
+/* =========================================================
+   TELLQ v5.12 — JOURNAL image order and article alignment
+   - Article image follows the final paragraph in the detail view.
+   - All letter sheets share one horizontal alignment; remove the old
+     nth-child fan offsets that shifted the second/third article sideways.
+   - Existing article data, filters, pagination, and links are unchanged.
+========================================================= */
+.journal-detail-content + .journal-detail-image {
+    display: block;
+    margin: 28px 0 34px;
+}
+
+.news-list > .journal-archive-card:nth-child(n),
+.journal-archive-list > .journal-archive-card:nth-child(n) {
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    transform: none !important;
+}
+
+.news-list > .journal-archive-card:nth-child(n):hover,
+.journal-archive-list > .journal-archive-card:nth-child(n):hover {
+    transform: translateY(-3px) !important;
+}
+
+@media (max-width: 700px) {
+    .news-list > .journal-archive-card:nth-child(n),
+    .journal-archive-list > .journal-archive-card:nth-child(n) {
+        transform: none !important;
+    }
+
+    .news-list > .journal-archive-card:nth-child(n):hover,
+    .journal-archive-list > .journal-archive-card:nth-child(n):hover {
+        transform: translateY(-2px) !important;
+    }
 }

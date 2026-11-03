@@ -41,8 +41,8 @@
                 ${item.pinned ? '<span class="journal-detail-category">IMPORTANT NOTICE</span>' : ""}
             </div>
             <h1>${escapeHTML(item.title)}</h1>
-            ${item.image ? `<img class="journal-detail-image" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)}" loading="lazy">` : ""}
             <div class="journal-detail-content">${paragraphs.map(p => `<p>${escapeHTML(p)}</p>`).join("")}</div>
+            ${item.image ? `<img class="journal-detail-image" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)}" loading="lazy">` : ""}
             ${links.length ? `<section class="journal-detail-links"><h2>RELATED LINKS</h2>${links.map(link => `<a href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(link.label)} ↗</a>`).join("")}</section>` : ""}
             <div class="journal-detail-footer">
                 <span class="journal-detail-footer-mark">TELLQ</span>
