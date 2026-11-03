@@ -1195,34 +1195,40 @@ applyLoraToNumbers();
 
 /* =========================================================
    SECRET PAGE / YOUTUBE CLIP NOTES
-   追加機能のみ。既存機能は変更しません。
+   v4.31: YouTube埋め込み再生を安定化し、指定区間のみ再生
 ========================================================= */
 (() => {
     const clipButtons = Array.from(document.querySelectorAll(".secret-video-frame"));
     if (!clipButtons.length) return;
 
     const players = new Map();
-    let youtubeApiReady = false;
+    let youtubeApiReady = Boolean(window.YT && window.YT.Player);
     let youtubeApiLoading = false;
     const pendingPlayers = [];
 
     function loadYouTubeApi() {
         if (window.YT && window.YT.Player) {
             youtubeApiReady = true;
+            while (pendingPlayers.length) pendingPlayers.shift()();
             return;
         }
         if (youtubeApiLoading) return;
         youtubeApiLoading = true;
+
         const previousReady = window.onYouTubeIframeAPIReady;
         window.onYouTubeIframeAPIReady = function () {
             youtubeApiReady = true;
             if (typeof previousReady === "function") previousReady();
             while (pendingPlayers.length) pendingPlayers.shift()();
         };
-        const apiScript = document.createElement("script");
-        apiScript.src = "https://www.youtube.com/iframe_api";
-        apiScript.async = true;
-        document.head.appendChild(apiScript);
+
+        const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
+        if (!existingScript) {
+            const apiScript = document.createElement("script");
+            apiScript.src = "https://www.youtube.com/iframe_api";
+            apiScript.async = true;
+            document.head.appendChild(apiScript);
+        }
     }
 
     function resetClip(button) {
@@ -1243,47 +1249,58 @@ applyLoraToNumbers();
 
     function playClip(button) {
         if (button.classList.contains("is-playing")) return;
+
         const videoId = button.dataset.videoId;
         const start = Number(button.dataset.start);
         const end = Number(button.dataset.end);
-        const duration = Math.max(1, end - start);
+        const duration = end - start;
         const playerSlot = button.querySelector(".secret-video-player");
-        if (!videoId || !playerSlot || !Number.isFinite(start) || !Number.isFinite(end) || end <= start) return;
+        if (!videoId || !playerSlot || !Number.isFinite(start) || !Number.isFinite(end) || duration <= 0) return;
+
+        // 同じページ内で複数の動画が同時再生されないようにします。
+        clipButtons.forEach(otherButton => {
+            if (otherButton !== button) resetClip(otherButton);
+        });
 
         button.classList.add("is-playing");
         playerSlot.replaceChildren();
         const playerElement = document.createElement("div");
         playerSlot.appendChild(playerElement);
+
         const record = { player: null, timer: null, started: false };
         players.set(button, record);
 
         const createPlayer = () => {
             if (!button.isConnected || !button.classList.contains("is-playing")) return;
+
             record.player = new window.YT.Player(playerElement, {
                 width: "100%",
                 height: "100%",
                 videoId,
                 playerVars: {
                     autoplay: 1,
-                    controls: 0,
-                    disablekb: 1,
+                    controls: 1,
+                    disablekb: 0,
                     fs: 0,
                     modestbranding: 1,
                     playsinline: 1,
                     rel: 0,
+                    enablejsapi: 1,
+                    origin: window.location.origin,
                     start,
                     end
                 },
                 events: {
                     onReady(event) {
+                        // 再生開始前にミュートし、指定秒数へ移動してから再生します。
                         event.target.mute();
-                        event.target.loadVideoById({ videoId, startSeconds: start, endSeconds: end });
-                        event.target.mute();
+                        event.target.seekTo(start, true);
                         event.target.playVideo();
                     },
                     onStateChange(event) {
                         if (event.data === window.YT.PlayerState.PLAYING && !record.started) {
                             record.started = true;
+                            // YouTube側のend指定に加え、38秒経過時にも確実に停止します。
                             record.timer = window.setTimeout(() => resetClip(button), duration * 1000);
                         }
                         if (event.data === window.YT.PlayerState.ENDED) resetClip(button);
@@ -1305,7 +1322,7 @@ applyLoraToNumbers();
         button.addEventListener("click", () => playClip(button));
     });
 
-    // ページを閉じたときや、シークレットページを離れたときは動画を停止します。
+    // シークレットページを閉じた場合は動画を停止します。
     const secretPage = document.getElementById("secretPage");
     const closeButton = document.getElementById("secretPageClose");
     const overlay = document.getElementById("secretPageOverlay");
@@ -1317,6 +1334,8 @@ applyLoraToNumbers();
     document.addEventListener("keydown", event => {
         if (event.key === "Escape" && secretPage && secretPage.classList.contains("active")) stopAllClips();
     });
+
+    // APIは事前に読み込んでおき、クリック後の再生開始遅延を抑えます。
     loadYouTubeApi();
 })();
 
