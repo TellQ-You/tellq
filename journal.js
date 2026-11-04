@@ -59,16 +59,22 @@
         const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
         currentPage = Math.min(currentPage, pageCount);
         const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-        list.innerHTML = pageItems.length ? pageItems.map(item => `
+        const articleSheets = pageItems.map(item => `
             <article class="journal-archive-card" data-category="${escapeHTML(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
+                <span class="journal-archive-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
                 <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
-                <div>
-                    <span class="journal-archive-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
-                    <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeHTML(item.title)}</a></h2>
-                    <p>${escapeHTML(item.summary || "")}</p>
-                    <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY ↗</a>
-                </div>
-            </article>`).join("") : '<p class="journal-no-results">このカテゴリの記事はまだありません。</p>';
+                <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeHTML(item.title)}</a></h2>
+                <p>${escapeHTML(item.summary || "")}</p>
+                <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY ↗</a>
+            </article>`).join("");
+
+        list.innerHTML = pageItems.length ? `
+            <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
+                <div class="journal-envelope-back" aria-hidden="true"></div>
+                <div class="journal-letter">${articleSheets}</div>
+                <div class="journal-envelope-front" aria-hidden="true"></div>
+                <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
+            </div>` : '<p class="journal-no-results">このカテゴリの記事はまだありません。</p>';
 
         pagination.innerHTML = pageCount > 1
             ? Array.from({length: pageCount}, (_, i) => `<button type="button" data-page="${i+1}" aria-current="${currentPage === i+1 ? "page" : "false"}">${i+1}</button>`).join("")

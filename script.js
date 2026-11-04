@@ -1161,6 +1161,8 @@ function applyLoraToNumbers(root = document.body) {
         ".modal-price",
         // MORE ITEMSの販売状況バッジ内の数字は、位置指定用spanに変換しない。
         ".product-thumb .product-thumb-status",
+        // 日付は一続きの文字列として保持し、flex内で数字だけが縦に分割されるのを防ぐ。
+        ".journal-archive-date",
         "script",
         "style"
     ];
@@ -1394,20 +1396,22 @@ applyLoraToNumbers();
         return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
     };
 
-    list.innerHTML = published.map(item => `
+    const articleSheets = published.map(item => `
         <article class="journal-archive-card" data-category="${escapeJournalText(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
+            <span class="journal-archive-category" data-category="${escapeJournalText(item.category)}">${categoryLabels[item.category] || "JOURNAL"}</span>
             <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
-            <div>
-                <span class="journal-archive-category" data-category="${escapeJournalText(item.category)}">${categoryLabels[item.category] || "JOURNAL"}</span>
-                <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h2>
-                <p>${escapeJournalText(item.summary || "")}</p>
-                <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
-            </div>
+            <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h2>
+            <p>${escapeJournalText(item.summary || "")}</p>
+            <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
         </article>`).join("");
 
-    if (!published.length) {
-        list.innerHTML = '<p class="news-empty">新しいお知らせを準備しています。</p>';
-    }
+    list.innerHTML = published.length ? `
+        <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
+            <div class="journal-envelope-back" aria-hidden="true"></div>
+            <div class="journal-letter">${articleSheets}</div>
+            <div class="journal-envelope-front" aria-hidden="true"></div>
+            <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
+        </div>` : '<p class="news-empty">新しいお知らせを準備しています。</p>';
 })();
 
 // ========================================
