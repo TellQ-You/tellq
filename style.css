@@ -7852,13 +7852,13 @@ select {
     --tellq-main-product-name-size-mobile: clamp(25px, 7vw, 34px);
 
     /* PURCHASE後の商品名：PC */
-    --tellq-purchase-modal-product-name-size-pc: 30px;
+    --tellq-purchase-modal-product-name-size-pc: 25px;
 
     /* PURCHASE後の商品名：タブレット */
     --tellq-purchase-modal-product-name-size-tablet: 25px;
 
     /* PURCHASE後の商品名：スマートフォン */
-    --tellq-purchase-modal-product-name-size-mobile: 25px;
+    --tellq-purchase-modal-product-name-size-mobile: 20px;
 }
 
 /* メイン商品名 */
@@ -7999,3 +7999,45 @@ select {
         font-size: var(--tellq-purchase-product-name-ja-mobile, inherit);
     }
 }
+
+/* =========================================================
+   TELLQ v6.11 — MOBILE ENVELOPE FLAP + DIDOT DISPLAY TYPE
+   ---------------------------------------------------------
+   Requested changes only:
+   - Mobile envelope rear triangle is shorter and its top vertex may sit
+     behind the article sheet instead of being stretched into a sharp peak.
+   - Apply the existing Didot font stack to the homepage display/logo,
+     main product name, and PURCHASE modal product name.
+   - Slightly increase only the homepage hero headline line spacing.
+========================================================= */
+
+/* On mobile, start the rear flap at the article sheet's top edge.
+   The sheet (z-index: 2) naturally hides the triangle's upper vertex;
+   the flap is not stretched into a tall, narrow point. */
+@media (max-width: 700px) {
+    .journal-envelope-back {
+        --journal-flap-height: clamp(112px, 34vw, 150px);
+        top: 0 !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .journal-envelope-back {
+        --journal-flap-height: clamp(106px, 34vw, 128px);
+        top: 0 !important;
+    }
+}
+
+/* Didot display typography: preserve each element's existing size and weight. */
+.logo,
+.hero h1,
+.product-info h3,
+#modalProductName {
+    font-family: var(--didot);
+}
+
+/* The Didot headline receives a little more vertical breathing room. */
+.hero h1 {
+    line-height: 1.10;
+}
+
