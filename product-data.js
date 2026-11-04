@@ -33,7 +33,7 @@ const PRODUCT_DATA = [
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
-        name: "TellQ<br>Cashmere 100% Compact Scarf</br>カシミヤ100％ </br>コンパクトマフラー",
+        name: "<span class='tellq-product-name-en'>TellQ<br>Cashmere 100% Compact Scarf</span><br><span class='tellq-product-name-ja'>カシミヤ100％コンパクトマフラー</span>",
         price: "¥19,800",
         description: "現在検討中の商品です。",
         material: "Cashmere 100%",
@@ -68,7 +68,7 @@ const PRODUCT_DATA = [
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
-        name: "TellQ<br>Cashmere 100% Compact Scarf</br>カシミヤ100％ </br>コンパクトマフラー",
+        name: "<span class='tellq-product-name-en'>TellQ<br>Cashmere 100% Compact Scarf</span><br><span class='tellq-product-name-ja'>カシミヤ100％コンパクトマフラー</span>",
         price: "¥19,800",
         description: "現在検討中の商品です。",
         material: "Cashmere 100%",
@@ -102,7 +102,7 @@ const PRODUCT_DATA = [
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
-        name: "TellQ<br>Patchwork Scarf</br>パッチワークマフラー",
+        name: "<span class='tellq-product-name-en'>TellQ<br>Patchwork Scarf</span><br><span class='tellq-product-name-ja'>パッチワークマフラー</span>",
         price: "¥----",//"¥16,800",
         description: "現在検討中の商品です。",
         material: "Wool(&Mohair,Alpaca,Llama)",
@@ -134,7 +134,7 @@ const PRODUCT_DATA = [
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
-        name: "TellQ<br>ふわふわニット</br>アクセサリー",
+        name: "<span class='tellq-product-name-en'>TellQ</span><br><span class='tellq-product-name-ja'>ふわふわニット<br>アクセサリー</span>",
         price: "¥----",//"¥8,800",
         description: "現在検討中の商品です。",
         material: "Knit(&Others)",

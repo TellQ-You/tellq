@@ -7828,3 +7828,174 @@ select {
     }
 }
 
+/* =========================================================
+   TELLQ v6.1 — FONT SIZE SETTINGS
+   ---------------------------------------------------------
+   商品一覧のメイン商品名と、PURCHASEモーダルの商品名を
+   それぞれ独立して調整できます。
+
+   【変更する場所】
+   1) メイン商品名：下の PC / TABLET / MOBILE の3項目
+   2) PURCHASE後の商品名：下の PURCHASE MODAL の PC / TABLET / MOBILE の3項目
+
+   px で固定する例：30px
+   画面幅に合わせて伸縮させる例：clamp(24px, 3vw, 34px)
+========================================================= */
+:root {
+    /* メイン商品名：PC（最小値, 画面幅に応じた値, 最大値） */
+    --tellq-main-product-name-size-pc: clamp(22px, 2.6vw, 36px);
+
+    /* メイン商品名：タブレット */
+    --tellq-main-product-name-size-tablet: clamp(27px, 4.6vw, 40px);
+
+    /* メイン商品名：スマートフォン */
+    --tellq-main-product-name-size-mobile: clamp(25px, 7vw, 34px);
+
+    /* PURCHASE後の商品名：PC */
+    --tellq-purchase-modal-product-name-size-pc: 30px;
+
+    /* PURCHASE後の商品名：タブレット */
+    --tellq-purchase-modal-product-name-size-tablet: 25px;
+
+    /* PURCHASE後の商品名：スマートフォン */
+    --tellq-purchase-modal-product-name-size-mobile: 25px;
+}
+
+/* メイン商品名 */
+.product-info h3 {
+    /* script.js の商品別 nameFontSize 設定がある場合は、そちらを優先します。 */
+    --product-name-font-size: var(--tellq-main-product-name-size-pc);
+    font-size: var(--product-name-font-size);
+}
+
+/* PURCHASE後の商品名 */
+#modalProductName {
+    font-size: var(--tellq-purchase-modal-product-name-size-pc);
+    line-height: 1.2;
+}
+
+@media (min-width: 601px) and (max-width: 1100px) {
+    .product-info h3 {
+        --product-name-font-size: var(--tellq-main-product-name-size-tablet);
+    }
+
+    #modalProductName {
+        font-size: var(--tellq-purchase-modal-product-name-size-tablet);
+    }
+}
+
+@media (max-width: 600px) {
+    .product-info h3 {
+        --product-name-font-size: var(--tellq-main-product-name-size-mobile);
+    }
+
+    #modalProductName {
+        font-size: var(--tellq-purchase-modal-product-name-size-mobile);
+    }
+}
+
+
+
+/* =========================================================
+   TELLQ v6.2 — ENGLISH / JAPANESE PRODUCT NAME SIZE SETTINGS
+   ---------------------------------------------------------
+   メイン商品名とPURCHASEモーダルの商品名について、
+   英語部分・日本語部分を別々にサイズ調整できます。
+
+   変更する場合は :root 内のコメント例をコピーしてコメントを外し、
+   px または clamp(...) で値を指定してください。
+   何も指定しなければ、v6.1 と同じ文字サイズを引き継ぎます。
+========================================================= */
+:root {
+    /* -----------------------------------------------------
+       メイン商品名：英語部分
+       ----------------------------------------------------- */
+    /* PC */
+    /* --tellq-main-product-name-en-pc: 30px; */
+    /* タブレット */
+    /* --tellq-main-product-name-en-tablet: 28px; */
+    /* スマートフォン */
+    /* --tellq-main-product-name-en-mobile: 24px; */
+
+    /* -----------------------------------------------------
+       メイン商品名：日本語部分
+       ----------------------------------------------------- */
+    /* PC */
+    --tellq-main-product-name-ja-pc: 17px;
+    /* タブレット */
+    /* --tellq-main-product-name-ja-tablet: 23px; */
+    /* スマートフォン */
+    --tellq-main-product-name-ja-mobile: 11px;
+
+    /* -----------------------------------------------------
+       PURCHASEモーダル：英語部分
+       ----------------------------------------------------- */
+    /* PC */
+    /* --tellq-purchase-product-name-en-pc: 27px; */
+    /* タブレット */
+    /* --tellq-purchase-product-name-en-tablet: 25px; */
+    /* スマートフォン */
+    /* --tellq-purchase-product-name-en-mobile: 22px; */
+
+    /* -----------------------------------------------------
+       PURCHASEモーダル：日本語部分
+       ----------------------------------------------------- */
+    /* PC */
+    --tellq-purchase-product-name-ja-pc: 17px;
+    /* タブレット */
+    /* --tellq-purchase-product-name-ja-tablet: 21px; */
+    /* スマートフォン */
+    --tellq-purchase-product-name-ja-mobile: 11px;
+}
+
+/* メイン商品名：PC */
+#productName .tellq-product-name-en {
+    font-size: var(--tellq-main-product-name-en-pc, inherit);
+}
+#productName .tellq-product-name-ja {
+    font-size: var(--tellq-main-product-name-ja-pc, inherit);
+}
+
+/* PURCHASEモーダル：PC */
+#modalProductName .tellq-product-name-en {
+    font-size: var(--tellq-purchase-product-name-en-pc, inherit);
+}
+#modalProductName .tellq-product-name-ja {
+    font-size: var(--tellq-purchase-product-name-ja-pc, inherit);
+}
+
+@media (min-width: 601px) and (max-width: 1100px) {
+    /* メイン商品名：タブレット */
+    #productName .tellq-product-name-en {
+        font-size: var(--tellq-main-product-name-en-tablet, inherit);
+    }
+    #productName .tellq-product-name-ja {
+        font-size: var(--tellq-main-product-name-ja-tablet, inherit);
+    }
+
+    /* PURCHASEモーダル：タブレット */
+    #modalProductName .tellq-product-name-en {
+        font-size: var(--tellq-purchase-product-name-en-tablet, inherit);
+    }
+    #modalProductName .tellq-product-name-ja {
+        font-size: var(--tellq-purchase-product-name-ja-tablet, inherit);
+    }
+}
+
+@media (max-width: 600px) {
+    /* メイン商品名：スマートフォン */
+    #productName .tellq-product-name-en {
+        font-size: var(--tellq-main-product-name-en-mobile, inherit);
+    }
+    #productName .tellq-product-name-ja {
+        font-size: var(--tellq-main-product-name-ja-mobile, inherit);
+    }
+
+    /* PURCHASEモーダル：スマートフォン */
+    #modalProductName .tellq-product-name-en {
+        font-size: var(--tellq-purchase-product-name-en-mobile, inherit);
+    }
+    #modalProductName .tellq-product-name-ja {
+        font-size: var(--tellq-purchase-product-name-ja-mobile, inherit);
+    }
+}

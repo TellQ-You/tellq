@@ -3,6 +3,18 @@
    JAVASCRIPT
 ========================================================= */
 
+/* =========================================================
+   PRODUCT NAME TEXT HELPER
+   商品名HTMLからタグを取り除き、画像の代替テキスト用の文字列を作ります。
+========================================================= */
+function getPlainProductName(name) {
+    return String(name || "")
+        .replace(/<br\s*\/?>/gi, " ")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
 
 /* =========================================================
    MOBILE MENU
@@ -606,7 +618,7 @@ function renderProductThumbnails() {
         const accessibleStatus = statusLabel ? `・${escapeThumbnailText(statusLabel)}` : "";
         return `
             <button class="product-thumb${index === currentProductIndex ? " active" : ""}" data-product-index="${index}" aria-label="商品 ${product.number}${accessibleStatus}">
-                <img src="${getFirstProductImage(product)}" alt="${product.name.replace(/<br>/g, " ")}">
+                <img src="${getFirstProductImage(product)}" alt="${getPlainProductName(product.name)}">
                 <span>${product.number}</span>
                 ${statusMarkup}
             </button>
@@ -686,7 +698,7 @@ function showProductPhoto(index) {
     currentProductPhotoIndex = nextPhotoIndex;
     // 写真の切り替え操作ごとに、現在位置をインジケーターへ即時反映します。
     updateProductPhotoIndicator();
-    productMainImage.alt = `${product.name.replace(/<br>/g, " ")} ${variant ? variant.label + " " : ""}写真 ${nextPhotoIndex + 1}`;
+    productMainImage.alt = `${getPlainProductName(product.name)} ${variant ? variant.label + " " : ""}写真 ${nextPhotoIndex + 1}`;
     updateProductColorSwatchState();
 
     // 画像の読み込みが終わるまでは現在の写真を表示し、読み込み完了後に切り替えます。
@@ -853,7 +865,7 @@ function showProduct(index) {
         window.setTimeout(() => {
             productMainImage.src = initialProductImage;
             updateProductImageBackdrop(productMainImage.src);
-            productMainImage.alt = product.name.replace(/<br>/g, " ");
+            productMainImage.alt = getPlainProductName(product.name);
             productMainImage.style.opacity = "1";
         }, 160);
     }
