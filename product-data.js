@@ -27,7 +27,7 @@ const PRODUCT_DATA = [
         baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
-            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 16, 17], baseUrl: "https://tellqyou.base.shop/items/164334669" },
+            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 16, 17, 2, 3, 4, 5], baseUrl: "https://tellqyou.base.shop/items/164334669" },
             { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 7, 8, 9, 10, 16, 17], baseUrl: "https://tellqyou.base.shop/items/164345045" },
             { key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "soldout", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 12, 13, 14, 15, 16, 17], baseUrl: "" }
         ],
@@ -35,7 +35,8 @@ const PRODUCT_DATA = [
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "<span class='tellq-product-name-en'>TellQ<br>Cashmere 100% Compact Scarf</span><br><span class='tellq-product-name-ja'>カシミヤ100％コンパクトマフラー</span>",
         price: "¥19,800",
-        description: "現在検討中の商品です。",
+        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
+        // description: "現在検討中の商品です。",
         material: "Cashmere 100%",
         information: [
             "【コンセプト】</br></br>100年続いた実家のニット会社で長く愛されてきた人気アイテムを、現代のスタイルに合わせてリメイクしました。</br></br>「繊維の宝石」とも呼ばれるカシミヤを100％使用し、受け継がれてきたデザインに、柔らかな風合いと軽やかな着け心地を組み合わせています。日常に取り入れやすいコンパクトマフラーに仕上げました。</br></br>大きめのリボンがワンポイントになるリボンデザインと、シンプルで取り入れやすいユニセックスデザインを展開。</br></br>全4種類のラインナップで、リボンデザイン2種類、ユニセックスデザイン2種類をご用意しています。</br>",
@@ -61,16 +62,17 @@ const PRODUCT_DATA = [
         baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
-            { key: "navy-black-grey", label: "NAVY / BLACK / GREY", displayName: "NAVY / BLACK / GREY", status: "available", colors: ["#171717","#6a5c47", "#130051"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 7], baseUrl: "" },
-            { key: "black-wineRed", label: "BLACK / WINERED", displayName: "BLACK / WINERED", status: "available", colors: ["#171717", "#8f2a26"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 21], baseUrl: "https://tellqyou.base.shop/items/164329470" },
-            { key: "black-grey", label: "BLACK / GREY", displayName: "BLACK / GREY", status: "available", colors: ["#171717", "#c9c9c9"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 14], baseUrl: "https://tellqyou.base.shop/items/164329829" },
-            { key: "greige-Camel", label: "GREIGE / CAMEL", displayName: "GREIGE / CAMEL", status: "available", colors: ["#a48686", "#d89b31"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28], baseUrl: "" }
+            { key: "navy-black-grey", label: "NAVY / BLACK / GREY", displayName: "NAVY / BLACK / GREY", status: "available", colors: ["#171717","#6a5c47", "#130051"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 27, 28, 7, 29], baseUrl: "" },
+            { key: "black-wineRed", label: "BLACK / WINERED", displayName: "BLACK / WINERED", status: "available", colors: ["#171717", "#8f2a26"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 27, 28, 21, 29], baseUrl: "https://tellqyou.base.shop/items/164329470" },
+            { key: "black-grey", label: "BLACK / GREY", displayName: "BLACK / GREY", status: "available", colors: ["#171717", "#c9c9c9"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 27, 28, 14, 29], baseUrl: "https://tellqyou.base.shop/items/164329829" },
+            { key: "greige-Camel", label: "GREIGE / CAMEL", displayName: "GREIGE / CAMEL", status: "available", colors: ["#a48686", "#d89b31"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28, 29], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "<span class='tellq-product-name-en'>TellQ<br>Cashmere 100% Compact Scarf</span><br><span class='tellq-product-name-ja'>カシミヤ100％コンパクトマフラー</span>",
         price: "¥19,800",
-        description: "現在検討中の商品です。",
+        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
+        // description: "現在検討中の商品です。",
         material: "Cashmere 100%",
         information: [
             "【コンセプト】</br></br>100年続いた実家のニット会社で長く愛されてきた人気アイテムを、現代のスタイルに合わせてリメイクしました。</br></br>「繊維の宝石」とも呼ばれるカシミヤを100％使用し、受け継がれてきたデザインに、柔らかな風合いと軽やかな着け心地を組み合わせています。日常に取り入れやすいコンパクトマフラーに仕上げました。</br></br>大きめのリボンがワンポイントになるリボンデザインと、シンプルで取り入れやすいユニセックスデザインを展開。</br></br>全4種類のラインナップで、リボンデザイン2種類、ユニセックスデザイン2種類をご用意しています。</br>",
@@ -91,7 +93,7 @@ const PRODUCT_DATA = [
         // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "11月中旬に販売予定。",
         // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
-        moreItemsUpcomingText: "11月中旬に販売予定。",
+        moreItemsUpcomingText: "11月中旬に販売予定",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
@@ -104,7 +106,8 @@ const PRODUCT_DATA = [
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "<span class='tellq-product-name-en'>TellQ<br>Patchwork Scarf</span><br><span class='tellq-product-name-ja'>パッチワークマフラー</span>",
         price: "¥----",//"¥16,800",
-        description: "現在検討中の商品です。",
+        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
+        // description: "現在検討中の商品です。",
         material: "Wool(&Mohair,Alpaca,Llama)",
         information: [
             //"【コンセプト】</br></br>捨てられるはずだった素材に、新たな価値を。</br></br>100年続いた実家のニット会社に残されていた、上質なニット素材。</br></br>色や形が異なる上質な素材は、長年のものづくりの中で使われないままバラバラに残り、廃棄物となっていました。</br></br>そんな素材をもう一度輝かせたい。新たな形で価値を生み出したい。そんな想いから、このマフラーが生まれました。</br></br>量産することのできない、唯一無二のデザイン。</br></br>素材を大切に活かしながら、おしゃれを楽しむことも妥協しない。</br></br>TellQが大切にする、ものを大切にする心と、自分らしいファッションを楽しむ喜びを込めたアイテムです。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
@@ -125,7 +128,7 @@ const PRODUCT_DATA = [
         // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "11月中旬に販売予定。",
         // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
-        moreItemsUpcomingText: "11月中旬に販売予定。",
+        moreItemsUpcomingText: "11月中旬に販売予定",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
@@ -136,7 +139,8 @@ const PRODUCT_DATA = [
         category: "TELLQ / UPCYCLED COLLECTION",
         name: "<span class='tellq-product-name-en'>TellQ</span><br><span class='tellq-product-name-ja'>ふわふわニット<br>アクセサリー</span>",
         price: "¥----",//"¥8,800",
-        description: "現在検討中の商品です。",
+        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
+        // description: "現在検討中の商品です。",
         material: "Knit(&Others)",
         information: [
             //"【コンセプト】</br></br>Concept｜素材に、新しい可能性を。</br></br>役目を終えたと思われていた素材にも、まだ新しい魅力が眠っている。</br></br>TellQは、実家に残されていた残布やはぎれを活用し、廃棄されるはずだった素材に新たな価値を与え、これまでにないアクセサリーへと生まれ変わらせています。</br></br>素材を無駄なく活かし、環境への負担を減らしながら、既存の枠にとらわれないデザインを追求。</br></br>ものを大切にすることと、おしゃれを楽しむこと。その両方を叶える、環境にも配慮した新しいファッションの可能性を提案します。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
@@ -159,28 +163,28 @@ const PRODUCT_DATA = [
    ・alt は任意です。省略すると「Staff Snap 1」などが自動設定されます。
 ========================================================= */
 const STAFF_SNAP_DATA = {
-    imageExtension: "webp",
+    imageExtension: "JPG",
     images: [
-        { fileName: "test-B-S-01", alt: "Staff Snap 01" },
-        { fileName: "test-B-S-02", alt: "Staff Snap 02" },
-        { fileName: "test-B-S-03", alt: "Staff Snap 03" },
-        { fileName: "test-B-S-04", alt: "Staff Snap 04" },
-        { fileName: "test-B-S-05", alt: "Staff Snap 05" },
-        { fileName: "test-C-S-01", alt: "Staff Snap 06" },
-        { fileName: "test-C-S-02", alt: "Staff Snap 07" },
-        { fileName: "test-C-S-03", alt: "Staff Snap 08" },
-        { fileName: "test-C-S-04", alt: "Staff Snap 09" },
-        { fileName: "test-C-S-05", alt: "Staff Snap 10" },
-        { fileName: "test-A-S-01", alt: "Staff Snap 11" },
-        { fileName: "test-A-S-02", alt: "Staff Snap 12" },
-        { fileName: "test-A-S-03", alt: "Staff Snap 13" },
-        { fileName: "test-A-S-04", alt: "Staff Snap 14" },
-        { fileName: "test-A-S-05", alt: "Staff Snap 15" },
-        { fileName: "test-D-S-01", alt: "Staff Snap 16" },
-        { fileName: "test-D-S-02", alt: "Staff Snap 17" },
-        { fileName: "test-D-S-03", alt: "Staff Snap 18" },
-        { fileName: "test-D-S-04", alt: "Staff Snap 19" },
-        { fileName: "test-D-S-05", alt: "Staff Snap 20" }
+        { fileName: "IMG_5531 2", alt: "Staff Snap 01" },
+        { fileName: "IMG_5532 2", alt: "Staff Snap 02" },
+        { fileName: "IMG_5533 2", alt: "Staff Snap 03" },
+        { fileName: "IMG_5534 2", alt: "Staff Snap 04" },
+        { fileName: "IMG_5535 2", alt: "Staff Snap 05" }
+        //{ fileName: "test-C-S-01", alt: "Staff Snap 06" },
+        //{ fileName: "test-C-S-02", alt: "Staff Snap 07" },
+        //{ fileName: "test-C-S-03", alt: "Staff Snap 08" },
+        //{ fileName: "test-C-S-04", alt: "Staff Snap 09" },
+        //{ fileName: "test-C-S-05", alt: "Staff Snap 10" },
+        //{ fileName: "test-A-S-01", alt: "Staff Snap 11" },
+        //{ fileName: "test-A-S-02", alt: "Staff Snap 12" },
+        //{ fileName: "test-A-S-03", alt: "Staff Snap 13" },
+        //{ fileName: "test-A-S-04", alt: "Staff Snap 14" },
+        //{ fileName: "test-A-S-05", alt: "Staff Snap 15" },
+        //{ fileName: "test-D-S-01", alt: "Staff Snap 16" },
+        //{ fileName: "test-D-S-02", alt: "Staff Snap 17" },
+        //{ fileName: "test-D-S-03", alt: "Staff Snap 18" },
+        //{ fileName: "test-D-S-04", alt: "Staff Snap 19" },
+        //{ fileName: "test-D-S-05", alt: "Staff Snap 20" }
     ]
 };
 

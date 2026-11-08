@@ -383,9 +383,11 @@ const productPrice = document.getElementById("productPrice");
 const productStatus = document.getElementById("productStatus");
 const buyButtonLabel = document.getElementById("buyButtonLabel");
 const buyButtonArrow = document.getElementById("buyButtonArrow");
-const productDescription = document.getElementById("productDescription");
+// TellQ v6.30 code audit: disabled legacy hook; #productDescription is absent from the current HTML.
+// const productDescription = document.getElementById("productDescription");
 const productMaterial = document.getElementById("productMaterial");
-const productDetailPrice = document.getElementById("productDetailPrice"); // 旧コードとの互換性維持
+// TellQ v6.30 code audit: disabled legacy hook; #productDetailPrice is absent from the current HTML.
+// const productDetailPrice = document.getElementById("productDetailPrice");
 const productColorSwatches = document.getElementById("productColorSwatches");
 const productColorLabel = document.getElementById("productColorLabel");
 const productPhotoIndicator = document.getElementById("productPhotoIndicator");
@@ -886,9 +888,11 @@ function showProduct(index) {
     // 商品全体の販売状況と、選択中カラーの販売状況を反映します。
     updateProductVariantDisplay();
 
-    if (productDescription) productDescription.textContent = product.description;
+    // TellQ v6.30 code audit: disabled with the removed #productDescription output.
+    // if (productDescription) productDescription.textContent = product.description;
     if (productMaterial) productMaterial.textContent = product.material;
-    if (productDetailPrice) productDetailPrice.textContent = product.price;
+    // TellQ v6.30 code audit: disabled with the removed #productDetailPrice output.
+    // if (productDetailPrice) productDetailPrice.textContent = product.price;
     renderProductColorSwatches(product);
     updateProductVariantDisplay();
     updateProductPhotoIndicator();
