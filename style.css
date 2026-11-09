@@ -9662,10 +9662,10 @@ select {
    the lower corners soften the point where the triangle meets the body. */
 .journal-envelope-back::before {
     clip-path: polygon(
-        0.72% 99.45%,
-        0.78% 99.72%,
-        0.94% 99.92%,
-        1.18% 100%,
+        0 99.45%,
+        0.05% 99.72%,
+        0.16% 99.92%,
+        0.36% 100%,
         47.2% 3.0%,
         48.2% 1.35%,
         49.2% 0.45%,
@@ -9673,10 +9673,10 @@ select {
         50.8% 0.45%,
         51.8% 1.35%,
         52.8% 3.0%,
-        98.82% 100%,
-        99.06% 99.92%,
-        99.22% 99.72%,
-        99.28% 99.45%
+        99.64% 100%,
+        99.84% 99.92%,
+        99.95% 99.72%,
+        100% 99.45%
     ) !important;
 }
 
@@ -9761,7 +9761,7 @@ select {
     left: 0 !important;
     width: 100% !important;
     height: calc(var(--journal-envelope-connector-height) + 1px) !important;
-    border-radius: 8px 8px 0 0 !important;
+    border-radius: 5px 5px 0 0 !important;
     overflow: hidden !important;
     background-image:
         radial-gradient(ellipse 18% 20% at 17% 34%,
@@ -9796,13 +9796,8 @@ select {
     z-index: 2 !important;
 }
 
-
-/* =========================================================
-   TELLQ v6.46 — Refine only the rear flap's lower side corners
-   ---------------------------------------------------------
-   - Pull the two lower triangle corners slightly inward to avoid
-     a protruding look against the rounded connector top corners.
-   - Preserve the flap apex, side angles, connector overlap, panel
-     position/radius, and all other envelope details.
-   - No article content, links, filters, pagination, or site behavior changed.
-========================================================= */
+/* NEWS summary: 改行を反映 */
+.journal-envelope .journal-archive-card p,
+.news-list .journal-archive-card p {
+    white-space: pre-line;
+}

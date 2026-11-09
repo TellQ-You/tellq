@@ -32,7 +32,7 @@ window.TELLQ_JOURNAL_DATA = [
         status: "published",
         pinned: false,
         title: "TellQの初商品、販売開始しました。",
-        summary: "初商品はカシミヤのコンパクトマフラー４種です。とても暖かく、これからの季節に欠かせないアイテムです。",
+        summary: "初商品はカシミヤのコンパクトマフラー４種です。\nとても暖かく、これからの季節に欠かせないアイテムです。",
         image: "",
         content: [
             "TellQの初商品としてカシミヤのコンパクトマフラー（４種）を販売いたします。",

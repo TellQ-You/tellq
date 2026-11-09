@@ -18,7 +18,7 @@ const PRODUCT_DATA = [
         photoCount: 17, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         number: "リボンデザイン3種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
-        status: "available",
+        status: "soldout",
         // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "追加時期は決まり次第お知らせします",
         // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
@@ -29,7 +29,7 @@ const PRODUCT_DATA = [
         variants: [
             { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 16, 17, 2, 3, 4, 5], baseUrl: "https://tellqyou.base.shop/items/164334669" },
             { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 16, 17, 7, 8, 9, 10], baseUrl: "https://tellqyou.base.shop/items/164345045" },
-            { key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "soldout", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 16, 17, 12, 13, 14, 15], baseUrl: "" }
+            { key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "soldout", colors: ["#c5a061", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 16, 17, 12, 13, 14, 15], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -53,7 +53,7 @@ const PRODUCT_DATA = [
         photoCount: 28, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         number: "ユニセックスデザイン4種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
-        status: "available",
+        status: "soldout",
         // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "追加時期は決まり次第お知らせします",
         // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
@@ -62,10 +62,10 @@ const PRODUCT_DATA = [
         baseUrl: "https://tellqyou.base.shop/",
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
-            { key: "navy-black-grey", label: "NAVY / BLACK / GREY", displayName: "NAVY / BLACK / GREY", status: "available", colors: ["#171717","#6a5c47", "#130051"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 27, 28, 7, 29], baseUrl: "" },
-            { key: "black-wineRed", label: "BLACK / WINERED", displayName: "BLACK / WINERED", status: "available", colors: ["#171717", "#8f2a26"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 27, 28, 21, 29], baseUrl: "https://tellqyou.base.shop/items/164329470" },
-            { key: "black-grey", label: "BLACK / GREY", displayName: "BLACK / GREY", status: "available", colors: ["#171717", "#c9c9c9"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 27, 28, 14, 29], baseUrl: "https://tellqyou.base.shop/items/164329829" },
-            { key: "greige-Camel", label: "GREIGE / CAMEL", displayName: "GREIGE / CAMEL", status: "available", colors: ["#a48686", "#d89b31"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28, 29], baseUrl: "" }
+            { key: "navy-black-grey", label: "NAVY / BLACK / GREY", displayName: "NAVY / BLACK / GREY", status: "available", colors: ["#171717","#787674", "#110145"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 27, 28, 7, 29], baseUrl: "" },
+            { key: "black-wineRed", label: "BLACK / WINERED", displayName: "BLACK / WINERED", status: "available", colors: ["#171717", "#761a16"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [15, 16, 17, 18, 19, 20, 27, 28, 21, 29], baseUrl: "https://tellqyou.base.shop/items/164329470" },
+            { key: "black-grey", label: "BLACK / GREY", displayName: "BLACK / GREY", status: "available", colors: ["#171717", "#c6c6c6"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [8, 9, 10, 11, 12, 13, 27, 28, 14, 29], baseUrl: "https://tellqyou.base.shop/items/164329829" },
+            { key: "greige-Camel", label: "GREIGE / CAMEL", displayName: "GREIGE / CAMEL", status: "available", colors: ["#f4bb75", "#f1f1f1"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [22, 23, 24, 25, 26, 27, 28, 29], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
