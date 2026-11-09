@@ -3624,8 +3624,6 @@ select {
     height: 22px;
     border-radius: 50%;
     background: var(--swatch-color);
-    border: 1px solid rgba(45, 38, 34, .18);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
 }
 .product-information {
     width: 100%;
@@ -9800,4 +9798,98 @@ select {
 .journal-envelope .journal-archive-card p,
 .news-list .journal-archive-card p {
     white-space: pre-line;
+}
+
+
+/* =========================================================
+   TELLQ v6.50 — Proportional mobile envelope + refined TOP italic
+   ---------------------------------------------------------
+   - Use the desktop envelope geometry as the single proportion reference.
+   - Scale the flap, connector, front pocket and seal together with the
+     envelope width, rather than assigning a different tall mobile shape.
+   - The paper sheet remains content-driven and grows naturally as articles
+     are added; the envelope parts stay anchored and need no manual resizing.
+   - Change only the lower TOP phrase to a refined, readable serif italic.
+   - No article data, navigation, filters, pagination, product behavior or
+     other site functionality is changed.
+========================================================= */
+
+/* The envelope itself is the width reference for its decorative components. */
+.journal-envelope {
+    container-type: inline-size;
+}
+
+/* Fallback dimensions for browsers without container-query units. */
+.journal-envelope-back {
+    --journal-envelope-triangle-height: 290px;
+    --journal-envelope-side-start: 390px;
+    --journal-envelope-connector-height: 175px;
+    top: -58px !important;
+}
+
+.journal-envelope-front {
+    height: 390px !important;
+    border-radius: 0 0 15px 15px !important;
+}
+
+.journal-letter {
+    width: 82% !important;
+    min-height: 540px !important;
+    padding: 28px 52px 190px !important;
+}
+
+.journal-envelope-seal {
+    width: 82px !important;
+    bottom: 62px !important;
+    font-size: 17px !important;
+}
+
+.journal-envelope-connector {
+    border-radius: 5px 5px 0 0 !important;
+}
+
+/* Proportions match the desktop envelope at its 860px maximum width:
+   triangle 290px, side start/front pocket 390px, connector 175px,
+   rear offset 58px and seal 82px. cqw scales each measurement together. */
+@supports (width: 1cqw) {
+    .journal-envelope-back {
+        --journal-envelope-triangle-height: 33.72cqw;
+        --journal-envelope-side-start: 45.35cqw;
+        --journal-envelope-connector-height: 20.35cqw;
+        top: -6.74cqw !important;
+    }
+
+    .journal-envelope-front {
+        height: 45.35cqw !important;
+        border-radius: 0 0 1.74cqw 1.74cqw !important;
+    }
+
+    .journal-letter {
+        min-height: clamp(180px, 62.79cqw, 540px) !important;
+        padding:
+            max(18px, 3.26cqw)
+            max(18px, 6.05cqw)
+            max(70px, 22.1cqw) !important;
+    }
+
+    .journal-envelope-seal {
+        width: max(32px, 9.53cqw) !important;
+        bottom: max(22px, 7.21cqw) !important;
+        font-size: max(8px, 1.98cqw) !important;
+        border-width: max(1px, .23cqw) !important;
+    }
+
+    .journal-envelope-connector {
+        border-radius: max(2px, .58cqw) max(2px, .58cqw) 0 0 !important;
+    }
+}
+
+/* A conventional italic serif gives the phrase a premium editorial feel
+   without the extreme flourishes that made the previous script hard to read. */
+.hero-heading-italic {
+    font-family: "Cormorant Garamond", "GFS Didot", "Bodoni MT", serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.012em !important;
+    font-optical-sizing: auto;
 }
