@@ -16,7 +16,7 @@ const PRODUCT_DATA = [
         imagePrefix: "CashmereL-M-",
         imageExtension: "JPG", // 商品画像の拡張子：jpg / png / webp など
         photoCount: 17, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "TellQ-01",
+        number: "リボンデザイン3種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "available",
         // 商品詳細欄に表示する販売予定の説明文。
@@ -28,8 +28,8 @@ const PRODUCT_DATA = [
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
             { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 16, 17, 2, 3, 4, 5], baseUrl: "https://tellqyou.base.shop/items/164334669" },
-            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 7, 8, 9, 10, 16, 17], baseUrl: "https://tellqyou.base.shop/items/164345045" },
-            { key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "soldout", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 12, 13, 14, 15, 16, 17], baseUrl: "" }
+            { key: "grey", label: "GREY", displayName: "GREY", status: "available", color: "#adacab", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [6, 16, 17, 7, 8, 9, 10], baseUrl: "https://tellqyou.base.shop/items/164345045" },
+            { key: "brown-black", label: "BROWN / BLACK", displayName: "BROWN / BLACK", status: "soldout", colors: ["#79543a", "#171717"], imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [11, 16, 17, 12, 13, 14, 15], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
@@ -51,7 +51,7 @@ const PRODUCT_DATA = [
         imagePrefix: "CashmereM-M-",
         imageExtension: "JPG", // 商品画像の拡張子：jpg / png / webp など
         photoCount: 28, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "TellQ-02",
+        number: "ユニセックスデザイン4種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "available",
         // 商品詳細欄に表示する販売予定の説明文。

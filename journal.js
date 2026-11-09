@@ -70,7 +70,7 @@
 
         list.innerHTML = pageItems.length ? `
             <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
-                <div class="journal-envelope-back" aria-hidden="true"></div>
+                <div class="journal-envelope-back" aria-hidden="true"><span class="journal-envelope-connector" aria-hidden="true"></span></div>
                 <div class="journal-letter">${articleSheets}</div>
                 <div class="journal-envelope-front" aria-hidden="true"></div>
                 <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
