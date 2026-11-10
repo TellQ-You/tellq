@@ -1445,7 +1445,7 @@ applyLoraToNumbers();
         <article class="journal-archive-card${placeholder ? " is-placeholder" : ""}" data-category="${escapeJournalText(item.category || "journal")}"${item.pinned ? ' data-pinned="true"' : ""}>
             <span class="journal-archive-category" data-category="${escapeJournalText(item.category || "journal")}">${categoryLabels[item.category] || "JOURNAL"}</span>
             <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
-            <h2><a href="${storyUrl}" aria-expanded="false" aria-controls="${summaryId}">${escapeJournalText(item.title || "")}</a></h2>
+            <h2><a href="${storyUrl}" aria-expanded="false" aria-controls="${summaryId}"><span class="mobile-news-title">${escapeJournalText(item.title || "")}</span><span class="mobile-news-open-label" aria-hidden="true">記事を見る</span></a></h2>
             <p id="${summaryId}">${escapeJournalText(item.summary || "")}</p>
             <a class="news-read-more" href="${storyUrl}">${placeholder ? "COMING SOON" : 'READ STORY'} <span aria-hidden="true">↗</span></a>
         </article>`;
@@ -1468,12 +1468,13 @@ applyLoraToNumbers();
     */
     const envelope = list.querySelector(".journal-envelope");
     const letter = list.querySelector(".journal-letter");
+    const back = list.querySelector(".journal-envelope-back");
     const front = list.querySelector(".journal-envelope-front");
     const heading = list.parentElement
         ? list.parentElement.querySelector(".section-title")
         : null;
 
-    if (envelope && letter && front && heading) {
+    if (envelope && letter && back && front && heading) {
         let fitFrame = null;
 
         const scheduleEnvelopeLayout = () => {
@@ -1519,9 +1520,29 @@ applyLoraToNumbers();
 
                     window.requestAnimationFrame(() => {
                         const headingBottom = heading.getBoundingClientRect().bottom;
+                        const isMobile = window.matchMedia("(max-width: 700px)").matches;
+
+                        /*
+                           スマートフォンでは、紙の上端だけでなく封筒の背面三角形も
+                           見出しと重ならないよう、両方の最上端を基準に余白を計算します。
+                           記事を展開して便箋が上方向へ伸びた場合も、ここで再計算します。
+                           PCではv6.87までの便箋上端基準を維持します。
+                        */
                         const letterTop = letter.getBoundingClientRect().top;
-                        const topClearance = Math.max(22, envelope.clientWidth * 0.025);
-                        const overlap = Math.max(0, headingBottom + topClearance - letterTop);
+                        const visibleEnvelopeTop = isMobile
+                            ? Math.min(
+                                envelope.getBoundingClientRect().top,
+                                back.getBoundingClientRect().top,
+                                letterTop
+                            )
+                            : letterTop;
+                        const topClearance = isMobile
+                            ? Math.max(38, envelope.clientWidth * 0.075)
+                            : Math.max(22, envelope.clientWidth * 0.025);
+                        const overlap = Math.max(
+                            0,
+                            headingBottom + topClearance - visibleEnvelopeTop
+                        );
 
                         if (overlap > 1) {
                             list.style.marginTop = `${baseMarginTop + overlap}px`;
