@@ -165,11 +165,11 @@ const PRODUCT_DATA = [
 const STAFF_SNAP_DATA = {
     imageExtension: "JPG",
     images: [
-        { fileName: "IMG_5531 2", alt: "Staff Snap 01" },
-        { fileName: "IMG_5532 2", alt: "Staff Snap 02" },
-        { fileName: "IMG_5533 2", alt: "Staff Snap 03" },
-        { fileName: "IMG_5534 2", alt: "Staff Snap 04" },
-        { fileName: "IMG_5535 2", alt: "Staff Snap 05" }
+        { fileName: "IMG_5531", alt: "Staff Snap 01" },
+        { fileName: "IMG_5532", alt: "Staff Snap 02" },
+        { fileName: "IMG_5533", alt: "Staff Snap 03" },
+        { fileName: "IMG_5534", alt: "Staff Snap 04" },
+        { fileName: "IMG_5535", alt: "Staff Snap 05" }
         //{ fileName: "test-C-S-01", alt: "Staff Snap 06" },
         //{ fileName: "test-C-S-02", alt: "Staff Snap 07" },
         //{ fileName: "test-C-S-03", alt: "Staff Snap 08" },
