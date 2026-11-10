@@ -11957,3 +11957,118 @@ select {
         ) !important;
     }
 }
+
+
+/* =========================================================
+   TELLQ v6.89 — MOBILE NEWS: visible dates, tighter cards, stable envelope
+   ---------------------------------------------------------
+   - Preserve the three article cards' equal width.
+   - Show the publication date even while each card is closed.
+   - Keep the closed cards compact and reduce the expanded card's height.
+   - Avoid layout-size transitions and stabilize the envelope layers on scroll.
+   - Mobile only; desktop styles and all other sections remain untouched.
+========================================================= */
+@media (max-width: 700px) {
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2),
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3) {
+        flex: 0 0 62px !important;
+        min-height: 62px !important;
+        height: 62px !important;
+        max-height: 62px !important;
+        margin: 0 0 -5px 0 !important;
+        padding: 5px 10px !important;
+        transition: box-shadow .16s ease, background .16s ease !important;
+        scroll-margin-block: 12px;
+    }
+
+    /* Date remains visible in the closed state, directly above the title. */
+    #news .news-list > .journal-envelope .journal-archive-card .journal-archive-date {
+        display: block !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        margin: 0 0 2px !important;
+        padding: 0 !important;
+        color: rgba(79, 62, 49, .82) !important;
+        font-family: var(--lora) !important;
+        font-size: 8px !important;
+        line-height: 1.2 !important;
+        letter-spacing: .045em !important;
+        text-align: left !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card h2 {
+        max-height: 1.45em !important;
+        margin: 0 !important;
+        font-size: clamp(13px, 3.55vw, 15px) !important;
+        line-height: 1.35 !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-open-label {
+        font-size: 7.5px !important;
+        letter-spacing: .025em !important;
+    }
+
+    /* Expanded card: short, predictable content block with no tall stretch. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2).is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3).is-expanded {
+        flex: 0 0 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: 126px !important;
+        margin: 5px 0 8px !important;
+        padding: 9px 11px 8px !important;
+        overflow: hidden !important;
+        transition: box-shadow .16s ease, background .16s ease !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded .journal-archive-date {
+        display: block !important;
+        margin-bottom: 3px !important;
+        font-size: 8px !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded h2 {
+        max-height: 2.65em !important;
+        margin: 0 0 4px !important;
+        font-size: clamp(13px, 3.6vw, 15px) !important;
+        line-height: 1.3 !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded p {
+        max-height: 2.75em !important;
+        margin: 0 0 5px !important;
+        font-size: 9.5px !important;
+        line-height: 1.38 !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded .news-read-more {
+        margin-top: 0 !important;
+        padding: 1px 0 2px !important;
+        font-size: 6.5px !important;
+        line-height: 1.25 !important;
+    }
+
+    /* Reduce mobile scroll repaint jitter on the layered envelope artwork. */
+    #news .news-list > .journal-envelope,
+    #news .news-list > .journal-envelope > .journal-envelope-back,
+    #news .news-list > .journal-envelope > .journal-letter,
+    #news .news-list > .journal-envelope > .journal-envelope-front,
+    #news .news-list > .journal-envelope > .journal-envelope-seal {
+        -webkit-backface-visibility: hidden !important;
+        backface-visibility: hidden !important;
+    }
+
+    #news .news-list > .journal-envelope {
+        transform: translate3d(0, 0, 0) !important;
+        isolation: isolate !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-envelope-back,
+    #news .news-list > .journal-envelope > .journal-envelope-front {
+        transform: translateZ(0) !important;
+    }
+}

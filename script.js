@@ -1477,14 +1477,22 @@ applyLoraToNumbers();
     if (envelope && letter && back && front && heading) {
         let fitFrame = null;
 
-        const scheduleEnvelopeLayout = () => {
+        const scheduleEnvelopeLayout = (checkHeadingClearance = true) => {
             if (fitFrame !== null) {
                 window.cancelAnimationFrame(fitFrame);
             }
 
             fitFrame = window.requestAnimationFrame(() => {
                 fitFrame = null;
-                list.style.removeProperty("margin-top");
+
+                /*
+                   タップで記事を開閉したときは、封筒の上端位置を再計算しません。
+                   上端の再計算は初期表示・画面サイズ変更・フォント読込時だけに限定し、
+                   タップ操作やスクロール中に封筒全体が微妙に動く原因を減らします。
+                */
+                if (checkHeadingClearance) {
+                    list.style.removeProperty("margin-top");
+                }
                 letter.style.removeProperty("padding-bottom");
 
                 const baseMarginTop = parseFloat(
@@ -1494,7 +1502,9 @@ applyLoraToNumbers();
                     window.getComputedStyle(letter).paddingBottom
                 ) || 0;
 
-                list.style.marginTop = `${baseMarginTop}px`;
+                if (checkHeadingClearance) {
+                    list.style.marginTop = `${baseMarginTop}px`;
+                }
 
                 window.requestAnimationFrame(() => {
                     const cards = Array.from(
@@ -1519,6 +1529,8 @@ applyLoraToNumbers();
                     }
 
                     window.requestAnimationFrame(() => {
+                        if (!checkHeadingClearance) return;
+
                         const headingBottom = heading.getBoundingClientRect().bottom;
                         const isMobile = window.matchMedia("(max-width: 700px)").matches;
 
@@ -1588,7 +1600,8 @@ applyLoraToNumbers();
                 titleLink.setAttribute("aria-expanded", "true");
             }
 
-            scheduleEnvelopeLayout();
+            /* 展開時は下端だけを整え、見出しとの上端距離は動かさない。 */
+            scheduleEnvelopeLayout(false);
         });
     }
 })();
