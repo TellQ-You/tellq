@@ -11325,3 +11325,292 @@ select {
         ) !important;
     }
 }
+
+
+/* =========================================================
+   TELLQ v6.87 — MOBILE ONLY: NEWS title separation + compact article stack
+   ---------------------------------------------------------
+   - Reflow the JOURNAL & NEWS heading into normal document flow.
+   - Reserve a clear gap before the envelope's raised rear triangle.
+   - On phones, show only three compact article titles.
+   - Tapping one title expands its summary and READ STORY link.
+   - Move the gold seal slightly lower on phones only.
+   Desktop NEWS layout, content data, destinations and other sections stay.
+========================================================= */
+
+@media (max-width: 700px) {
+    /* Keep the section heading in normal flow, never over the envelope. */
+    #news.news {
+        padding: 54px 6% 52px !important;
+        overflow: visible !important;
+    }
+
+    #news .news-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        overflow: visible !important;
+    }
+
+    #news .news-inner > .section-title,
+    #news .news-inner > .section-title.reveal {
+        position: relative !important;
+        inset: auto !important;
+        float: none !important;
+        display: block !important;
+        order: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 2% !important;
+        opacity: 1 !important;
+        transform: none !important;
+        text-align: left !important;
+        overflow: visible !important;
+    }
+
+    #news .news-inner > .section-title .section-label {
+        display: block !important;
+        margin: 0 0 9px !important;
+        font-size: 8px !important;
+        line-height: 1.4 !important;
+        letter-spacing: .24em !important;
+    }
+
+    #news .news-inner > .section-title h2 {
+        position: static !important;
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: clamp(35px, 9.6vw, 45px) !important;
+        line-height: .94 !important;
+        letter-spacing: -.035em !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: normal !important;
+    }
+
+    #news .news-inner > .section-title h2 span {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* The envelope rear flap rises 42px above the list. This top margin
+       leaves at least 70px between the heading and the visible flap. */
+    #news .news-inner > .news-list {
+        position: relative !important;
+        order: 1 !important;
+        clear: both !important;
+        float: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: clamp(112px, 25vw, 136px) auto 0 !important;
+        padding: 0 !important;
+        z-index: 1 !important;
+        overflow: visible !important;
+    }
+
+    /* Use the upper part of the existing letter as a compact stack of notes. */
+    #news .news-list > .journal-envelope > .journal-letter {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 0 !important;
+        padding: 18px 6% 172px !important;
+        overflow: visible !important;
+    }
+
+    /* Three overlapping paper tabs: titles only while collapsed. */
+    #news .news-list > .journal-envelope .journal-archive-card {
+        position: relative !important;
+        display: flex !important;
+        flex: 0 0 auto !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 58px !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 0 0 -7px !important;
+        padding: 9px 12px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(151, 119, 96, .36) !important;
+        border-radius: 4px !important;
+        background:
+            linear-gradient(145deg, rgba(255,255,255,.98), rgba(247,239,229,.97)) !important;
+        box-shadow:
+            0 3px 8px rgba(70, 48, 34, .10),
+            inset 0 1px 0 rgba(255,255,255,.95) !important;
+        text-align: center !important;
+        transition:
+            transform .28s ease,
+            box-shadow .28s ease,
+            margin .28s ease,
+            background .28s ease !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card:nth-child(2) {
+        width: 96% !important;
+        margin-left: 2% !important;
+        z-index: 4 !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card:nth-child(3) {
+        width: 92% !important;
+        margin-left: 4% !important;
+        z-index: 5 !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card .journal-archive-category,
+    #news .news-list > .journal-envelope .journal-archive-card .journal-archive-date,
+    #news .news-list > .journal-envelope .journal-archive-card p,
+    #news .news-list > .journal-envelope .journal-archive-card .news-read-more {
+        display: none !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card h2 {
+        display: block !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 2.6em !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        color: #302822 !important;
+        font-size: clamp(14px, 3.9vw, 17px) !important;
+        font-weight: 450 !important;
+        line-height: 1.3 !important;
+        letter-spacing: .015em !important;
+        text-align: center !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card h2 a {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        padding: 0 20px 0 4px !important;
+        color: inherit !important;
+        text-decoration: none !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card h2 a::after {
+        content: "+" !important;
+        position: absolute !important;
+        top: 50% !important;
+        right: 2px !important;
+        transform: translateY(-50%) !important;
+        color: #8a6e5b !important;
+        font-family: var(--sans) !important;
+        font-size: 17px !important;
+        font-weight: 300 !important;
+        line-height: 1 !important;
+    }
+
+    /* Selected note lifts forward and reveals its summary and story link. */
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded {
+        z-index: 12 !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        margin: 5px 0 13px !important;
+        padding: 14px 14px 12px !important;
+        overflow: visible !important;
+        transform: translateY(-4px) scale(1.015) !important;
+        background: #fffdf9 !important;
+        box-shadow:
+            0 12px 24px rgba(65, 45, 32, .18),
+            inset 0 1px 0 rgba(255,255,255,.98) !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded h2 {
+        max-height: none !important;
+        margin-bottom: 9px !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded h2 a::after {
+        content: "−" !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded p {
+        display: -webkit-box !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 2.9em !important;
+        margin: 0 0 9px !important;
+        padding: 0 2px !important;
+        overflow: hidden !important;
+        color: rgba(57, 47, 40, .86) !important;
+        font-family: var(--serif) !important;
+        font-size: 10.5px !important;
+        line-height: 1.45 !important;
+        text-align: center !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded .news-read-more {
+        display: inline-flex !important;
+        flex: 0 0 auto !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: fit-content !important;
+        margin: 0 auto !important;
+        padding: 2px 0 3px !important;
+        border-bottom: 1px solid rgba(91, 69, 55, .58) !important;
+        color: #57483e !important;
+        font-family: var(--sans) !important;
+        font-size: 7px !important;
+        line-height: 1.4 !important;
+        letter-spacing: .15em !important;
+        text-decoration: none !important;
+    }
+
+    /* Only mobile seal position changes: reduce bottom offset to move it down. */
+    #news .journal-envelope-seal {
+        --journal-envelope-fixed-seal-bottom: 52px !important;
+        top: calc(
+            var(--journal-envelope-fixed-shell-height)
+            - var(--journal-envelope-fixed-seal-bottom)
+            - var(--journal-envelope-fixed-seal-size)
+        ) !important;
+    }
+}
+
+@media (max-width: 380px) {
+    #news .news-inner > .section-title h2 {
+        font-size: clamp(33px, 9.2vw, 38px) !important;
+    }
+
+    #news .news-inner > .news-list {
+        margin-top: 112px !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter {
+        padding-right: 5% !important;
+        padding-left: 5% !important;
+    }
+
+    #news .journal-envelope-seal {
+        --journal-envelope-fixed-seal-bottom: 48px !important;
+        top: calc(
+            var(--journal-envelope-fixed-shell-height)
+            - var(--journal-envelope-fixed-seal-bottom)
+            - var(--journal-envelope-fixed-seal-size)
+        ) !important;
+    }
+}

@@ -1434,18 +1434,19 @@ applyLoraToNumbers();
         return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
     };
 
-    const articleSheets = slots.map(item => {
+    const articleSheets = slots.map((item, index) => {
         const placeholder = Boolean(item.isPlaceholder);
         const storyUrl = placeholder
             ? "journal.html"
             : `journal.html?id=${encodeURIComponent(item.id)}`;
+        const summaryId = `home-news-summary-${index + 1}`;
 
         return `
         <article class="journal-archive-card${placeholder ? " is-placeholder" : ""}" data-category="${escapeJournalText(item.category || "journal")}"${item.pinned ? ' data-pinned="true"' : ""}>
             <span class="journal-archive-category" data-category="${escapeJournalText(item.category || "journal")}">${categoryLabels[item.category] || "JOURNAL"}</span>
             <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
-            <h2><a href="${storyUrl}">${escapeJournalText(item.title || "")}</a></h2>
-            <p>${escapeJournalText(item.summary || "")}</p>
+            <h2><a href="${storyUrl}" aria-expanded="false" aria-controls="${summaryId}">${escapeJournalText(item.title || "")}</a></h2>
+            <p id="${summaryId}">${escapeJournalText(item.summary || "")}</p>
             <a class="news-read-more" href="${storyUrl}">${placeholder ? "COMING SOON" : 'READ STORY'} <span aria-hidden="true">↗</span></a>
         </article>`;
     }).join("");
@@ -1535,6 +1536,39 @@ applyLoraToNumbers();
         if (document.fonts && document.fonts.ready) {
             document.fonts.ready.then(scheduleEnvelopeLayout);
         }
+
+        /*
+           スマートフォンだけ、記事タイトルをタップするとサマリーが開きます。
+           PCでは従来どおりタイトルを押すと記事詳細へ移動します。
+           同時に開く記事は1件だけにし、展開後は封筒前面との重なりも再計算します。
+        */
+        const mobileNewsQuery = window.matchMedia("(max-width: 700px)");
+        list.addEventListener("click", event => {
+            const titleLink = event.target.closest
+                ? event.target.closest(".journal-archive-card h2 a")
+                : null;
+
+            if (!titleLink || !mobileNewsQuery.matches) return;
+
+            const card = titleLink.closest(".journal-archive-card");
+            if (!card) return;
+
+            event.preventDefault();
+            const wasExpanded = card.classList.contains("is-expanded");
+
+            letter.querySelectorAll(".journal-archive-card").forEach(otherCard => {
+                otherCard.classList.remove("is-expanded");
+                const otherLink = otherCard.querySelector("h2 a");
+                if (otherLink) otherLink.setAttribute("aria-expanded", "false");
+            });
+
+            if (!wasExpanded) {
+                card.classList.add("is-expanded");
+                titleLink.setAttribute("aria-expanded", "true");
+            }
+
+            scheduleEnvelopeLayout();
+        });
     }
 })();
 
