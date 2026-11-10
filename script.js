@@ -1443,8 +1443,10 @@ applyLoraToNumbers();
 
         return `
         <article class="journal-archive-card${placeholder ? " is-placeholder" : ""}" data-category="${escapeJournalText(item.category || "journal")}"${item.pinned ? ' data-pinned="true"' : ""}>
-            <span class="journal-archive-category" data-category="${escapeJournalText(item.category || "journal")}">${categoryLabels[item.category] || "JOURNAL"}</span>
-            <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
+            <div class="mobile-news-meta">
+                <span class="journal-archive-category" data-category="${escapeJournalText(item.category || "journal")}">${categoryLabels[item.category] || "JOURNAL"}</span>
+                <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
+            </div>
             <h2><a href="${storyUrl}" aria-expanded="false" aria-controls="${summaryId}"><span class="mobile-news-title">${escapeJournalText(item.title || "")}</span><span class="mobile-news-open-label" aria-hidden="true">記事を見る</span></a></h2>
             <p id="${summaryId}">${escapeJournalText(item.summary || "")}</p>
             <a class="news-read-more" href="${storyUrl}">${placeholder ? "COMING SOON" : 'READ STORY'} <span aria-hidden="true">↗</span></a>
@@ -1455,127 +1457,80 @@ applyLoraToNumbers();
         <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
             <div class="journal-envelope-back" aria-hidden="true"><span class="journal-envelope-connector" aria-hidden="true"></span></div>
             <div class="journal-letter">${articleSheets}</div>
-            <a class="news-view-all news-view-all-envelope" href="journal.html">VIEW ALL JOURNAL &amp; NEWS <span aria-hidden="true">↗</span></a>
             <div class="journal-envelope-front" aria-hidden="true"></div>
             <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
         </div>`;
 
     /*
-       記事カードは常に3枠・同一寸法です。
-       画面幅やWebフォントの読み込み後も、便箋とNEWS見出し、
-       最終記事と封筒前面フラップの間隔を再計算します。
-       封筒本体・三角形・V字フラップ・シールの寸法や色は変更しません。
+       見出しと封筒の最上端が重ならないよう、実際の位置を測って余白を決めます。
+       再計算するのは初期表示・画面サイズ変更・フォント読込・記事の開閉時だけです。
+       スクロール中には寸法測定やスタイル変更を行わないため、封筒の揺れを抑えます。
     */
     const envelope = list.querySelector(".journal-envelope");
     const letter = list.querySelector(".journal-letter");
     const back = list.querySelector(".journal-envelope-back");
-    const front = list.querySelector(".journal-envelope-front");
     const heading = list.parentElement
         ? list.parentElement.querySelector(".section-title")
         : null;
 
-    if (envelope && letter && back && front && heading) {
-        let fitFrame = null;
+    if (envelope && letter && back && heading) {
+        const baseMarginTop = parseFloat(
+            window.getComputedStyle(list).marginTop
+        ) || 0;
+        let layoutFrame = null;
 
-        const scheduleEnvelopeLayout = (checkHeadingClearance = true) => {
-            if (fitFrame !== null) {
-                window.cancelAnimationFrame(fitFrame);
+        const scheduleHeadingClearance = () => {
+            if (layoutFrame !== null) {
+                window.cancelAnimationFrame(layoutFrame);
             }
 
-            fitFrame = window.requestAnimationFrame(() => {
-                fitFrame = null;
+            layoutFrame = window.requestAnimationFrame(() => {
+                layoutFrame = null;
+
+                const headingBottom = heading.getBoundingClientRect().bottom;
+                const currentMarginTop = parseFloat(
+                    window.getComputedStyle(list).marginTop
+                ) || baseMarginTop;
+                const currentExtraMargin = currentMarginTop - baseMarginTop;
+
+                const visibleTop = Math.min(
+                    envelope.getBoundingClientRect().top,
+                    back.getBoundingClientRect().top,
+                    letter.getBoundingClientRect().top
+                );
 
                 /*
-                   タップで記事を開閉したときは、封筒の上端位置を再計算しません。
-                   上端の再計算は初期表示・画面サイズ変更・フォント読込時だけに限定し、
-                   タップ操作やスクロール中に封筒全体が微妙に動く原因を減らします。
+                   現在の追加marginを差し引いて基準位置を求めます。
+                   開閉のたびにmarginを0へ戻さず、画面の跳ねを防ぎます。
                 */
-                if (checkHeadingClearance) {
-                    list.style.removeProperty("margin-top");
-                }
-                letter.style.removeProperty("padding-bottom");
+                const topAtBaseMargin = visibleTop - currentExtraMargin;
+                const isMobile = window.matchMedia("(max-width: 700px)").matches;
+                const safeGap = isMobile
+                    ? Math.max(48, envelope.clientWidth * 0.10)
+                    : Math.max(22, envelope.clientWidth * 0.025);
+                const requiredExtraMargin = Math.max(
+                    0,
+                    headingBottom + safeGap - topAtBaseMargin
+                );
 
-                const baseMarginTop = parseFloat(
-                    window.getComputedStyle(list).marginTop
-                ) || 0;
-                const basePaddingBottom = parseFloat(
-                    window.getComputedStyle(letter).paddingBottom
-                ) || 0;
-
-                if (checkHeadingClearance) {
-                    list.style.marginTop = `${baseMarginTop}px`;
-                }
-
-                window.requestAnimationFrame(() => {
-                    const cards = Array.from(
-                        letter.querySelectorAll(".journal-archive-card")
-                    );
-                    const lastCard = cards[cards.length - 1];
-
-                    if (lastCard) {
-                        const frontRect = front.getBoundingClientRect();
-                        const lastRect = lastCard.getBoundingClientRect();
-                        const bottomClearance = Math.max(20, envelope.clientWidth * 0.025);
-                        const safeLine = frontRect.top - bottomClearance;
-                        const overlap = Math.max(0, lastRect.bottom - safeLine);
-
-                        if (overlap > 1) {
-                            letter.style.setProperty(
-                                "padding-bottom",
-                                `${basePaddingBottom + overlap}px`,
-                                "important"
-                            );
-                        }
-                    }
-
-                    window.requestAnimationFrame(() => {
-                        if (!checkHeadingClearance) return;
-
-                        const headingBottom = heading.getBoundingClientRect().bottom;
-                        const isMobile = window.matchMedia("(max-width: 700px)").matches;
-
-                        /*
-                           スマートフォンでは、紙の上端だけでなく封筒の背面三角形も
-                           見出しと重ならないよう、両方の最上端を基準に余白を計算します。
-                           記事を展開して便箋が上方向へ伸びた場合も、ここで再計算します。
-                           PCではv6.87までの便箋上端基準を維持します。
-                        */
-                        const letterTop = letter.getBoundingClientRect().top;
-                        const visibleEnvelopeTop = isMobile
-                            ? Math.min(
-                                envelope.getBoundingClientRect().top,
-                                back.getBoundingClientRect().top,
-                                letterTop
-                            )
-                            : letterTop;
-                        const topClearance = isMobile
-                            ? Math.max(38, envelope.clientWidth * 0.075)
-                            : Math.max(22, envelope.clientWidth * 0.025);
-                        const overlap = Math.max(
-                            0,
-                            headingBottom + topClearance - visibleEnvelopeTop
-                        );
-
-                        if (overlap > 1) {
-                            list.style.marginTop = `${baseMarginTop + overlap}px`;
-                        }
-                    });
-                });
+                list.style.marginTop = `${baseMarginTop + requiredExtraMargin}px`;
             });
         };
 
-        scheduleEnvelopeLayout();
-        window.addEventListener("resize", scheduleEnvelopeLayout);
+        scheduleHeadingClearance();
+        window.addEventListener("resize", scheduleHeadingClearance);
+
         if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(scheduleEnvelopeLayout);
+            document.fonts.ready.then(scheduleHeadingClearance);
         }
 
         /*
            スマートフォンだけ、記事タイトルをタップするとサマリーが開きます。
-           PCでは従来どおりタイトルを押すと記事詳細へ移動します。
-           同時に開く記事は1件だけにし、展開後は封筒前面との重なりも再計算します。
+           PCでは従来どおり記事詳細ページへ移動します。
+           開閉時は1回だけ見出しとの距離を確認し、スクロール中は処理しません。
         */
         const mobileNewsQuery = window.matchMedia("(max-width: 700px)");
+
         list.addEventListener("click", event => {
             const titleLink = event.target.closest
                 ? event.target.closest(".journal-archive-card h2 a")
@@ -1600,8 +1555,7 @@ applyLoraToNumbers();
                 titleLink.setAttribute("aria-expanded", "true");
             }
 
-            /* 展開時は下端だけを整え、見出しとの上端距離は動かさない。 */
-            scheduleEnvelopeLayout(false);
+            scheduleHeadingClearance();
         });
     }
 })();
