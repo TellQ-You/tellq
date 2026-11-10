@@ -12439,3 +12439,85 @@ select {
         letter-spacing: .10em !important;
     }
 }
+
+
+/* =========================================================
+   TELLQ v6.91 — MY STORY image / underline + TOP headline font
+   ---------------------------------------------------------
+   - Remove the decorative underline under "これが私らしい。".
+   - Match the MY STORY photo frame's dimensions and crop behavior
+     to the ABOUT TELLQ photo at desktop, tablet and mobile sizes.
+   - Restore the previous Bodoni Moda Italic face for
+     "made for your now." as shown in the supplied reference image.
+   Only these requested visual details are changed.
+========================================================= */
+
+/* MY STORY: remove only the underline beneath the section heading. */
+.about-second-text h3::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Keep the following paragraph at a similar distance after removing the line. */
+.about-second-text h3 {
+    margin-bottom: 31px !important;
+}
+
+/* MY STORY photo: same full-bleed image-frame treatment as ABOUT TELLQ. */
+.about-second-quote {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 700px !important;
+    min-height: 700px !important;
+    max-height: none !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.about-second-quote-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+/* Remove the previous decorative circle so the photo treatment matches ABOUT. */
+.about-second-quote::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Match the final ABOUT image frame values at the same responsive breakpoints. */
+@media (max-width: 900px) {
+    .about-second-quote {
+        height: min(115vw, 520px) !important;
+        min-height: 360px !important;
+        max-height: 520px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-second-quote {
+        height: 108vw !important;
+        min-height: 320px !important;
+        max-height: 470px !important;
+    }
+}
+
+/* TOP HERO: restore the previous Bodoni Moda Italic styling. */
+.hero-heading-italic {
+    font-family: "Bodoni Moda", "GFS Didot", "Bodoni MT", serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    font-variation-settings: normal !important;
+    letter-spacing: -0.02em !important;
+    font-optical-sizing: auto !important;
+}
