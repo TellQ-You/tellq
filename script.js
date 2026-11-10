@@ -598,7 +598,7 @@ function renderProductThumbnails() {
             "&": "&amp;",
             "<": "&lt;",
             ">": "&gt;",
-            '"': "&quot;",
+        '"': "&quot;",
             "'": "&#39;"
         })[character]);
 
@@ -1382,12 +1382,17 @@ applyLoraToNumbers();
 
 /* =========================================================
    JOURNAL & NEWS: TOPページの記事生成
-   v6.76: VIEW ALL JOURNAL & NEWSリンクを封筒内の固定位置に配置します。
-   封筒の下側へ別の紙を続ける構造は使用しません。
+   v6.84:
+   - 最新記事を最大3件表示します。
+   - 3件に満たない場合は「新しい投稿をお待ちください。」を補います。
+   - 各カードの構造・高さを統一し、要約は最大2行で省略します。
+   - 封筒の装飾は固定したまま、紙面上で記事を積み重ねます。
 ========================================================= */
 (function initTellQJournalHome() {
     const list = document.getElementById("homeJournalList");
-    const articles = Array.isArray(window.TELLQ_JOURNAL_DATA) ? window.TELLQ_JOURNAL_DATA : [];
+    const articles = Array.isArray(window.TELLQ_JOURNAL_DATA)
+        ? window.TELLQ_JOURNAL_DATA
+        : [];
     if (!list) return;
 
     const categoryLabels = {
@@ -1397,130 +1402,138 @@ applyLoraToNumbers();
     };
 
     const published = articles
-        .filter(item => item.status === "published")
+        .filter(item => item && item.status === "published")
         .slice()
-        .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
         .slice(0, 3);
 
-    const escapeJournalText = value => String(value ?? "").replace(/[&<>\"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&#39;"
+    const slots = published.slice();
+    while (slots.length < 3) {
+        slots.push({
+            id: `tellq-coming-soon-${slots.length + 1}`,
+            date: "",
+            category: "information",
+            title: "新しい投稿をお待ちください。",
+            summary: "次回のお知らせを楽しみにお待ちください。",
+            isPlaceholder: true
+        });
+    }
+
+    const escapeJournalText = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
     }[char]));
 
     const formatDate = value => {
+        if (!value) return "COMING SOON";
         const date = new Date(`${value}T00:00:00`);
-        if (Number.isNaN(date.getTime())) return escapeJournalText(value || "");
+        if (Number.isNaN(date.getTime())) return escapeJournalText(value);
         return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
     };
 
-    const articleSheets = published.map(item => `
-        <article class="journal-archive-card" data-category="${escapeJournalText(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
-            <span class="journal-archive-category" data-category="${escapeJournalText(item.category)}">${categoryLabels[item.category] || "JOURNAL"}</span>
+    const articleSheets = slots.map(item => {
+        const placeholder = Boolean(item.isPlaceholder);
+        const storyUrl = placeholder
+            ? "journal.html"
+            : `journal.html?id=${encodeURIComponent(item.id)}`;
+
+        return `
+        <article class="journal-archive-card${placeholder ? " is-placeholder" : ""}" data-category="${escapeJournalText(item.category || "journal")}"${item.pinned ? ' data-pinned="true"' : ""}>
+            <span class="journal-archive-category" data-category="${escapeJournalText(item.category || "journal")}">${categoryLabels[item.category] || "JOURNAL"}</span>
             <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
-            <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h2>
+            <h2><a href="${storyUrl}">${escapeJournalText(item.title || "")}</a></h2>
             <p>${escapeJournalText(item.summary || "")}</p>
-            <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
-        </article>`).join("");
+            <a class="news-read-more" href="${storyUrl}">${placeholder ? "COMING SOON" : 'READ STORY'} <span aria-hidden="true">↗</span></a>
+        </article>`;
+    }).join("");
 
     list.innerHTML = `
         <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
             <div class="journal-envelope-back" aria-hidden="true"><span class="journal-envelope-connector" aria-hidden="true"></span></div>
-            <div class="journal-letter">${published.length ? articleSheets : '<p class="news-empty">新しいお知らせを準備しています。</p>'}</div>
+            <div class="journal-letter">${articleSheets}</div>
             <a class="news-view-all news-view-all-envelope" href="journal.html">VIEW ALL JOURNAL &amp; NEWS <span aria-hidden="true">↗</span></a>
             <div class="journal-envelope-front" aria-hidden="true"></div>
             <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
         </div>`;
 
     /*
-       記事の高さが変わっても、便箋がNEWS見出しに重ならず、
-       最後の記事が赤い前面フラップに隠れないように位置を自動調整します。
-       封筒・三角形・V字フラップ・シール自体の寸法や色は変更しません。
+       記事カードは常に3枠・同一寸法です。
+       画面幅やWebフォントの読み込み後も、便箋とNEWS見出し、
+       最終記事と封筒前面フラップの間隔を再計算します。
+       封筒本体・三角形・V字フラップ・シールの寸法や色は変更しません。
     */
-    if (published.length) {
-        const envelope = list.querySelector(".journal-envelope");
-        const letter = list.querySelector(".journal-letter");
-        const front = list.querySelector(".journal-envelope-front");
-        const heading = list.parentElement
-            ? list.parentElement.querySelector(".section-title")
-            : null;
+    const envelope = list.querySelector(".journal-envelope");
+    const letter = list.querySelector(".journal-letter");
+    const front = list.querySelector(".journal-envelope-front");
+    const heading = list.parentElement
+        ? list.parentElement.querySelector(".section-title")
+        : null;
 
-        if (envelope && letter && front && heading) {
-            let fitFrame = null;
+    if (envelope && letter && front && heading) {
+        let fitFrame = null;
 
-            const scheduleEnvelopeLayout = () => {
-                if (fitFrame !== null && window.cancelAnimationFrame) {
-                    window.cancelAnimationFrame(fitFrame);
-                }
+        const scheduleEnvelopeLayout = () => {
+            if (fitFrame !== null) {
+                window.cancelAnimationFrame(fitFrame);
+            }
 
-                fitFrame = window.requestAnimationFrame(() => {
-                    fitFrame = null;
+            fitFrame = window.requestAnimationFrame(() => {
+                fitFrame = null;
+                list.style.removeProperty("margin-top");
+                letter.style.removeProperty("padding-bottom");
 
-                    // 画面幅が変わった場合も、その幅でのCSS基準値から計算し直します。
-                    list.style.removeProperty("margin-top");
-                    letter.style.removeProperty("padding-bottom");
+                const baseMarginTop = parseFloat(
+                    window.getComputedStyle(list).marginTop
+                ) || 0;
+                const basePaddingBottom = parseFloat(
+                    window.getComputedStyle(letter).paddingBottom
+                ) || 0;
 
-                    const baseMarginTop = parseFloat(
-                        window.getComputedStyle(list).marginTop
-                    ) || 0;
-                    const basePaddingBottom = parseFloat(
-                        window.getComputedStyle(letter).paddingBottom
-                    ) || 0;
+                list.style.marginTop = `${baseMarginTop}px`;
 
-                    list.style.marginTop = `${baseMarginTop}px`;
+                window.requestAnimationFrame(() => {
+                    const cards = Array.from(
+                        letter.querySelectorAll(".journal-archive-card")
+                    );
+                    const lastCard = cards[cards.length - 1];
+
+                    if (lastCard) {
+                        const frontRect = front.getBoundingClientRect();
+                        const lastRect = lastCard.getBoundingClientRect();
+                        const bottomClearance = Math.max(20, envelope.clientWidth * 0.025);
+                        const safeLine = frontRect.top - bottomClearance;
+                        const overlap = Math.max(0, lastRect.bottom - safeLine);
+
+                        if (overlap > 1) {
+                            letter.style.setProperty(
+                                "padding-bottom",
+                                `${basePaddingBottom + overlap}px`,
+                                "important"
+                            );
+                        }
+                    }
 
                     window.requestAnimationFrame(() => {
-                        const cards = Array.from(
-                            letter.querySelectorAll(".journal-archive-card")
-                        );
-                        const lastCard = cards[cards.length - 1];
+                        const headingBottom = heading.getBoundingClientRect().bottom;
+                        const letterTop = letter.getBoundingClientRect().top;
+                        const topClearance = Math.max(22, envelope.clientWidth * 0.025);
+                        const overlap = Math.max(0, headingBottom + topClearance - letterTop);
 
-                        if (lastCard) {
-                            const frontRect = front.getBoundingClientRect();
-                            const lastRect = lastCard.getBoundingClientRect();
-
-                            // V字フラップは左右端が前面パーツの上端から始まるため、
-                            // 中央の先端ではなく、前面パーツ全体の上端より上で記事を終わらせます。
-                            // これにより、最終記事の左右の文字もフラップに隠れません。
-                            const bottomClearance = Math.max(20, envelope.clientWidth * 0.025);
-                            const frontSafeLine = frontRect.top - bottomClearance;
-                            const bottomOverlap = Math.max(
-                                0,
-                                lastRect.bottom - frontSafeLine
-                            );
-
-                            if (bottomOverlap > 1) {
-                                letter.style.setProperty(
-                                    "padding-bottom",
-                                    `${basePaddingBottom + bottomOverlap}px`,
-                                    "important"
-                                );
-                            }
+                        if (overlap > 1) {
+                            list.style.marginTop = `${baseMarginTop + overlap}px`;
                         }
-
-                        window.requestAnimationFrame(() => {
-                            // 便箋そのものがNEWS見出しの下に来るように余白を確保します。
-                            const headingBottom = heading.getBoundingClientRect().bottom;
-                            const letterTop = letter.getBoundingClientRect().top;
-                            const topClearance = Math.max(22, envelope.clientWidth * 0.025);
-                            const topOverlap = Math.max(
-                                0,
-                                headingBottom + topClearance - letterTop
-                            );
-
-                            if (topOverlap > 1) {
-                                list.style.marginTop = `${baseMarginTop + topOverlap}px`;
-                            }
-                        });
                     });
                 });
-            };
+            });
+        };
 
-            scheduleEnvelopeLayout();
-            window.addEventListener("resize", scheduleEnvelopeLayout);
-
-            // Webフォント適用後に文字の折り返しが変わった場合も再調整します。
-            if (document.fonts && document.fonts.ready) {
-                document.fonts.ready.then(scheduleEnvelopeLayout);
-            }
+        scheduleEnvelopeLayout();
+        window.addEventListener("resize", scheduleEnvelopeLayout);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(scheduleEnvelopeLayout);
         }
     }
 })();
