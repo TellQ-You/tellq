@@ -969,7 +969,7 @@ select {
     left: 10px;
     bottom: 8px;
     font-family: var(--sans);
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 0.12em;
     color: white;
     text-shadow: 0 1px 5px rgba(0,0,0,0.45);
@@ -1545,7 +1545,7 @@ select {
     }
 
     .product-thumb > span:not(.product-thumb-status) {
-        font-size: 6px;
+        font-size: 7px;
         left: 6px;
         bottom: 5px;
     }
@@ -2989,7 +2989,7 @@ select {
     }
 
     .product-thumb > span:not(.product-thumb-status) {
-        font-size: 5.5px;
+        font-size: 6px;
         left: 5px;
         bottom: 5px;
     }
@@ -10093,5 +10093,637 @@ select {
     .hero-japanese-mobile {
         font-size: 10px !important;
         letter-spacing: .005em !important;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v6.55 — Bodoni Moda Italic + mobile TOP headline sizing
+   ---------------------------------------------------------
+   - Use the loaded Bodoni Moda Italic webfont only for "made for your now.".
+   - Slightly enlarge the mobile first line.
+   - Make both mobile English headline lines the same size so the lower line fits.
+   - Keep all other layout, content, and interaction behavior from v6.54.
+========================================================= */
+.hero-heading-italic {
+    font-family: "Bodoni Moda", "GFS Didot", "Bodoni MT", serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    font-variation-settings: normal !important;
+    letter-spacing: -0.02em !important;
+    font-optical-sizing: auto;
+}
+
+@media (max-width: 700px) {
+    .hero-heading-roman,
+    .hero-heading-italic {
+        font-size: clamp(30px, 9vw, 44px) !important;
+        line-height: 1.12 !important;
+        white-space: nowrap !important;
+    }
+
+    .hero-heading-italic {
+        font-family: "Bodoni Moda", "GFS Didot", "Bodoni MT", serif !important;
+        font-style: italic !important;
+        font-weight: 500 !important;
+        letter-spacing: -0.02em !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-heading-roman,
+    .hero-heading-italic {
+        font-size: clamp(29px, 9vw, 34px) !important;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v6.71 — Keep the existing burgundy envelope artwork fixed
+   ---------------------------------------------------------
+   - The existing wine-red connector, rear triangle, front V flap and seal
+     keep the same visual proportions regardless of the number of articles.
+   - The letter remains in normal document flow and can continue below the envelope.
+   - Desktop: 2 articles on the letter; mobile: 1 article on the letter.
+   - Additional articles continue on the same paper style below the envelope.
+   - Only article spacing is tightened; existing colors, textures and shapes remain.
+========================================================= */
+
+/* The shell geometry is based on the v6.50 reference proportions at 860px:
+   rear triangle 33.72cqw, rear offset 6.74cqw, and front pocket 45.35cqw.
+   Their combined shell height is 72.33cqw, independent of article content. */
+.journal-envelope-back {
+    --journal-envelope-fixed-back-offset: 58px;
+    --journal-envelope-fixed-shell-height: 540px;
+    top: calc(0px - var(--journal-envelope-fixed-back-offset)) !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(var(--journal-envelope-fixed-shell-height) + var(--journal-envelope-fixed-back-offset)) !important;
+}
+
+.journal-envelope-connector {
+    top: calc(var(--journal-envelope-triangle-height) - 2px) !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    height: calc(
+        var(--journal-envelope-fixed-shell-height)
+        - var(--journal-envelope-triangle-height)
+        + var(--journal-envelope-fixed-back-offset)
+        + 2px
+    ) !important;
+    min-height: 0 !important;
+}
+
+.journal-letter {
+    min-height: var(--journal-envelope-fixed-shell-height, 540px) !important;
+}
+
+.journal-envelope-front {
+    --journal-envelope-fixed-front-height: 390px;
+    top: calc(var(--journal-envelope-fixed-shell-height, 540px) - var(--journal-envelope-fixed-front-height)) !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    height: var(--journal-envelope-fixed-front-height) !important;
+}
+
+.journal-envelope-seal {
+    --journal-envelope-fixed-seal-size: 82px;
+    --journal-envelope-fixed-seal-bottom: 62px;
+    top: calc(
+        var(--journal-envelope-fixed-shell-height, 540px)
+        - var(--journal-envelope-fixed-seal-bottom)
+        - var(--journal-envelope-fixed-seal-size)
+    ) !important;
+    bottom: auto !important;
+    width: var(--journal-envelope-fixed-seal-size) !important;
+}
+
+/* Continuation paper starts after the fixed envelope, so extra stories remain
+   readable without extending or shifting any burgundy/red envelope component. */
+.journal-article-continuation {
+    position: relative;
+    z-index: 6;
+    width: 82%;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 17px clamp(22px, 5.2vw, 58px) 19px;
+    border: 1px solid rgba(163, 139, 119, .32);
+    border-top: 0;
+    border-radius: 0 0 6px 6px;
+    background:
+        repeating-linear-gradient(0deg, rgba(139,117,98,.018) 0 1px, transparent 1px 4px),
+        radial-gradient(ellipse at 12% 8%, rgba(255,255,255,.96) 0%, rgba(255,255,255,0) 48%),
+        radial-gradient(ellipse at 88% 82%, rgba(174,137,103,.16) 0%, rgba(174,137,103,0) 54%),
+        radial-gradient(ellipse at 48% 46%, rgba(222,204,179,.13) 0%, rgba(222,204,179,0) 66%),
+        linear-gradient(135deg, #fffefa 0%, #f8f0e5 54%, #eee1d1 100%);
+    box-shadow: 0 8px 22px rgba(78,57,43,.10), inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+/* Compact article spacing while preserving all existing type, color and alignment. */
+.journal-envelope .journal-archive-card,
+.news-list .journal-archive-card {
+    padding-bottom: 12px !important;
+}
+
+.journal-envelope .journal-archive-card:not(:last-child),
+.journal-envelope .journal-archive-card:last-child,
+.news-list .journal-archive-card:not(:last-child),
+.news-list .journal-archive-card:last-child {
+    margin-bottom: 10px !important;
+    padding-bottom: 11px !important;
+}
+
+.journal-envelope .journal-archive-category,
+.news-list .journal-archive-category {
+    margin-bottom: 8px !important;
+}
+
+.journal-envelope .journal-archive-date,
+.news-list .journal-archive-date {
+    margin-bottom: 5px !important;
+}
+
+.journal-envelope .journal-archive-card h2,
+.news-list .journal-archive-card h2 {
+    margin-bottom: 5px !important;
+}
+
+.journal-envelope .journal-archive-card p,
+.news-list .journal-archive-card p {
+    margin-bottom: 7px !important;
+}
+
+.journal-envelope .journal-archive-card .news-read-more,
+.news-list .journal-archive-card .news-read-more {
+    margin-top: 0 !important;
+    padding-bottom: 3px !important;
+}
+
+/* MORE ITEMS: only the product label at the lower-left of each thumbnail. */
+.product-thumb > span:not(.product-thumb-status) {
+    font-size: 12px;
+}
+
+@media (max-width: 700px) {
+    .journal-envelope-back {
+        --journal-envelope-fixed-back-offset: 42px;
+        --journal-envelope-fixed-shell-height: 540px;
+        top: calc(0px - var(--journal-envelope-fixed-back-offset)) !important;
+        height: calc(var(--journal-envelope-fixed-shell-height) + var(--journal-envelope-fixed-back-offset)) !important;
+    }
+
+    .journal-envelope-front {
+        --journal-envelope-fixed-front-height: clamp(238px, 66vw, 276px);
+    }
+
+    .journal-envelope-seal {
+        --journal-envelope-fixed-seal-size: 64px;
+        --journal-envelope-fixed-seal-bottom: 59px;
+    }
+
+    .journal-letter {
+        min-height: var(--journal-envelope-fixed-shell-height, 540px) !important;
+    }
+
+    .journal-article-continuation {
+        width: 82%;
+        padding: 13px 6% 15px;
+    }
+
+    .journal-envelope .journal-archive-card,
+    .news-list .journal-archive-card {
+        padding-bottom: 9px !important;
+    }
+
+    .journal-envelope .journal-archive-card:not(:last-child),
+    .journal-envelope .journal-archive-card:last-child,
+    .news-list .journal-archive-card:not(:last-child),
+    .news-list .journal-archive-card:last-child {
+        margin-bottom: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .journal-envelope .journal-archive-category,
+    .news-list .journal-archive-category {
+        margin-bottom: 4px !important;
+    }
+
+    .journal-envelope .journal-archive-date,
+    .news-list .journal-archive-date {
+        margin-bottom: 4px !important;
+    }
+
+    .journal-envelope .journal-archive-card h2,
+    .news-list .journal-archive-card h2 {
+        margin-bottom: 4px !important;
+    }
+
+    .journal-envelope .journal-archive-card p,
+    .news-list .journal-archive-card p {
+        margin-bottom: 5px !important;
+    }
+
+    .product-thumb > span:not(.product-thumb-status) {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 380px) {
+    .journal-envelope-seal {
+        --journal-envelope-fixed-seal-size: 60px;
+        --journal-envelope-fixed-seal-bottom: 55px;
+    }
+
+    .product-thumb > span:not(.product-thumb-status) {
+        font-size: 6px;
+    }
+}
+
+/* Modern browsers: scale every envelope component from the envelope width.
+   The fixed shell remains the same proportion on phones and desktop screens. */
+@supports (width: 1cqw) {
+    .journal-envelope-back {
+        --journal-envelope-fixed-back-offset: 6.74cqw;
+        --journal-envelope-fixed-shell-height: calc(33.72cqw - 6.74cqw + 45.35cqw);
+        top: calc(0px - var(--journal-envelope-fixed-back-offset)) !important;
+        height: calc(var(--journal-envelope-fixed-shell-height) + var(--journal-envelope-fixed-back-offset)) !important;
+    }
+
+    .journal-envelope-connector {
+        height: calc(
+            var(--journal-envelope-fixed-shell-height)
+            - var(--journal-envelope-triangle-height)
+            + var(--journal-envelope-fixed-back-offset)
+            + 2px
+        ) !important;
+    }
+
+    .journal-letter {
+        min-height: calc(33.72cqw - 6.74cqw + 45.35cqw) !important;
+    }
+
+    .journal-envelope-front {
+        --journal-envelope-fixed-front-height: 45.35cqw;
+        top: calc((33.72cqw - 6.74cqw + 45.35cqw) - var(--journal-envelope-fixed-front-height)) !important;
+        height: var(--journal-envelope-fixed-front-height) !important;
+    }
+
+    .journal-envelope-seal {
+        --journal-envelope-fixed-seal-size: max(52px, 9.53cqw);
+        --journal-envelope-fixed-seal-bottom: max(22px, 7.21cqw);
+        top: calc(
+            33.72cqw - 6.74cqw + 45.35cqw
+            - var(--journal-envelope-fixed-seal-bottom)
+            - var(--journal-envelope-fixed-seal-size)
+        ) !important;
+        width: var(--journal-envelope-fixed-seal-size) !important;
+    }
+}
+
+
+/* v6.71 geometry calibration: retain the original desktop reference footprint
+   (860px envelope width: 290px rear triangle, 390px front flap, 622px shell). */
+.journal-envelope-back {
+    --journal-envelope-fixed-back-offset: 58px;
+    --journal-envelope-fixed-shell-height: 622px;
+}
+.journal-letter {
+    --journal-envelope-fixed-shell-height: 622px;
+    min-height: var(--journal-envelope-fixed-shell-height) !important;
+}
+.journal-envelope-front {
+    --journal-envelope-fixed-shell-height: 622px;
+    top: calc(var(--journal-envelope-fixed-shell-height) - var(--journal-envelope-fixed-front-height)) !important;
+}
+.journal-envelope-seal {
+    --journal-envelope-fixed-shell-height: 622px;
+    top: calc(
+        var(--journal-envelope-fixed-shell-height)
+        - var(--journal-envelope-fixed-seal-bottom)
+        - var(--journal-envelope-fixed-seal-size)
+    ) !important;
+}
+
+@media (max-width: 700px) {
+    .journal-envelope-back {
+        --journal-envelope-fixed-shell-height: calc(
+            clamp(182px, 49vw, 214px) - 42px + clamp(238px, 66vw, 276px)
+        );
+    }
+    .journal-letter {
+        --journal-envelope-fixed-shell-height: calc(
+            clamp(182px, 49vw, 214px) - 42px + clamp(238px, 66vw, 276px)
+        );
+        min-height: var(--journal-envelope-fixed-shell-height) !important;
+    }
+    .journal-envelope-front {
+        --journal-envelope-fixed-shell-height: calc(
+            clamp(182px, 49vw, 214px) - 42px + clamp(238px, 66vw, 276px)
+        );
+        top: calc(var(--journal-envelope-fixed-shell-height) - var(--journal-envelope-fixed-front-height)) !important;
+    }
+    .journal-envelope-seal {
+        --journal-envelope-fixed-shell-height: calc(
+            clamp(182px, 49vw, 214px) - 42px + clamp(238px, 66vw, 276px)
+        );
+        top: calc(
+            var(--journal-envelope-fixed-shell-height)
+            - var(--journal-envelope-fixed-seal-bottom)
+            - var(--journal-envelope-fixed-seal-size)
+        ) !important;
+    }
+}
+
+@supports (width: 1cqw) {
+    .journal-envelope-back {
+        --journal-envelope-fixed-shell-height: calc(33.72cqw - 6.74cqw + 45.35cqw);
+    }
+    .journal-letter {
+        --journal-envelope-fixed-shell-height: calc(33.72cqw - 6.74cqw + 45.35cqw);
+        min-height: var(--journal-envelope-fixed-shell-height) !important;
+    }
+    .journal-envelope-front {
+        --journal-envelope-fixed-shell-height: calc(33.72cqw - 6.74cqw + 45.35cqw);
+        top: calc(var(--journal-envelope-fixed-shell-height) - var(--journal-envelope-fixed-front-height)) !important;
+    }
+    .journal-envelope-seal {
+        --journal-envelope-fixed-shell-height: calc(33.72cqw - 6.74cqw + 45.35cqw);
+        top: calc(
+            var(--journal-envelope-fixed-shell-height)
+            - var(--journal-envelope-fixed-seal-bottom)
+            - var(--journal-envelope-fixed-seal-size)
+        ) !important;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v6.73 — TOP NEWS: let the letter grow upward, not below the envelope
+   ---------------------------------------------------------
+   The burgundy envelope artwork retains its existing geometry and colors.
+   The outer envelope reserves only its fixed shell footprint in page flow.
+   The ivory letter is bottom-anchored; additional article cards extend its
+   upper edge upward, remaining on the same sheet above the red front flap.
+   These rules are scoped to the TOP page and do not alter the journal archive.
+========================================================= */
+
+.news-list > .journal-envelope {
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 860 / 622 !important;
+}
+
+.news-list > .journal-envelope > .journal-letter {
+    position: absolute !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: 0 !important;
+    left: 9% !important;
+    height: max-content !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    overflow: visible !important;
+}
+
+
+/* =========================================================
+   TELLQ v6.76 — Fixed VIEW ALL link inside the envelope
+   ---------------------------------------------------------
+   The link is a separate envelope child, not part of the article stack.
+   Its position is measured from the envelope width and therefore does not
+   move when the number or length of article cards changes.
+   The existing envelope artwork and article layout are untouched.
+========================================================= */
+.journal-envelope > .news-view-all-envelope {
+    position: absolute !important;
+    z-index: 3 !important;
+    top: 38.2cqw !important;
+    left: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: max-content !important;
+    max-width: 88% !important;
+    margin: 0 !important;
+    padding: 8px 0 7px !important;
+    transform: translate(-50%, -50%) !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+}
+
+@media (max-width: 700px) {
+    .journal-envelope > .news-view-all-envelope {
+        top: 38.2cqw !important;
+        max-width: 90% !important;
+        font-size: 8px !important;
+        letter-spacing: .12em !important;
+        gap: 9px !important;
+    }
+}
+
+/* Fallback for browsers without container query units. */
+@supports not (width: 1cqw) {
+    .journal-envelope > .news-view-all-envelope {
+        top: 329px !important;
+    }
+
+    @media (max-width: 700px) {
+        .journal-envelope > .news-view-all-envelope {
+            top: 125px !important;
+        }
+    }
+}
+
+
+/* =========================================================
+   TELLQ v6.77 — ALL NEWS page: article list only
+   ---------------------------------------------------------
+   These rules apply only to journal.html via .journal-page.
+   The TOP page's envelope design and all its styles remain unchanged.
+========================================================= */
+
+.journal-page #journalArchiveList {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    width: min(100%, 940px) !important;
+    max-width: 940px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    isolation: auto !important;
+}
+
+.journal-page #journalArchiveList::before,
+.journal-page #journalArchiveList::after,
+.journal-page #journalArchiveList > .journal-archive-card::before,
+.journal-page #journalArchiveList > .journal-archive-card::after {
+    content: none !important;
+    display: none !important;
+}
+
+.journal-page #journalArchiveList > .journal-archive-card {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: minmax(112px, 18%) minmax(0, 1fr) !important;
+    grid-template-areas:
+        "category title"
+        "date summary"
+        ". readmore";
+    align-items: start !important;
+    column-gap: clamp(20px, 3vw, 38px) !important;
+    row-gap: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 30px 12px 32px !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(88, 69, 56, .24) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    text-align: left !important;
+    transition: none !important;
+}
+
+.journal-page #journalArchiveList > .journal-archive-card:first-child {
+    border-top: 1px solid rgba(88, 69, 56, .24) !important;
+}
+
+.journal-page #journalArchiveList > .journal-archive-card > * {
+    position: relative !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    transform: none !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-category {
+    grid-area: category;
+    justify-self: start;
+    display: inline-flex !important;
+    width: fit-content !important;
+    margin: 0 0 10px !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-date {
+    grid-area: date;
+    display: block !important;
+    margin: 0 !important;
+    padding: 3px 0 0 !important;
+    font-size: clamp(14px, 1.35vw, 17px) !important;
+    line-height: 1.5 !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-date small {
+    display: block !important;
+    margin: 7px 0 0 !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-card h2 {
+    grid-area: title;
+    width: 100% !important;
+    margin: 0 0 8px !important;
+    font-size: clamp(21px, 2.25vw, 29px) !important;
+    line-height: 1.42 !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-card p {
+    grid-area: summary;
+    width: 100% !important;
+    max-width: 760px !important;
+    margin: 0 0 12px !important;
+    font-size: 12px !important;
+    line-height: 1.9 !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-card .news-read-more {
+    grid-area: readmore;
+    justify-self: start;
+    width: fit-content !important;
+    margin: 0 !important;
+    padding: 0 0 4px !important;
+    font-size: 8px !important;
+    line-height: 1.6 !important;
+}
+
+.journal-page #journalArchiveList .journal-archive-card:hover {
+    transform: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+@media (max-width: 700px) {
+    .journal-page #journalArchiveList {
+        width: 100% !important;
+    }
+
+    .journal-page #journalArchiveList > .journal-archive-card {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-areas:
+            "category"
+            "date"
+            "title"
+            "summary"
+            "readmore";
+        column-gap: 0 !important;
+        padding: 23px 5px 25px !important;
+    }
+
+    .journal-page #journalArchiveList .journal-archive-category {
+        margin-bottom: 8px !important;
+    }
+
+    .journal-page #journalArchiveList .journal-archive-date {
+        padding: 0 !important;
+        margin-bottom: 8px !important;
+        font-size: 14px !important;
+    }
+
+    .journal-page #journalArchiveList .journal-archive-card h2 {
+        margin-bottom: 7px !important;
+        font-size: clamp(20px, 5.3vw, 25px) !important;
+    }
+
+    .journal-page #journalArchiveList .journal-archive-card p {
+        margin-bottom: 9px !important;
+        font-size: 11px !important;
+        line-height: 1.85 !important;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v6.78 — SECRET PAGE TITLE: keep the heading to two lines
+   ---------------------------------------------------------
+   Line 1: WELCOME TO
+   Line 2: THE SECRET PAGE.
+   The second line stays together and scales down on narrow screens.
+   No other secret-page content or site behavior is changed.
+========================================================= */
+
+.secret-page-inner h2 em {
+    display: block;
+    white-space: nowrap;
+    font-size: 0.9em;
+}
+
+@media (max-width: 900px) {
+    .secret-page-inner h2 em {
+        font-size: 0.75em;
+        letter-spacing: -0.045em;
     }
 }

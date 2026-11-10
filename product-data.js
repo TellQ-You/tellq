@@ -87,7 +87,7 @@ const PRODUCT_DATA = [
         imagePrefix: "test-A-M-",
         imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
         photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "TellQ-03",
+        number: "パッチワークマフラー3種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "upcoming",
         // 商品詳細欄に表示する販売予定の説明文。
@@ -122,7 +122,7 @@ const PRODUCT_DATA = [
         imagePrefix: "test-D-M-",
         imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
         photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "TellQ-04",
+        number: "アクセサリー1種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "upcoming",
         // 商品詳細欄に表示する販売予定の説明文。

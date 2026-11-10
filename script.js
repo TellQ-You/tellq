@@ -1381,9 +1381,9 @@ applyLoraToNumbers();
 
 
 /* =========================================================
-   JOURNAL & NEWS: データからトップページの記事を生成
-   アーカイブページと共通のカードデザインで表示します。
-   記事データ・リンク先・表示件数など既存の仕様は維持します。
+   JOURNAL & NEWS: TOPページの記事生成
+   v6.76: VIEW ALL JOURNAL & NEWSリンクを封筒内の固定位置に配置します。
+   封筒の下側へ別の紙を続ける構造は使用しません。
 ========================================================= */
 (function initTellQJournalHome() {
     const list = document.getElementById("homeJournalList");
@@ -1400,7 +1400,7 @@ applyLoraToNumbers();
         .filter(item => item.status === "published")
         .slice()
         .sort((a, b) => String(b.date).localeCompare(String(a.date)))
-        .slice(0, 6);
+        .slice(0, 3);
 
     const escapeJournalText = value => String(value ?? "").replace(/[&<>\"']/g, char => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&#39;"
@@ -1421,13 +1421,108 @@ applyLoraToNumbers();
             <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
         </article>`).join("");
 
-    list.innerHTML = published.length ? `
+    list.innerHTML = `
         <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
             <div class="journal-envelope-back" aria-hidden="true"><span class="journal-envelope-connector" aria-hidden="true"></span></div>
-            <div class="journal-letter">${articleSheets}</div>
+            <div class="journal-letter">${published.length ? articleSheets : '<p class="news-empty">新しいお知らせを準備しています。</p>'}</div>
+            <a class="news-view-all news-view-all-envelope" href="journal.html">VIEW ALL JOURNAL &amp; NEWS <span aria-hidden="true">↗</span></a>
             <div class="journal-envelope-front" aria-hidden="true"></div>
             <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
-        </div>` : '<p class="news-empty">新しいお知らせを準備しています。</p>';
+        </div>`;
+
+    /*
+       記事の高さが変わっても、便箋がNEWS見出しに重ならず、
+       最後の記事が赤い前面フラップに隠れないように位置を自動調整します。
+       封筒・三角形・V字フラップ・シール自体の寸法や色は変更しません。
+    */
+    if (published.length) {
+        const envelope = list.querySelector(".journal-envelope");
+        const letter = list.querySelector(".journal-letter");
+        const front = list.querySelector(".journal-envelope-front");
+        const heading = list.parentElement
+            ? list.parentElement.querySelector(".section-title")
+            : null;
+
+        if (envelope && letter && front && heading) {
+            let fitFrame = null;
+
+            const scheduleEnvelopeLayout = () => {
+                if (fitFrame !== null && window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame(fitFrame);
+                }
+
+                fitFrame = window.requestAnimationFrame(() => {
+                    fitFrame = null;
+
+                    // 画面幅が変わった場合も、その幅でのCSS基準値から計算し直します。
+                    list.style.removeProperty("margin-top");
+                    letter.style.removeProperty("padding-bottom");
+
+                    const baseMarginTop = parseFloat(
+                        window.getComputedStyle(list).marginTop
+                    ) || 0;
+                    const basePaddingBottom = parseFloat(
+                        window.getComputedStyle(letter).paddingBottom
+                    ) || 0;
+
+                    list.style.marginTop = `${baseMarginTop}px`;
+
+                    window.requestAnimationFrame(() => {
+                        const cards = Array.from(
+                            letter.querySelectorAll(".journal-archive-card")
+                        );
+                        const lastCard = cards[cards.length - 1];
+
+                        if (lastCard) {
+                            const frontRect = front.getBoundingClientRect();
+                            const lastRect = lastCard.getBoundingClientRect();
+
+                            // V字フラップは左右端が前面パーツの上端から始まるため、
+                            // 中央の先端ではなく、前面パーツ全体の上端より上で記事を終わらせます。
+                            // これにより、最終記事の左右の文字もフラップに隠れません。
+                            const bottomClearance = Math.max(20, envelope.clientWidth * 0.025);
+                            const frontSafeLine = frontRect.top - bottomClearance;
+                            const bottomOverlap = Math.max(
+                                0,
+                                lastRect.bottom - frontSafeLine
+                            );
+
+                            if (bottomOverlap > 1) {
+                                letter.style.setProperty(
+                                    "padding-bottom",
+                                    `${basePaddingBottom + bottomOverlap}px`,
+                                    "important"
+                                );
+                            }
+                        }
+
+                        window.requestAnimationFrame(() => {
+                            // 便箋そのものがNEWS見出しの下に来るように余白を確保します。
+                            const headingBottom = heading.getBoundingClientRect().bottom;
+                            const letterTop = letter.getBoundingClientRect().top;
+                            const topClearance = Math.max(22, envelope.clientWidth * 0.025);
+                            const topOverlap = Math.max(
+                                0,
+                                headingBottom + topClearance - letterTop
+                            );
+
+                            if (topOverlap > 1) {
+                                list.style.marginTop = `${baseMarginTop + topOverlap}px`;
+                            }
+                        });
+                    });
+                });
+            };
+
+            scheduleEnvelopeLayout();
+            window.addEventListener("resize", scheduleEnvelopeLayout);
+
+            // Webフォント適用後に文字の折り返しが変わった場合も再調整します。
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(scheduleEnvelopeLayout);
+            }
+        }
+    }
 })();
 
 // ========================================
