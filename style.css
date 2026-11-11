@@ -4351,16 +4351,8 @@ select {
 }
 
 .contact-instagram-note {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    display: block;
     margin: 32px 0 20px;
-}
-
-.contact-instagram-note .instagram-icon {
-    width: 25px;
-    height: 25px;
-    flex-basis: 25px;
 }
 
 .contact-instagram-note p {
@@ -15992,5 +15984,19 @@ select {
     .footer-social-guide {
         font-size: clamp(6.4px, 2.15vw, 8px);
         letter-spacing: 0;
+    }
+}
+
+/* =========================================================
+   TELLQ v7.12 — Mobile Contact / footer social arrangement
+   ---------------------------------------------------------
+   - Remove the Instagram mark above the Contact DM link.
+   - On smartphone widths, place OFFICIAL CHANNEL directly below
+     Contact and immediately before the large TellQ footer brand.
+   - Desktop and tablet footer order remains unchanged.
+========================================================= */
+@media (max-width: 600px) {
+    .footer-social {
+        order: -1;
     }
 }
