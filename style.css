@@ -1445,7 +1445,7 @@ select {
 
 .footer-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 50px;
     align-items: start;
 }
@@ -1465,13 +1465,6 @@ select {
     color: #d2c4b7;
 }
 
-.footer-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.footer-nav a,
 .footer-social a {
     font-family: var(--sans);
     font-size: 8px;
@@ -1482,7 +1475,6 @@ select {
     transition: color 0.3s ease;
 }
 
-.footer-nav a:hover,
 .footer-social a:hover {
     color: white;
 }
@@ -5206,25 +5198,16 @@ select {
     font-size: 8px;
     letter-spacing: .16em;
 }
+/* NEWS記事詳細タイトル：文字サイズはこの font-size を変更すると調整できます。 */
 .journal-detail h1 {
-    position: relative;
     max-width: 760px;
     margin: 0 0 30px;
     padding-bottom: 27px;
     color: #40372f;
-    font-size: clamp(32px, 5.2vw, 58px);
+    font-size: clamp(30px, 4.8vw, 52px);
     line-height: 1.34;
     letter-spacing: .015em;
     overflow-wrap: anywhere;
-}
-.journal-detail h1::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 74px;
-    height: 1px;
-    background: var(--detail-accent);
 }
 .journal-detail-image {
     width: 100%;
@@ -5349,7 +5332,8 @@ select {
     .journal-detail-kicker { gap: 9px; margin-bottom: 25px; font-size: 8px; }
     .journal-detail-kicker i { width: 23px; }
     .journal-detail-meta { margin-bottom: 18px; }
-    .journal-detail h1 { margin-bottom: 24px; padding-bottom: 21px; font-size: clamp(29px, 8vw, 38px); }
+    /* スマホ表示のタイトルサイズもここで調整できます。 */
+    .journal-detail h1 { margin-bottom: 24px; padding-bottom: 21px; font-size: clamp(27px, 7.5vw, 34px); }
     .journal-detail-image { max-height: 390px; margin-bottom: 25px; padding: 6px; }
     .journal-detail-content { padding-top: 25px; }
     .journal-detail-content p { font-size: 12px; line-height: 2.35; text-align: left; }

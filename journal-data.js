@@ -5,6 +5,7 @@
    status: published / draft
    pinned: true にするとトップページで優先表示します（重要記事向け）
    relatedLinks: 記事詳細に表示する関連リンク（不要なら []）
+   detailTitle: 任意。記事詳細だけ改行する場合は文字列内に \n を入れます（記事一覧のタイトルには反映されません）。
 ========================================================= */
 window.TELLQ_JOURNAL_DATA = [
     {
@@ -49,7 +50,7 @@ window.TELLQ_JOURNAL_DATA = [
         category: "journal",
         status: "published",
         pinned: false,
-        title: "初めての販売を終えて。心からの感謝を込めて。",
+        title: "初販売を終えて。心から感謝。",
         summary: "初めての販売は、開始からわずか1時間で4種類すべてが完売。応援してくださった皆さまへ、心からの感謝をお伝えします。",
         image: "",
         content: [

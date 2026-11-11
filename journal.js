@@ -15,6 +15,12 @@
     const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[char]));
+    // 詳細ページ専用タイトル。detailTitle 内の改行（\n）だけを <br> に変換します。
+    // 一覧ページは従来どおり title を使用するため、カード表示には影響しません。
+    const formatDetailTitle = value => String(value ?? "")
+        .split(/\r?\n/)
+        .map(escapeHTML)
+        .join("<br>");
     const formatDate = value => {
         const date = new Date(`${value}T00:00:00`);
         if (Number.isNaN(date.getTime())) return escapeHTML(value || "");
@@ -40,7 +46,7 @@
                 <span class="journal-detail-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
                 ${item.pinned ? '<span class="journal-detail-category">IMPORTANT NOTICE</span>' : ""}
             </div>
-            <h1>${escapeHTML(item.title)}</h1>
+            <h1>${formatDetailTitle(item.detailTitle || item.title)}</h1>
             <div class="journal-detail-content">${paragraphs.map(p => `<p>${escapeHTML(p)}</p>`).join("")}</div>
             ${item.image ? `<img class="journal-detail-image" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)}" loading="lazy">` : ""}
             ${links.length ? `<section class="journal-detail-links"><h2>RELATED LINKS</h2>${links.map(link => `<a href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(link.label)} ↗</a>`).join("")}</section>` : ""}
