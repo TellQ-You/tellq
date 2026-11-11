@@ -15668,3 +15668,329 @@ select {
         padding-right: 8px !important;
     }
 }
+
+
+/* =========================================================
+   TELLQ v7.08 — Hand-coloured social icons in the footer
+   ---------------------------------------------------------
+   - Place Instagram / YouTube / TikTok after the Contact section.
+   - Reuse the existing hand-coloured Instagram icon component.
+   - Give YouTube and TikTok soft colour bleed and slightly organic contours.
+   - Keep the layout open and spacious without boxed button backgrounds.
+   - All three links temporarily point to https://www.test.333.
+========================================================= */
+
+.footer-social {
+    text-align: right;
+}
+
+.footer-social-links {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: clamp(22px, 2.8vw, 38px);
+    width: 100%;
+    padding: 2px 0 5px;
+}
+
+.footer-social-link {
+    position: relative;
+    display: flex !important;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 13px;
+    min-width: 58px;
+    padding: 4px 3px 8px;
+    color: #d9cbb9 !important;
+    text-decoration: none;
+    letter-spacing: normal !important;
+    transition: color .28s ease, transform .32s cubic-bezier(.2, .7, .25, 1);
+}
+
+.footer-social-link:hover {
+    color: #f4e6d2 !important;
+    transform: translateY(-3px);
+}
+
+.footer-social-link:focus-visible {
+    outline: 1px solid rgba(226, 204, 174, .72);
+    outline-offset: 6px;
+    border-radius: 3px;
+}
+
+.footer-social-label {
+    display: block;
+    color: currentColor;
+    font-family: var(--sans);
+    font-size: 7px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: .20em;
+    white-space: nowrap;
+    opacity: .88;
+}
+
+/* Reuse the existing Instagram hand-painted icon and warm its outline for
+   the dark footer surface. Its familiar coloured blur remains unchanged. */
+.footer-social-link .footer-instagram-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border-color: rgba(226, 212, 193, .82);
+    transform: rotate(-1.5deg);
+}
+
+.footer-social-link .footer-instagram-icon::after {
+    border-color: rgba(213, 166, 169, .32);
+}
+
+.footer-social-link .footer-instagram-icon .instagram-icon-dot {
+    border-color: rgba(226, 212, 193, .78);
+}
+
+/* YouTube: warm brushed red pigment behind a slightly irregular outline. */
+.footer-youtube-icon,
+.footer-tiktok-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 32px;
+    flex: 0 0 34px;
+    color: #e4d4c0;
+    overflow: visible;
+    isolation: isolate;
+}
+
+.footer-youtube-icon::before {
+    content: "";
+    position: absolute;
+    inset: 1px -3px -2px -3px;
+    z-index: -1;
+    border-radius: 12px 9px 11px 8px;
+    background:
+        radial-gradient(ellipse at 24% 34%, rgba(235, 88, 77, .45) 0 22%, transparent 54%),
+        radial-gradient(ellipse at 73% 68%, rgba(173, 71, 76, .34) 0 25%, transparent 57%),
+        radial-gradient(ellipse at 48% 20%, rgba(232, 153, 126, .23) 0 24%, transparent 58%);
+    filter: blur(2px);
+    opacity: .92;
+    transform: rotate(-3deg);
+}
+
+.footer-youtube-icon::after {
+    content: "";
+    position: absolute;
+    inset: 2px -1px 0 1px;
+    z-index: -1;
+    border: 1px solid rgba(229, 155, 139, .30);
+    border-radius: 8px 11px 9px 10px;
+    filter: blur(.45px);
+    transform: rotate(2.2deg);
+}
+
+.footer-youtube-icon svg {
+    display: block;
+    width: 34px;
+    height: 30px;
+    overflow: visible;
+    filter:
+        drop-shadow(.7px .6px 0 rgba(231, 111, 94, .25))
+        drop-shadow(-.5px -.4px 0 rgba(232, 205, 180, .12));
+}
+
+/* TikTok: restrained rose and pale-teal colour bleed, like offset hand printing. */
+.footer-tiktok-icon::before {
+    content: "";
+    position: absolute;
+    inset: -3px -3px -2px -2px;
+    z-index: -1;
+    border-radius: 10px 13px 9px 12px;
+    background:
+        radial-gradient(ellipse at 28% 30%, rgba(102, 174, 165, .36) 0 21%, transparent 53%),
+        radial-gradient(ellipse at 72% 68%, rgba(195, 82, 111, .39) 0 24%, transparent 56%),
+        radial-gradient(ellipse at 48% 18%, rgba(231, 183, 145, .20) 0 21%, transparent 50%);
+    filter: blur(1.8px);
+    opacity: .92;
+    transform: rotate(3deg) skewX(-2deg);
+}
+
+.footer-tiktok-icon::after {
+    content: "";
+    position: absolute;
+    inset: -1px 1px 1px -1px;
+    z-index: -1;
+    border: 1px solid rgba(210, 174, 163, .28);
+    border-radius: 10px 8px 11px 9px;
+    filter: blur(.4px);
+    transform: rotate(-2.5deg);
+}
+
+.footer-tiktok-icon svg {
+    display: block;
+    width: 31px;
+    height: 31px;
+    overflow: visible;
+    filter:
+        drop-shadow(1px 0 0 rgba(106, 179, 169, .32))
+        drop-shadow(-1px .5px 0 rgba(204, 104, 125, .28));
+}
+
+/* Maintain a comfortable row while the footer columns stack on smaller screens. */
+@media (max-width: 900px) {
+    .footer-social {
+        text-align: left;
+    }
+
+    .footer-social-links {
+        justify-content: flex-start;
+        gap: clamp(24px, 6vw, 42px);
+        padding-top: 4px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-social-links {
+        gap: clamp(28px, 8vw, 40px);
+        padding: 5px 0 8px;
+    }
+
+    .footer-social-link {
+        min-width: 56px;
+        gap: 11px;
+        padding: 4px 2px 7px;
+    }
+
+    .footer-social-label {
+        font-size: 7px;
+        letter-spacing: .17em;
+    }
+
+    .footer-youtube-icon,
+    .footer-tiktok-icon {
+        transform: scale(1.02);
+    }
+}
+
+
+/* =========================================================
+   TELLQ v7.09 — Official channel guidance above footer SNS icons
+   ---------------------------------------------------------
+   - Add a refined heading and a clear tap/click instruction above the icons.
+   - Keep the existing hand-coloured icon artwork, links and spacing style.
+   - Align with the social column on desktop and the stacked footer on mobile.
+========================================================= */
+
+.footer-social-intro {
+    margin: 0 0 19px;
+    text-align: right;
+}
+
+.footer-social-heading {
+    margin: 0 0 7px;
+    color: rgba(232, 216, 194, .94);
+    font-family: var(--english);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: .24em;
+}
+
+.footer-social-guide {
+    margin: 0;
+    color: rgba(218, 205, 187, .78);
+    font-family: var(--jp);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.85;
+    letter-spacing: .035em;
+}
+
+.footer-social-links {
+    padding-top: 1px;
+}
+
+@media (max-width: 900px) {
+    .footer-social-intro {
+        text-align: left;
+        margin-bottom: 16px;
+    }
+
+    .footer-social-heading {
+        font-size: 9px;
+        letter-spacing: .22em;
+    }
+
+    .footer-social-guide {
+        max-width: 34em;
+        font-size: 10px;
+        line-height: 1.8;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-social-intro {
+        margin-bottom: 14px;
+    }
+
+    .footer-social-heading {
+        margin-bottom: 5px;
+        font-size: 8px;
+        letter-spacing: .20em;
+    }
+
+    .footer-social-guide {
+        font-size: 9px;
+        line-height: 1.75;
+        letter-spacing: .015em;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v7.10 — Keep the footer social guide on one line
+   ---------------------------------------------------------
+   - The official-channel instruction remains a single line on desktop
+     and mobile, including narrow phone widths.
+   - Mobile font size scales with viewport width to prevent wrapping.
+   - Wording, icon design, icon spacing, link destinations and footer
+     layout remain unchanged.
+========================================================= */
+
+.footer-social-intro {
+    width: 100%;
+    min-width: 0;
+}
+
+.footer-social-guide {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    line-break: strict;
+    font-size: 10px;
+    letter-spacing: .015em;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .footer-social-guide {
+        width: max-content;
+        max-width: 100%;
+        white-space: nowrap !important;
+        font-size: clamp(7px, 2.45vw, 9px);
+        letter-spacing: 0;
+        line-height: 1.45;
+    }
+}
+
+@media (max-width: 380px) {
+    .footer-social-guide {
+        font-size: clamp(6.4px, 2.15vw, 8px);
+        letter-spacing: 0;
+    }
+}
