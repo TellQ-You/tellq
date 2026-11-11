@@ -45,12 +45,12 @@ window.TELLQ_JOURNAL_DATA = [
         relatedLinks: []
     },
     {
-        id: "product-launch-thank-you-2026-11-01",
-        date: "2026-11-01",
+        id: "product-launch-thank-you-2026-11-09",
+        date: "2026-11-09",
         category: "journal",
         status: "published",
         pinned: false,
-        title: "初販売を終えて。\n心からの感謝を込めて。",
+        title: "初販売を終えて。\n心からの感謝。",
         summary: "初めての販売は、開始からわずか1時間で4種類すべてが完売。応援してくださった皆さまへ、心からの感謝をお伝えします。",
         image: "",
         content: [
