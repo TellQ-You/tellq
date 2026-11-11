@@ -15473,3 +15473,198 @@ select {
         padding-right: 9px !important;
     }
 }
+
+
+/* =========================================================
+   TELLQ v7.07 — Tighter mobile NEWS stack / one-line titles / no plus icon
+   ---------------------------------------------------------
+   - Remove the plus glyph beside 「記事を見る」.
+   - Keep every title on one centred line; truncate overflow with an ellipsis.
+   - Reduce card height and all gaps; cards sit almost edge-to-edge with
+     a very slight paper-on-paper overlap.
+   - Keep the open-state title on one line too.
+   - Preserve article data, summary, links, toggle behavior, paper palette,
+     envelope and wax seal. Desktop presentation is untouched.
+========================================================= */
+
+@media (max-width: 700px) {
+    /* Bring all three letter cards close together. */
+    #news .news-list > .journal-envelope > .journal-letter {
+        gap: 0 !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1),
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2),
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3) {
+        flex: 0 0 70px !important;
+        min-height: 70px !important;
+        height: 70px !important;
+        max-height: 70px !important;
+        margin: 0 0 -3px 0 !important;
+        padding: 4px 10px 3px !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+    }
+
+    /* Slightly overlap only the paper edges, not the text area. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1) {
+        z-index: 3 !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2) {
+        z-index: 2 !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3) {
+        z-index: 1 !important;
+        margin-bottom: 0 !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card .mobile-news-meta {
+        gap: 6px !important;
+        margin: 0 0 2px !important;
+        line-height: 1 !important;
+    }
+
+    /* Titles must remain a single line in both closed and open states. */
+    #news .news-list > .journal-envelope .journal-archive-card h2,
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded h2 {
+        display: block !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 1.3em !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        font-size: clamp(12px, 3.4vw, 14px) !important;
+        line-height: 1.25 !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card h2 a {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        text-align: center !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-title,
+    #news .news-list > .journal-envelope .journal-archive-card.is-expanded .mobile-news-title {
+        display: block !important;
+        flex: 0 1 auto !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        max-height: 1.3em !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        text-align: center !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+    }
+
+    /* Keep the text instruction visible before tapping, remove only the plus. */
+    #news .news-list > .journal-envelope .mobile-news-open-label {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 6.8px !important;
+        line-height: 1 !important;
+        letter-spacing: .04em !important;
+        white-space: nowrap !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-open-label::after,
+    #news .news-list > .journal-envelope .mobile-news-open-label::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    /* Open cards retain the same compact title and use only the space needed
+       for the two-line summary and READ STORY link. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1).is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2).is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3).is-expanded {
+        flex: 0 0 auto !important;
+        min-height: 112px !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 2px 0 -1px !important;
+        padding: 8px 11px 7px !important;
+        overflow: hidden !important;
+        z-index: 10 !important;
+        transform: translateY(-2px) !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded h2 {
+        flex: 0 0 auto !important;
+        max-height: 1.3em !important;
+        margin: 0 0 3px !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded .mobile-news-title {
+        display: block !important;
+        max-height: 1.3em !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+    }
+
+    /* 「記事を見る」は閉じた状態だけに表示。開いた後は要約を優先。 */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded .mobile-news-open-label {
+        display: none !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded p {
+        display: block !important;
+        width: 100% !important;
+        max-height: 3.1em !important;
+        margin: 3px 0 5px !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        font-size: 9px !important;
+        line-height: 1.45 !important;
+        text-align: center !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded .news-read-more {
+        display: inline-flex !important;
+        max-height: 18px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+}
+
+@media (max-width: 380px) {
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
