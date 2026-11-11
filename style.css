@@ -14433,3 +14433,426 @@ select {
         transform: none !important;
     }
 }
+
+
+/* =========================================================
+   TELLQ v7.03 — Stacked correspondence letters / fixed lace / tactile finish
+   ---------------------------------------------------------
+   Goals:
+   - Keep one continuous lace frame attached to the background parchment.
+   - Keep that lace above the article stack so it remains visible when a card lifts.
+   - Tint the lace into the parchment palette (no cold/bright white thread).
+   - Make the three articles feel like separate letters stacked on one another.
+   - Keep the selected letter visually consistent with its closed state while lifting.
+   - Preserve the existing mobile article toggle, text, links and data.
+========================================================= */
+
+/* The paper itself owns the lace. Its z-order is a stable layer, not tied
+   to the expanded state of any individual article. */
+#news .news-list > .journal-envelope > .journal-letter {
+    isolation: isolate !important;
+    overflow: visible !important;
+}
+
+/* Draw the lace as a fixed transparent overlay instead of border-image.
+   This avoids the lace being repainted/clipped when a child article expands. */
+#news .news-list > .journal-envelope > .journal-letter::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    z-index: 60 !important;
+    inset: 0 !important;
+    box-sizing: border-box !important;
+    border: 0 !important;
+    border-image: none !important;
+    background-image: var(--tellq-news-lace-frame-v700) !important;
+    background-size: 100% 100% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    opacity: .91 !important;
+    filter:
+        sepia(.25)
+        saturate(.72)
+        brightness(.91)
+        contrast(.91)
+        drop-shadow(0 1px 1px rgba(102, 74, 45, .22))
+        drop-shadow(0 2px 2px rgba(116, 87, 56, .10)) !important;
+    pointer-events: none !important;
+}
+
+/* Warm the inner pressed rule: it should sit inside the parchment, not shine white. */
+#news .news-list > .journal-envelope > .journal-letter::before {
+    border-color: rgba(128, 94, 58, .25) !important;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 244, 221, .30),
+        0 1px 0 rgba(103, 73, 45, .08) !important;
+}
+
+/* The cards are individual pieces of warm stationery.
+   Closed and opened faces use the same paper palette so the surface does not
+   suddenly switch from transparent to a different white card when selected. */
+@media (max-width: 700px) {
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1),
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2),
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3) {
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: stretch !important;
+        box-sizing: border-box !important;
+        flex: 0 0 58px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 58px !important;
+        height: 58px !important;
+        max-height: 58px !important;
+        margin: 0 0 -9px 0 !important;
+        padding: 6px 12px 5px !important;
+        overflow: visible !important;
+        border: 1px solid rgba(132, 100, 66, .34) !important;
+        border-radius: 3px 4px 2px 3px !important;
+        background-color: #ead9ba !important;
+        background-image:
+            radial-gradient(ellipse 76% 64% at 18% 8%,
+                rgba(255, 249, 230, .73) 0%,
+                rgba(255, 249, 230, .22) 48%,
+                transparent 100%),
+            radial-gradient(ellipse 92% 86% at 92% 100%,
+                rgba(142, 104, 65, .13) 0%,
+                transparent 100%),
+            linear-gradient(112deg,
+                rgba(255, 248, 228, .30) 0%,
+                rgba(237, 219, 188, .12) 48%,
+                rgba(151, 111, 70, .10) 100%),
+            var(--tellq-news-parchment-grain-v700) !important;
+        background-size:
+            100% 100%,
+            100% 100%,
+            100% 100%,
+            256px 256px !important;
+        background-position: center, center, center, 0 0 !important;
+        background-repeat: no-repeat, no-repeat, no-repeat, repeat !important;
+        background-blend-mode: screen, multiply, soft-light, soft-light !important;
+        box-shadow:
+            0 2px 4px rgba(66, 44, 27, .12),
+            0 1px 1px rgba(95, 69, 43, .08),
+            inset 0 1px 0 rgba(255, 247, 225, .72),
+            inset 0 -1px 0 rgba(132, 96, 59, .14),
+            inset 1px 0 3px rgba(255, 246, 225, .16),
+            inset -1px 0 3px rgba(112, 78, 45, .07) !important;
+        isolation: isolate !important;
+        transform-origin: 50% 16% !important;
+        transition:
+            flex-basis .58s cubic-bezier(.18, .78, .22, 1),
+            height .58s cubic-bezier(.18, .78, .22, 1),
+            min-height .58s cubic-bezier(.18, .78, .22, 1),
+            max-height .58s cubic-bezier(.18, .78, .22, 1),
+            margin .48s cubic-bezier(.18, .78, .22, 1),
+            transform .58s cubic-bezier(.18, .78, .22, 1),
+            box-shadow .58s cubic-bezier(.18, .78, .22, 1),
+            border-color .42s ease !important;
+        overflow-anchor: none !important;
+    }
+
+    /* Three sheets are slightly staggered, like several letters in a pile. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1) {
+        z-index: 3 !important;
+        transform: translateX(-2px) rotate(-.22deg) !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2) {
+        z-index: 4 !important;
+        transform: translateX(2px) rotate(.18deg) !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3) {
+        z-index: 5 !important;
+        transform: translateX(-1px) rotate(-.14deg) !important;
+    }
+
+    /* A very fine pressed inset edge and paper fibres on every letter.
+       These are card details, not lace; the lace remains on the parent sheet. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card::before {
+        content: "" !important;
+        display: block !important;
+        position: absolute !important;
+        z-index: 0 !important;
+        inset: 4px !important;
+        border: 1px solid rgba(139, 106, 70, .12) !important;
+        border-radius: 1px !important;
+        background:
+            linear-gradient(180deg,
+                rgba(255, 251, 238, .18) 0%,
+                transparent 34%,
+                transparent 82%,
+                rgba(143, 104, 63, .035) 100%) !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 251, 238, .18),
+            inset 0 -1px 0 rgba(126, 91, 57, .035) !important;
+        pointer-events: none !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card::after {
+        content: "" !important;
+        display: block !important;
+        position: absolute !important;
+        z-index: 0 !important;
+        inset: 0 !important;
+        border-radius: inherit !important;
+        background-image:
+            var(--tellq-news-parchment-fibres-v700),
+            radial-gradient(ellipse 60% 50% at 10% 8%,
+                rgba(255, 250, 235, .12) 0%,
+                transparent 100%) !important;
+        background-size: 240px 240px, 100% 100% !important;
+        background-repeat: repeat, no-repeat !important;
+        background-blend-mode: multiply, screen !important;
+        opacity: .36 !important;
+        mix-blend-mode: multiply !important;
+        pointer-events: none !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card > * {
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
+    /* Keep the date/category row clear and compact on the closed letters. */
+    #news .news-list > .journal-envelope .mobile-news-meta {
+        display: flex !important;
+        flex: 0 0 auto !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin: 0 0 3px !important;
+        line-height: 1.1 !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-meta .journal-archive-category {
+        color: #866747 !important;
+        font-size: 6.5px !important;
+        letter-spacing: .12em !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card .journal-archive-date {
+        display: inline-flex !important;
+        width: auto !important;
+        margin: 0 !important;
+        color: rgba(75, 55, 38, .82) !important;
+        font-size: 7px !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+    }
+
+    #news .news-list > .journal-envelope .journal-archive-card h2 {
+        display: block !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-height: 1.35em !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        color: #35291f !important;
+        font-size: clamp(13px, 3.45vw, 15px) !important;
+        line-height: 1.3 !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-title {
+        display: block !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-open-label {
+        color: #806143 !important;
+        font-size: 7px !important;
+        letter-spacing: .03em !important;
+        white-space: nowrap !important;
+    }
+
+    #news .news-list > .journal-envelope .mobile-news-open-label::after {
+        content: "＋" !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+    }
+
+    /* The selected letter rises above its siblings. Its face uses the SAME
+       parchment palette as the closed state; only depth and size change. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1).is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2).is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3).is-expanded {
+        z-index: 30 !important;
+        flex: 0 0 112px !important;
+        min-height: 112px !important;
+        height: 112px !important;
+        max-height: 112px !important;
+        margin: 4px 0 1px !important;
+        padding: 9px 13px 8px !important;
+        overflow: visible !important;
+        border-color: rgba(128, 94, 59, .48) !important;
+        border-radius: 3px 5px 2px 3px !important;
+        background-color: #ead9ba !important;
+        background-image:
+            radial-gradient(ellipse 76% 64% at 18% 8%,
+                rgba(255, 249, 230, .73) 0%,
+                rgba(255, 249, 230, .22) 48%,
+                transparent 100%),
+            radial-gradient(ellipse 92% 86% at 92% 100%,
+                rgba(142, 104, 65, .13) 0%,
+                transparent 100%),
+            linear-gradient(112deg,
+                rgba(255, 248, 228, .30) 0%,
+                rgba(237, 219, 188, .12) 48%,
+                rgba(151, 111, 70, .10) 100%),
+            var(--tellq-news-parchment-grain-v700) !important;
+        transform: translateY(-8px) scale(1.014) rotate(-.08deg) !important;
+        transform-origin: 50% 14% !important;
+        box-shadow:
+            0 13px 25px rgba(54, 35, 21, .22),
+            0 4px 9px rgba(81, 56, 33, .13),
+            inset 0 1px 0 rgba(255, 248, 226, .82),
+            inset 0 -1px 0 rgba(123, 87, 51, .16),
+            inset 0 0 17px rgba(163, 122, 75, .075) !important;
+        transition:
+            flex-basis .58s cubic-bezier(.18, .78, .22, 1),
+            height .58s cubic-bezier(.18, .78, .22, 1),
+            min-height .58s cubic-bezier(.18, .78, .22, 1),
+            max-height .58s cubic-bezier(.18, .78, .22, 1),
+            margin .48s cubic-bezier(.18, .78, .22, 1),
+            transform .58s cubic-bezier(.18, .78, .22, 1),
+            box-shadow .58s cubic-bezier(.18, .78, .22, 1),
+            border-color .42s ease !important;
+    }
+
+    /* Summary and link are revealed after the letter has started to lift. */
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card p {
+        display: -webkit-box !important;
+        flex: 0 0 auto !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transform: translateY(7px) !important;
+        transition:
+            max-height .40s cubic-bezier(.18, .78, .22, 1),
+            opacity .28s ease,
+            transform .36s ease,
+            margin .30s ease !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card .news-read-more {
+        display: inline-flex !important;
+        flex: 0 0 auto !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transform: translateY(6px) !important;
+        transition:
+            max-height .34s ease,
+            opacity .26s ease,
+            transform .34s ease !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded p {
+        max-height: 2.75em !important;
+        margin: 0 0 5px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        transition-delay: .13s, .16s, .13s, .13s !important;
+        color: rgba(64, 47, 32, .91) !important;
+        font-size: 9px !important;
+        line-height: 1.36 !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded .news-read-more {
+        max-height: 18px !important;
+        margin: 0 !important;
+        padding: 1px 0 2px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        transition-delay: .18s, .20s, .18s !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded h2 {
+        max-height: 2.6em !important;
+        margin: 0 0 4px !important;
+    }
+
+    /* Keep the lace above the raised card; its transparent centre leaves text visible. */
+    #news .news-list > .journal-envelope > .journal-letter::after {
+        z-index: 60 !important;
+        opacity: .91 !important;
+    }
+}
+
+@media (max-width: 380px) {
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded {
+        padding-left: 11px !important;
+        padding-right: 11px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card.is-expanded,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card p,
+    #news .news-list > .journal-envelope > .journal-letter > .journal-archive-card .news-read-more {
+        transition-duration: .01ms !important;
+        transform: none !important;
+    }
+}
+
+
+/* =========================================================
+   TELLQ v7.04 — Remove the lace decoration completely
+   ---------------------------------------------------------
+   - Remove the lace overlay from the shared NEWS backing paper.
+   - Clear any border-image or background remnants that could show lace.
+   - Preserve the parchment backing, stacked letters, article textures,
+     open/lift animation, envelope, wax seal and all interactions.
+========================================================= */
+
+#news .news-list > .journal-envelope > .journal-letter::after {
+    content: none !important;
+    display: none !important;
+    visibility: hidden !important;
+    background: none !important;
+    background-image: none !important;
+    border: 0 !important;
+    border-image: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* The NEWS paper and cards no longer use any lace border treatment. */
+#news .news-list > .journal-envelope > .journal-letter,
+#news .news-list > .journal-envelope > .journal-letter > .journal-archive-card,
+#news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(1),
+#news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(2),
+#news .news-list > .journal-envelope > .journal-letter > .journal-archive-card:nth-child(3) {
+    border-image: none !important;
+}
+
+/* Keep the original aged-paper frame and inset details; only the lace is removed. */
