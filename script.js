@@ -72,6 +72,11 @@ function openSecretPage() {
     secretPage.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
+    // GA4：シークレットページが実際に表示されたときに計測
+    if (typeof gtag === "function") {
+        gtag("event", "secret_page_view");
+    }
+
 }
 
 function closeSecretPage() {
