@@ -598,7 +598,7 @@ function renderProductThumbnails() {
             "&": "&amp;",
             "<": "&lt;",
             ">": "&gt;",
-        '"': "&quot;",
+            '"': "&quot;",
             "'": "&#39;"
         })[character]);
 
@@ -1381,18 +1381,13 @@ applyLoraToNumbers();
 
 
 /* =========================================================
-   JOURNAL & NEWS: TOPページの記事生成
-   v6.84:
-   - 最新記事を最大3件表示します。
-   - 3件に満たない場合は「新しい投稿をお待ちください。」を補います。
-   - 各カードの構造・高さを統一し、要約は最大2行で省略します。
-   - 封筒の装飾は固定したまま、紙面上で記事を積み重ねます。
+   JOURNAL & NEWS: データからトップページの記事を生成
+   アーカイブページと共通のカードデザインで表示します。
+   記事データ・リンク先・表示件数など既存の仕様は維持します。
 ========================================================= */
 (function initTellQJournalHome() {
     const list = document.getElementById("homeJournalList");
-    const articles = Array.isArray(window.TELLQ_JOURNAL_DATA)
-        ? window.TELLQ_JOURNAL_DATA
-        : [];
+    const articles = Array.isArray(window.TELLQ_JOURNAL_DATA) ? window.TELLQ_JOURNAL_DATA : [];
     if (!list) return;
 
     const categoryLabels = {
@@ -1402,162 +1397,37 @@ applyLoraToNumbers();
     };
 
     const published = articles
-        .filter(item => item && item.status === "published")
+        .filter(item => item.status === "published")
         .slice()
-        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
-        .slice(0, 3);
+        .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+        .slice(0, 6);
 
-    const slots = published.slice();
-    while (slots.length < 3) {
-        slots.push({
-            id: `tellq-coming-soon-${slots.length + 1}`,
-            date: "",
-            category: "information",
-            title: "新しい投稿をお待ちください。",
-            summary: "次回のお知らせを楽しみにお待ちください。",
-            isPlaceholder: true
-        });
-    }
-
-    const escapeJournalText = value => String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
+    const escapeJournalText = value => String(value ?? "").replace(/[&<>\"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&#39;"
     }[char]));
 
     const formatDate = value => {
-        if (!value) return "COMING SOON";
         const date = new Date(`${value}T00:00:00`);
-        if (Number.isNaN(date.getTime())) return escapeJournalText(value);
+        if (Number.isNaN(date.getTime())) return escapeJournalText(value || "");
         return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
     };
 
-    const articleSheets = slots.map((item, index) => {
-        const placeholder = Boolean(item.isPlaceholder);
-        const storyUrl = placeholder
-            ? "journal.html"
-            : `journal.html?id=${encodeURIComponent(item.id)}`;
-        const summaryId = `home-news-summary-${index + 1}`;
+    const articleSheets = published.map(item => `
+        <article class="journal-archive-card" data-category="${escapeJournalText(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
+            <span class="journal-archive-category" data-category="${escapeJournalText(item.category)}">${categoryLabels[item.category] || "JOURNAL"}</span>
+            <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
+            <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeJournalText(item.title)}</a></h2>
+            <p>${escapeJournalText(item.summary || "")}</p>
+            <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY <span aria-hidden="true">↗</span></a>
+        </article>`).join("");
 
-        return `
-        <article class="journal-archive-card${placeholder ? " is-placeholder" : ""}" data-category="${escapeJournalText(item.category || "journal")}"${item.pinned ? ' data-pinned="true"' : ""}>
-            <div class="mobile-news-meta">
-                <span class="journal-archive-category" data-category="${escapeJournalText(item.category || "journal")}">${categoryLabels[item.category] || "JOURNAL"}</span>
-                <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
-            </div>
-            <h2><a href="${storyUrl}" aria-expanded="false" aria-controls="${summaryId}"><span class="mobile-news-title">${escapeJournalText(item.title || "")}</span><span class="mobile-news-open-label" aria-hidden="true">記事を見る</span></a></h2>
-            <p id="${summaryId}">${escapeJournalText(item.summary || "")}</p>
-            <a class="news-read-more" href="${storyUrl}">${placeholder ? "COMING SOON" : 'READ STORY'} <span aria-hidden="true">↗</span></a>
-        </article>`;
-    }).join("");
-
-    list.innerHTML = `
+    list.innerHTML = published.length ? `
         <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
             <div class="journal-envelope-back" aria-hidden="true"><span class="journal-envelope-connector" aria-hidden="true"></span></div>
             <div class="journal-letter">${articleSheets}</div>
             <div class="journal-envelope-front" aria-hidden="true"></div>
             <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
-        </div>`;
-
-    /*
-       見出しと封筒の最上端が重ならないよう、実際の位置を測って余白を決めます。
-       再計算するのは初期表示・画面サイズ変更・フォント読込・記事の開閉時だけです。
-       スクロール中には寸法測定やスタイル変更を行わないため、封筒の揺れを抑えます。
-    */
-    const envelope = list.querySelector(".journal-envelope");
-    const letter = list.querySelector(".journal-letter");
-    const back = list.querySelector(".journal-envelope-back");
-    const heading = list.parentElement
-        ? list.parentElement.querySelector(".section-title")
-        : null;
-
-    if (envelope && letter && back && heading) {
-        const baseMarginTop = parseFloat(
-            window.getComputedStyle(list).marginTop
-        ) || 0;
-        let layoutFrame = null;
-
-        const scheduleHeadingClearance = () => {
-            if (layoutFrame !== null) {
-                window.cancelAnimationFrame(layoutFrame);
-            }
-
-            layoutFrame = window.requestAnimationFrame(() => {
-                layoutFrame = null;
-
-                const headingBottom = heading.getBoundingClientRect().bottom;
-                const currentMarginTop = parseFloat(
-                    window.getComputedStyle(list).marginTop
-                ) || baseMarginTop;
-                const currentExtraMargin = currentMarginTop - baseMarginTop;
-
-                const visibleTop = Math.min(
-                    envelope.getBoundingClientRect().top,
-                    back.getBoundingClientRect().top,
-                    letter.getBoundingClientRect().top
-                );
-
-                /*
-                   現在の追加marginを差し引いて基準位置を求めます。
-                   開閉のたびにmarginを0へ戻さず、画面の跳ねを防ぎます。
-                */
-                const topAtBaseMargin = visibleTop - currentExtraMargin;
-                const isMobile = window.matchMedia("(max-width: 700px)").matches;
-                const safeGap = isMobile
-                    ? Math.max(48, envelope.clientWidth * 0.10)
-                    : Math.max(22, envelope.clientWidth * 0.025);
-                const requiredExtraMargin = Math.max(
-                    0,
-                    headingBottom + safeGap - topAtBaseMargin
-                );
-
-                list.style.marginTop = `${baseMarginTop + requiredExtraMargin}px`;
-            });
-        };
-
-        scheduleHeadingClearance();
-        window.addEventListener("resize", scheduleHeadingClearance);
-
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(scheduleHeadingClearance);
-        }
-
-        /*
-           スマートフォンだけ、記事タイトルをタップするとサマリーが開きます。
-           PCでは従来どおり記事詳細ページへ移動します。
-           開閉時は1回だけ見出しとの距離を確認し、スクロール中は処理しません。
-        */
-        const mobileNewsQuery = window.matchMedia("(max-width: 700px)");
-
-        list.addEventListener("click", event => {
-            const titleLink = event.target.closest
-                ? event.target.closest(".journal-archive-card h2 a")
-                : null;
-
-            if (!titleLink || !mobileNewsQuery.matches) return;
-
-            const card = titleLink.closest(".journal-archive-card");
-            if (!card) return;
-
-            event.preventDefault();
-            const wasExpanded = card.classList.contains("is-expanded");
-
-            letter.querySelectorAll(".journal-archive-card").forEach(otherCard => {
-                otherCard.classList.remove("is-expanded");
-                const otherLink = otherCard.querySelector("h2 a");
-                if (otherLink) otherLink.setAttribute("aria-expanded", "false");
-            });
-
-            if (!wasExpanded) {
-                card.classList.add("is-expanded");
-                titleLink.setAttribute("aria-expanded", "true");
-            }
-
-            scheduleHeadingClearance();
-        });
-    }
+        </div>` : '<p class="news-empty">新しいお知らせを準備しています。</p>';
 })();
 
 // ========================================

@@ -15,12 +15,6 @@
     const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[char]));
-    // 詳細ページ専用タイトル。detailTitle 内の改行（\n）だけを <br> に変換します。
-    // 一覧ページは従来どおり title を使用するため、カード表示には影響しません。
-    const formatDetailTitle = value => String(value ?? "")
-        .split(/\r?\n/)
-        .map(escapeHTML)
-        .join("<br>");
     const formatDate = value => {
         const date = new Date(`${value}T00:00:00`);
         if (Number.isNaN(date.getTime())) return escapeHTML(value || "");
@@ -46,7 +40,7 @@
                 <span class="journal-detail-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
                 ${item.pinned ? '<span class="journal-detail-category">IMPORTANT NOTICE</span>' : ""}
             </div>
-            <h1>${formatDetailTitle(item.detailTitle || item.title)}</h1>
+            <h1>${escapeHTML(item.title)}</h1>
             <div class="journal-detail-content">${paragraphs.map(p => `<p>${escapeHTML(p)}</p>`).join("")}</div>
             ${item.image ? `<img class="journal-detail-image" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)}" loading="lazy">` : ""}
             ${links.length ? `<section class="journal-detail-links"><h2>RELATED LINKS</h2>${links.map(link => `<a href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(link.label)} ↗</a>`).join("")}</section>` : ""}
@@ -65,18 +59,22 @@
         const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
         currentPage = Math.min(currentPage, pageCount);
         const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-        const createArticleCard = item => `
+        const articleSheets = pageItems.map(item => `
             <article class="journal-archive-card" data-category="${escapeHTML(item.category)}"${item.pinned ? ' data-pinned="true"' : ""}>
                 <span class="journal-archive-category" data-category="${escapeHTML(item.category)}">${escapeHTML(labels[item.category] || "JOURNAL")}</span>
                 <div class="journal-archive-date">${formatDate(item.date)}${item.pinned ? "<small>PINNED</small>" : ""}</div>
                 <h2><a href="journal.html?id=${encodeURIComponent(item.id)}">${escapeHTML(item.title)}</a></h2>
                 <p>${escapeHTML(item.summary || "")}</p>
                 <a class="news-read-more" href="journal.html?id=${encodeURIComponent(item.id)}">READ STORY ↗</a>
-            </article>`;
-        // ALL NEWSでは洋型封筒の装飾を表示せず、記事カードのみを一覧表示します。
-        list.innerHTML = pageItems.length
-            ? pageItems.map(createArticleCard).join("")
-            : '<p class="journal-no-results">このカテゴリの記事はまだありません。</p>';
+            </article>`).join("");
+
+        list.innerHTML = pageItems.length ? `
+            <div class="journal-envelope" role="group" aria-label="TellQからのお知らせ">
+                <div class="journal-envelope-back" aria-hidden="true"><span class="journal-envelope-connector" aria-hidden="true"></span></div>
+                <div class="journal-letter">${articleSheets}</div>
+                <div class="journal-envelope-front" aria-hidden="true"></div>
+                <div class="journal-envelope-seal" aria-hidden="true">TellQ</div>
+            </div>` : '<p class="journal-no-results">このカテゴリの記事はまだありません。</p>';
 
         pagination.innerHTML = pageCount > 1
             ? Array.from({length: pageCount}, (_, i) => `<button type="button" data-page="${i+1}" aria-current="${currentPage === i+1 ? "page" : "false"}">${i+1}</button>`).join("")
