@@ -87,7 +87,7 @@ const PRODUCT_DATA = [
         imagePrefix: "test-A-M-",
         imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
         photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "TellQ-03",
+        number: "パッチワークマフラー3種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "upcoming",
         // 商品詳細欄に表示する販売予定の説明文。
@@ -122,7 +122,7 @@ const PRODUCT_DATA = [
         imagePrefix: "test-D-M-",
         imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
         photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "TellQ-04",
+        number: "アクセサリー1種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "upcoming",
         // 商品詳細欄に表示する販売予定の説明文。
@@ -165,11 +165,11 @@ const PRODUCT_DATA = [
 const STAFF_SNAP_DATA = {
     imageExtension: "JPG",
     images: [
-        { fileName: "IMG_5531 2", alt: "Staff Snap 01" },
-        { fileName: "IMG_5532 2", alt: "Staff Snap 02" },
-        { fileName: "IMG_5533 2", alt: "Staff Snap 03" },
-        { fileName: "IMG_5534 2", alt: "Staff Snap 04" },
-        { fileName: "IMG_5535 2", alt: "Staff Snap 05" }
+        { fileName: "IMG_5531", alt: "Staff Snap 01" },
+        { fileName: "IMG_5532", alt: "Staff Snap 02" },
+        { fileName: "IMG_5533", alt: "Staff Snap 03" },
+        { fileName: "IMG_5534", alt: "Staff Snap 04" },
+        { fileName: "IMG_5535", alt: "Staff Snap 05" }
         //{ fileName: "test-C-S-01", alt: "Staff Snap 06" },
         //{ fileName: "test-C-S-02", alt: "Staff Snap 07" },
         //{ fileName: "test-C-S-03", alt: "Staff Snap 08" },
