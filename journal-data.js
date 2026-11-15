@@ -16,7 +16,7 @@ window.TELLQ_JOURNAL_DATA = [
         pinned: false,
         title: "TellQを始めます。",
         summary: "捨てられるはずだった素材に、もう一度命を吹き込むブランドを始めます。",
-        image: "image/test-B-S-01.jpg",
+        image: "image/news-01.jpg",
         content: [
             "捨てられるはずだった素材に、もう一度命を吹き込むブランドを始めます。",
             "実家は100年続いたニット工場でした。倉庫には、百貨店品質のカシミヤ生地や高級ニット素材が、使われないまま眠っています。",

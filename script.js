@@ -382,6 +382,7 @@ window.addEventListener("load", () => {
 
 const productMainImage = document.getElementById("productMainImage");
 const productNumber = document.getElementById("productNumber");
+const productPhotoNote = document.getElementById("productPhotoNote");
 const productCategory = document.getElementById("productCategory");
 const productName = document.getElementById("productName");
 const productPrice = document.getElementById("productPrice");
@@ -690,6 +691,40 @@ function updateProductPhotoIndicator() {
     productPhotoIndicator.hidden = total === 0;
 }
 
+// 現在表示している写真に対応する注意事項を表示します。
+// photoNotes は product-data.js で管理し、数字は表示順（1始まり）です。
+// default は全カラー共通、variant.key の設定があればその写真だけ優先します。
+function updateProductPhotoNote() {
+    if (!productPhotoNote) return;
+
+    const product = PRODUCT_DATA[currentProductIndex];
+    if (!product) {
+        productPhotoNote.textContent = "";
+        productPhotoNote.hidden = true;
+        return;
+    }
+
+    const variant = getCurrentProductVariant(product);
+    const notesByVariant = product.photoNotes || {};
+    const photoNumber = currentProductPhotoIndex + 1;
+
+    // オブジェクト形式なら { 3: "...", 5: "..." } のように飛び飛びで指定できます。
+    // 既存の配列形式にも対応し、以前のデータとの互換性を保ちます。
+    const readPhotoNote = notes => {
+        if (Array.isArray(notes)) return notes[photoNumber - 1];
+        if (notes && typeof notes === "object") return notes[photoNumber];
+        return undefined;
+    };
+
+    const variantNote = readPhotoNote(notesByVariant[variant?.key]);
+    const defaultNote = readPhotoNote(notesByVariant.default);
+    const note = variantNote ?? defaultNote;
+    const text = String(note || "").trim();
+
+    productPhotoNote.textContent = text;
+    productPhotoNote.hidden = !text;
+}
+
 function showProductPhoto(index) {
     const product = PRODUCT_DATA[currentProductIndex];
     if (!product || !productMainImage) return;
@@ -703,6 +738,8 @@ function showProductPhoto(index) {
     const changeToken = ++productPhotoChangeToken;
 
     currentProductPhotoIndex = nextPhotoIndex;
+    // 写真に合わせて注意事項も切り替えます。
+    updateProductPhotoNote();
     // 写真の切り替え操作ごとに、現在位置をインジケーターへ即時反映します。
     updateProductPhotoIndicator();
     productMainImage.alt = `${getPlainProductName(product.name)} ${variant ? variant.label + " " : ""}写真 ${nextPhotoIndex + 1}`;
@@ -858,6 +895,7 @@ function showProduct(index) {
     currentProductVariantIndex = 0;
     const product = PRODUCT_DATA[currentProductIndex];
     const initialProductImage = getFirstProductImage(product);
+    updateProductPhotoNote();
     // 2・3枚目の商品は、カラー選択群とPURCHASEの間隔を自然に保つため表示位置だけを調整します。
     if (productInfoPanel) {
         productInfoPanel.classList.toggle(

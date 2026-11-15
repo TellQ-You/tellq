@@ -3,6 +3,13 @@
    商品情報・カラー別画像・カラー別BASEリンク・商品説明群の見出しを管理するファイルです。
    商品を追加・編集するときは、基本的にこのファイルを変更してください。
 
+   【写真ごとの注意事項】
+   各商品オブジェクト内の photoNotes に、表示順（1始まり）ごとの注意事項を設定します。
+   3枚目・5枚目だけなど、必要な番号だけを飛び飛びで記載できます。
+   default は全カラー共通、black などは特定カラー専用（共通文より優先）です。
+   数字は画像ファイル名の番号ではなく、画面上で表示される順番です。
+   例：photoNotes: { default: { 3: "3枚目の注意", 5: "5枚目の注意" } }
+
    【カラー別設定】
    各商品の variants にカラーごとの画像・スウォッチ色・BASE URLを設定します。
    imagePrefix / imageExtension / photoNumbers で連番画像を管理できます。
@@ -12,6 +19,127 @@
 ========================================================= */
 
 const PRODUCT_DATA = [
+    {
+        imagePrefix: "Patchwork-Scarf-",
+        imageExtension: "JPG", // 商品画像の拡張子：jpg / png / webp など
+        photoCount: 36, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
+        number: "パッチワークマフラー3種",
+        // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
+        status: "available",
+        // 商品詳細欄に表示する販売予定の説明文。
+        upcomingText: "11月中旬に販売予定。",
+        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
+        moreItemsUpcomingText: "11月中旬に販売予定",
+        // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
+        baseUrl: "https://tellqyou.base.shop/",
+        // 写真ごとの注意事項。数字は表示順（1始まり）。未設定の番号は表示されません。
+        // 全カラー共通：default: { 3: "3枚目の注意", 5: "5枚目の注意" }
+        // カラー別：black: { 5: "BLACKの5枚目だけ別の注意" }（defaultより優先）
+        photoNotes: {
+            brown: {
+                1: "brown(パターンA)",
+                2: "brown(パターンA)",
+                3: "brown(パターンA)",
+                4: "brown(パターンA)",
+                5: "brown(パターンB)",
+                6: "brown(パターンB)",
+                7: "brown(パターンB)",
+                8: "brown(パターンB)"
+
+            },
+            white: {
+                1: "white(パターンA)",
+                2: "white(パターンA)",
+                3: "white(パターンA)",
+                4: "white(パターンA)",
+                5: "white(パターンB)",
+                6: "white(パターンB)",
+                7: "white(パターンB)",
+                8: "white(パターンB)",
+                9: "white(パターンC)",
+                10: "white(パターンC)",
+                11: "white(パターンC)",
+                12: "white(パターンC)",
+                13: "white(パターンD)",
+                14: "white(パターンD)",
+                15: "white(パターンD)",
+                16: "white(パターンD)"
+
+            },
+            black: {
+                1: "black(パターンA)",
+                2: "black(パターンA)",
+                3: "black(パターンA)",
+                4: "black(パターンA)",
+                5: "black(パターンB)",
+                6: "black(パターンB)",
+                7: "black(パターンB)",
+                8: "black(パターンB)",
+                9: "black(パターンC)",
+                10: "black(パターンC)",
+                11: "black(パターンC)",
+                12: "black(パターンC)"
+            }
+        },
+        // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
+        variants: [
+            { key: "brown", label: "BROWN", displayName: "BROWN", status: "available", color: "#79543a", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [3, 1, 2, 4, 7, 5, 6, 8], baseUrl: "https://tellqyou.base.shop/" },
+            { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [9, 11, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], baseUrl: "https://tellqyou.base.shop/" },
+            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], baseUrl: "https://tellqyou.base.shop/" }
+        ],
+
+        category: "TELLQ / UPCYCLED COLLECTION",
+        name: "<span class='tellq-product-name-en'>TellQ<br>Patchwork Scarf</span><br><span class='tellq-product-name-ja'>パッチワークマフラー</span>",
+        price: "¥23,500",//"¥16,800",
+        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
+        // description: "現在検討中の商品です。",
+        material: "Wool(&Mohair,Alpaca,Llama)",
+        information: [
+            "【コンセプト】</br></br>捨てられるはずだった素材に、新たな価値を。</br></br>100年続いた実家のニット会社に残されていた、上質なニット素材。</br></br>色や形が異なる上質な素材は、長年のものづくりの中で使われないままバラバラに残り、廃棄物となっていました。</br></br>そんな素材をもう一度輝かせたい。新たな形で価値を生み出したい。そんな想いから、このマフラーが生まれました。</br></br>量産することのできない、唯一無二のデザイン。</br></br>素材を大切に活かしながら、おしゃれを楽しむことも妥協しない。</br></br>TellQが大切にする、ものを大切にする心と、自分らしいファッションを楽しむ喜びを込めたアイテムです。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            "【商品説明】</br></br>異なる色や質感の生地を組み合わせた、表情豊かなパッチワークマフラー。</br></br>上質なウールを使用し、モヘヤやアルパカなどの素材を組み合わせることで、それぞれ異なる素材の風合いを楽しめるデザインに仕上げました。</br></br>生地をオーバーロックで縫い合わせることで生まれる、ふんわりとした立体感も魅力のひとつ。</br></br>量産することのできない、唯一無二のデザインです。</br></br>巻き方によって見える柄や素材が変わるため、その日の気分やコーディネートに合わせてさまざまな表情をお楽しみいただけます。</br></br>カラーはブラック・ホワイト・ブラウンの全3色。シンプルな装いのアクセントとしてはもちろん、秋冬のワントーンコーデにもおすすめです。</br></br>仕上げにはTellQのオリジナルプレートを一針ずつ手縫いで取り付けました。</br></br>生地の組み合わせによって一つひとつ異なる表情を持つ、特別なアイテムです。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            "【素材・組成】</br></br>* 主な素材：ウール</br>* その他の素材：モヘヤ、アルパカなど</br>* 補助素材：少量のナイロンなど</br>* 仕様：異なる生地を組み合わせたパッチワーク</br>* 仕上げ：TellQオリジナルプレートを手縫いで取り付け</br></br>【注意事項】</br></br>※使用素材や混率は商品ごとに異なる場合があります。</br></br>※正確な混率が確認できないため、素材の割合は記載していません。</br></br>商品に使用しているプレートには、製造過程や保管時に生じた細かな傷が見られる場合がございます。あらかじめご了承のうえ、ご購入いただきますようお願いいたします。</br></br>※傷が気になるお客様は、ご購入をお控えいただきますようお願いいたします。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            "【お手入れ・保管方法】</br></br>アイロン</br></br>* スチームによる仕上げのみとし、アイロン面を生地に直接当てないでください。</br>* 生地の風合いや編み地を損なわないよう、優しくお取り扱いください。</br></br>洗濯</br></br>* 水または30℃以下のぬるま湯で、つけ置き洗いをしてください。</br>* 強くこすったり、引っ張ったりしないようご注意ください。</br>* タンブラー乾燥機の使用はお避けください。</br>* 洗濯後は形を整え、素材の風合いを損なわないよう乾燥させてください。</br>※素材や生地の組み合わせによって適切なお手入れ方法が異なる場合があります。洗濯表示や販売元の指示を優先してください。</br></br>ご使用上の注意</br></br>ざっくりと編まれたニット素材を含むため、アクセサリーやバッグの金具などへの引っ掛かりにご注意ください。</br></br>糸引きが起きた場合は、糸を切らずに、編み地の内側へ優しく引き戻して整えてください。</br></br>保管方法</br></br>* 湿気や直射日光を避け、清潔で乾燥した場所に保管してください。</br>* 型崩れや引っ掛かりを防ぐため、ほかの衣類やアクセサリーと分けて保管してください。</br>* 虫食いを防ぐため、防虫対策をおすすめします。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            "【サイズ・寸法】</br></br>サイズに関してはBESEをご確認ください</br></br>※手作業で制作しているため、商品ごとに多少の個体差が生じる場合があります。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆</br></br>【カラー】</br></br>全3色</br></br>* BLACK｜ブラック</br>* WHITE｜ホワイト</br>* BROWN｜ブラウン</br>※生地の組み合わせや配置は商品ごとに異なります。</br>※商品画像は、撮影時の照明やお使いのモニター環境によって実際の色味と異なって見える場合があります。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            "【配送・返品に関する案内】</br></br>発送予定日・送料・返品交換の条件・在庫状況などの詳細は、BASEの各商品販売ページにてご確認ください。</br></br>ご不明な点がございましたら、販売ページよりお問い合わせください。</br>"
+        ]
+    },
+    {
+        imagePrefix: "knit-accessories-",
+        imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
+        photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
+        number: "アクセサリー1種",
+        // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
+        status: "upcoming",
+        // 商品詳細欄に表示する販売予定の説明文。
+        upcomingText: "11月中旬に販売予定。",
+        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
+        moreItemsUpcomingText: "11月中旬に販売予定",
+        // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
+        baseUrl: "https://tellqyou.base.shop/",
+        // 写真ごとの注意事項。数字は表示順（1始まり）。未設定の番号は表示されません。
+        // 全カラー共通：default: { 3: "3枚目の注意", 5: "5枚目の注意" }
+        // カラー別：black: { 5: "BLACKの5枚目だけ別の注意" }（defaultより優先）
+        photoNotes: {},
+        // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
+        variants: [
+            { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "knit-accessories-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" }
+        ],
+
+        category: "TELLQ / UPCYCLED COLLECTION",
+        name: "<span class='tellq-product-name-en'>TellQ</span><br><span class='tellq-product-name-ja'>ふわふわニット<br>アクセサリー</span>",
+        price: "¥----",//"¥8,800",
+        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
+        // description: "現在検討中の商品です。",
+        material: "Knit(&Others)",
+        information: [
+            //"【コンセプト】</br></br>Concept｜素材に、新しい可能性を。</br></br>役目を終えたと思われていた素材にも、まだ新しい魅力が眠っている。</br></br>TellQは、実家に残されていた残布やはぎれを活用し、廃棄されるはずだった素材に新たな価値を与え、これまでにないアクセサリーへと生まれ変わらせています。</br></br>素材を無駄なく活かし、環境への負担を減らしながら、既存の枠にとらわれないデザインを追求。</br></br>ものを大切にすることと、おしゃれを楽しむこと。その両方を叶える、環境にも配慮した新しいファッションの可能性を提案します。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            //"【商品説明】</br></br>ニットの柔らかなフォルムに、パールやビーズをあしらった印象的なナローチョーカー。</br></br>フックを使わず、そのまま首に通して着用できるシンプルな仕様です。重さは○gと軽く、首元にふわふわとしたニットの心地よさを感じながら、快適に身に着けられます。ニット素材が首元をやさしく包み、暖かさを添えてくれるのも魅力です。</br></br>マットな質感のニットと、パールやビーズのきらめきが互いの魅力を引き立て、首元に豊かな表情を添えます。</br></br>シンプルなトップスに合わせるだけでコーディネートの主役に。カジュアルな装いからエレガントなスタイルまで、幅広い着こなしのアクセントとしてお楽しみいただけます。</br></br>一般的なチェーンネックレスとはひと味違う、異なる質感のコントラストと存在感のあるデザインが魅力です。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            //"【素材・組成】</br></br>【注意事項】</br></br>商品に使用しているプレートには、製造過程や保管時に生じた細かな傷が見られる場合がございます。あらかじめご了承のうえ、ご購入いただきますようお願いいたします。</br></br>※傷が気になるお客様は、ご購入をお控えいただきますようお願いいたします。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            //"【お手入れ・保管方法】</br></br>* 汚れや汗が気になる場合は、柔らかく乾いた布で表面を優しく拭き取ってください。</br>* ニット部分は毛羽立ちや引っかかりが生じやすいため、強くこすったり、引っ張ったりしないでください。</br>* パールやビーズの装飾部分に強い衝撃を与えないようご注意ください。</br></br>保管方法</br></br>* 直射日光や高温多湿を避け、風通しのよい場所で保管してください。</br>* 型崩れや装飾の絡まりを防ぐため、他のアクセサリーと分けて保管してください。</br>* ニット部分を強く折り曲げたり、重いものを上に置いたりしないでください。</br></br>ご使用上の注意</br></br>* 水濡れや汗、化粧品、香水、ヘアスプレーなどの付着は、変色や素材の劣化につながる場合があります。</br>* 洗濯機や乾燥機のご使用はお避けください。</br>* 装飾部分を強く引っ張ると、破損やパーツの脱落につながる恐れがあります。</br>素材の風合いと美しいデザインを長くお楽しみいただくため、優しくお取り扱いください。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            //"【サイズ・寸法】</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆</br></br>【カラー】</br></br>アイボリーニットパール(Knit Pearl Necklace – Ivory)</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
+            //"【配送・返品に関する案内】</br></br>BASEの内容貼り付け</br></br>発送目安、返品・交換条件、受注生産や一点物の場合の注意点。</br></br>"
+        ]
+    },
     {
         imagePrefix: "CashmereL-M-",
         imageExtension: "JPG", // 商品画像の拡張子：jpg / png / webp など
@@ -25,6 +153,10 @@ const PRODUCT_DATA = [
         moreItemsUpcomingText: "",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
+        // 写真ごとの注意事項。数字は表示順（1始まり）。未設定の番号は表示されません。
+        // 全カラー共通：default: { 3: "3枚目の注意", 5: "5枚目の注意" }
+        // カラー別：black: { 5: "BLACKの5枚目だけ別の注意" }（defaultより優先）
+        photoNotes: {},
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
             { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "CashmereL-M-", imageExtension: "JPG", photoNumbers: [1, 16, 17, 2, 3, 4, 5], baseUrl: "https://tellqyou.base.shop/items/164334669" },
@@ -60,6 +192,10 @@ const PRODUCT_DATA = [
         moreItemsUpcomingText: "",
         // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
         baseUrl: "https://tellqyou.base.shop/",
+        // 写真ごとの注意事項。数字は表示順（1始まり）。未設定の番号は表示されません。
+        // 全カラー共通：default: { 3: "3枚目の注意", 5: "5枚目の注意" }
+        // カラー別：black: { 5: "BLACKの5枚目だけ別の注意" }（defaultより優先）
+        photoNotes: {},
         // カラーごとに画像・表示名・販売状況・BASE販売ページを個別管理できます。
         variants: [
             { key: "navy-black-grey", label: "NAVY / BLACK / GREY", displayName: "NAVY / BLACK / GREY", status: "available", colors: ["#171717","#787674", "#110145"], imagePrefix: "CashmereM-M-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 27, 28, 7, 29], baseUrl: "" },
@@ -82,75 +218,8 @@ const PRODUCT_DATA = [
             "【お手入れ・保管方法】</br></br>《ご自宅でお手入れする場合》</br>1. 40℃以下のぬるま湯に少量の洗剤を入れ、優しく押し洗いしてください。</br>2. 十分にすすぎ、必要に応じて素材に適した柔軟剤を使用してください。</br>3. 強く絞らず、タオルなどで優しく水分を取り除いてください。</br>4. 形を整え、風通しのよい場所で平干ししてください。</br>※タンブラー乾燥機の使用は、縮みや風合いの変化につながるためお避けください。</br>※リボンやパール部分に強い力を加えたり、引っ掛けたりしないようご注意ください。</br></br>《クリーニングに出す場合》</br>カシミヤ製品および装飾パーツに対応したクリーニング店への相談をおすすめします。</br></br>《保管方法》</br>湿気や直射日光を避け、清潔で風通しのよい場所に保管してください。虫食いを防ぐため、防虫対策もおすすめします。</br></br>リボンやパールの形を保つため、他の衣類やアクセサリーなどに引っ掛からないよう、ゆとりを持たせて保管してください。</br>",
             "【配送・返品に関する案内】</br></br>発送予定日・送料・返品交換の条件・在庫状況などの詳細は、BASEの各商品販売ページにてご確認ください。</br></br>ご不明な点がございましたら、販売ページよりお問い合わせください。</br>"
         ]
-    },
-    {
-        imagePrefix: "test-A-M-",
-        imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
-        photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "パッチワークマフラー3種",
-        // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
-        status: "upcoming",
-        // 商品詳細欄に表示する販売予定の説明文。
-        upcomingText: "11月中旬に販売予定。",
-        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
-        moreItemsUpcomingText: "11月中旬に販売予定",
-        // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
-        baseUrl: "https://tellqyou.base.shop/",
-        // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
-        variants: [
-            { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "test-A-M-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" },
-            { key: "brown", label: "BROWN", displayName: "BROWN", status: "available", color: "#79543a", imagePrefix: "test-A-M-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" },
-            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "test-A-M-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" }
-        ],
-
-        category: "TELLQ / UPCYCLED COLLECTION",
-        name: "<span class='tellq-product-name-en'>TellQ<br>Patchwork Scarf</span><br><span class='tellq-product-name-ja'>パッチワークマフラー</span>",
-        price: "¥----",//"¥16,800",
-        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
-        // description: "現在検討中の商品です。",
-        material: "Wool(&Mohair,Alpaca,Llama)",
-        information: [
-            //"【コンセプト】</br></br>捨てられるはずだった素材に、新たな価値を。</br></br>100年続いた実家のニット会社に残されていた、上質なニット素材。</br></br>色や形が異なる上質な素材は、長年のものづくりの中で使われないままバラバラに残り、廃棄物となっていました。</br></br>そんな素材をもう一度輝かせたい。新たな形で価値を生み出したい。そんな想いから、このマフラーが生まれました。</br></br>量産することのできない、唯一無二のデザイン。</br></br>素材を大切に活かしながら、おしゃれを楽しむことも妥協しない。</br></br>TellQが大切にする、ものを大切にする心と、自分らしいファッションを楽しむ喜びを込めたアイテムです。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【商品説明】</br></br>異なる色や質感の生地を組み合わせた、表情豊かなパッチワークマフラー。</br></br>上質なウールを使用し、モヘヤやアルパカ、リャマなどの素材を組み合わせることで、それぞれ異なる素材の風合いを楽しめるデザインに仕上げました。</br></br>生地をオーバーロックで縫い合わせることで生まれる、ふんわりとした立体感も魅力のひとつ。</br></br>量産することのできない、唯一無二のデザインです。</br></br>巻き方によって見える柄や素材が変わるため、その日の気分やコーディネートに合わせてさまざまな表情をお楽しみいただけます。</br></br>カラーはブラック・ホワイト・ブラウンの全3色。シンプルな装いのアクセントとしてはもちろん、秋冬のワントーンコーデにもおすすめです。</br></br>仕上げにはTellQのオリジナルプレートを一針ずつ手縫いで取り付けました。</br></br>生地の組み合わせによって一つひとつ異なる表情を持つ、特別なアイテムです。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【素材・組成】</br></br>* 主な素材：ウール</br>* その他の素材：モヘヤ、アルパカ、リャマなど</br>* 補助素材：少量のナイロンなど</br>* 仕様：異なる生地を組み合わせたパッチワーク</br>* 仕上げ：TellQオリジナルプレートを手縫いで取り付け</br></br>【注意事項】</br></br>※使用素材や混率は商品ごとに異なる場合があります。</br></br>※正確な混率が確認できないため、素材の割合は記載していません。</br></br>商品に使用しているプレートには、製造過程や保管時に生じた細かな傷が見られる場合がございます。あらかじめご了承のうえ、ご購入いただきますようお願いいたします。</br></br>※傷が気になるお客様は、ご購入をお控えいただきますようお願いいたします。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【お手入れ・保管方法】</br></br>アイロン</br></br>* スチームによる仕上げのみとし、アイロン面を生地に直接当てないでください。</br>* 生地の風合いや編み地を損なわないよう、優しくお取り扱いください。</br></br>洗濯</br></br>* 水または30℃以下のぬるま湯で、つけ置き洗いをしてください。</br>* 強くこすったり、引っ張ったりしないようご注意ください。</br>* タンブラー乾燥機の使用はお避けください。</br>* 洗濯後は形を整え、素材の風合いを損なわないよう乾燥させてください。</br>※素材や生地の組み合わせによって適切なお手入れ方法が異なる場合があります。洗濯表示や販売元の指示を優先してください。</br></br>ご使用上の注意</br></br>ざっくりと編まれたニット素材を含むため、アクセサリーやバッグの金具などへの引っ掛かりにご注意ください。</br></br>糸引きが起きた場合は、糸を切らずに、編み地の内側へ優しく引き戻して整えてください。</br></br>保管方法</br></br>* 湿気や直射日光を避け、清潔で乾燥した場所に保管してください。</br>* 型崩れや引っ掛かりを防ぐため、ほかの衣類やアクセサリーと分けて保管してください。</br>* 虫食いを防ぐため、防虫対策をおすすめします。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【サイズ・寸法】</br></br>* 長さ：要確認</br>* 幅：要確認</br>* 重さ：要確認</br>※手作業で制作しているため、商品ごとに多少の個体差が生じる場合があります。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆</br></br>【カラー】</br></br>全3色</br></br>* BLACK｜ブラック</br>* WHITE｜ホワイト</br>* BROWN｜ブラウン</br>※生地の組み合わせや配置は商品ごとに異なります。</br>※商品画像は、撮影時の照明やお使いのモニター環境によって実際の色味と異なって見える場合があります。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【配送・返品に関する案内】</br></br>* 発送予定日：要確認</br>* 送料：要確認</br>* 返品・交換条件：要確認</br>* 在庫数：要確認</br>※一点もの・数量限定の場合は、販売数量や再制作の可否を明記してください。</br></br>ご購入前にご確認ください</br></br>本商品には、異なる素材や風合いのニット生地を使用しています。そのため、素材の表情や編み地の見え方には個体差があります。</br></br>また、量産することのできない唯一無二のデザインのため、生地の組み合わせや配置は商品ごとに異なります。</br></br>ざっくりとした編み地を含むため、引っ掛かりや糸引きが生じる場合がございます。素材の特性をご理解のうえ、お楽しみください。</br></br>"
-        ]
-    },
-    {
-        imagePrefix: "test-D-M-",
-        imageExtension: "jpg", // 商品画像の拡張子：jpg / png / webp など
-        photoCount: 1, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
-        number: "アクセサリー1種",
-        // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
-        status: "upcoming",
-        // 商品詳細欄に表示する販売予定の説明文。
-        upcomingText: "11月中旬に販売予定。",
-        // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
-        moreItemsUpcomingText: "11月中旬に販売予定",
-        // BASEの商品ページURL。未設定の場合は下の BASE_SHOP_URL に移動します。
-        baseUrl: "https://tellqyou.base.shop/",
-        // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
-        variants: [
-            { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "test-D-M-", imageExtension: "jpg", photoNumbers: [1], baseUrl: "" }
-        ],
-
-        category: "TELLQ / UPCYCLED COLLECTION",
-        name: "<span class='tellq-product-name-en'>TellQ</span><br><span class='tellq-product-name-ja'>ふわふわニット<br>アクセサリー</span>",
-        price: "¥----",//"¥8,800",
-        // TellQ v6.30 code audit: dormant field; current product copy is supplied by information[].
-        // description: "現在検討中の商品です。",
-        material: "Knit(&Others)",
-        information: [
-            //"【コンセプト】</br></br>Concept｜素材に、新しい可能性を。</br></br>役目を終えたと思われていた素材にも、まだ新しい魅力が眠っている。</br></br>TellQは、実家に残されていた残布やはぎれを活用し、廃棄されるはずだった素材に新たな価値を与え、これまでにないアクセサリーへと生まれ変わらせています。</br></br>素材を無駄なく活かし、環境への負担を減らしながら、既存の枠にとらわれないデザインを追求。</br></br>ものを大切にすることと、おしゃれを楽しむこと。その両方を叶える、環境にも配慮した新しいファッションの可能性を提案します。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【商品説明】</br></br>ニットの柔らかなフォルムに、パールやビーズをあしらった印象的なナローチョーカー。</br></br>フックを使わず、そのまま首に通して着用できるシンプルな仕様です。重さは○gと軽く、首元にふわふわとしたニットの心地よさを感じながら、快適に身に着けられます。ニット素材が首元をやさしく包み、暖かさを添えてくれるのも魅力です。</br></br>マットな質感のニットと、パールやビーズのきらめきが互いの魅力を引き立て、首元に豊かな表情を添えます。</br></br>シンプルなトップスに合わせるだけでコーディネートの主役に。カジュアルな装いからエレガントなスタイルまで、幅広い着こなしのアクセントとしてお楽しみいただけます。</br></br>一般的なチェーンネックレスとはひと味違う、異なる質感のコントラストと存在感のあるデザインが魅力です。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【素材・組成】</br></br>【注意事項】</br></br>商品に使用しているプレートには、製造過程や保管時に生じた細かな傷が見られる場合がございます。あらかじめご了承のうえ、ご購入いただきますようお願いいたします。</br></br>※傷が気になるお客様は、ご購入をお控えいただきますようお願いいたします。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【お手入れ・保管方法】</br></br>* 汚れや汗が気になる場合は、柔らかく乾いた布で表面を優しく拭き取ってください。</br>* ニット部分は毛羽立ちや引っかかりが生じやすいため、強くこすったり、引っ張ったりしないでください。</br>* パールやビーズの装飾部分に強い衝撃を与えないようご注意ください。</br></br>保管方法</br></br>* 直射日光や高温多湿を避け、風通しのよい場所で保管してください。</br>* 型崩れや装飾の絡まりを防ぐため、他のアクセサリーと分けて保管してください。</br>* ニット部分を強く折り曲げたり、重いものを上に置いたりしないでください。</br></br>ご使用上の注意</br></br>* 水濡れや汗、化粧品、香水、ヘアスプレーなどの付着は、変色や素材の劣化につながる場合があります。</br>* 洗濯機や乾燥機のご使用はお避けください。</br>* 装飾部分を強く引っ張ると、破損やパーツの脱落につながる恐れがあります。</br>素材の風合いと美しいデザインを長くお楽しみいただくため、優しくお取り扱いください。</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【サイズ・寸法】</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆</br></br>【カラー】</br></br>アイボリーニットパール(Knit Pearl Necklace – Ivory)</br></br>⋆. ݁┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ݁.⋆",
-            //"【配送・返品に関する案内】</br></br>BASEの内容貼り付け</br></br>発送目安、返品・交換条件、受注生産や一点物の場合の注意点。</br></br>"
-        ]
     }
+    
 ];
 
 /* =========================================================
@@ -170,21 +239,21 @@ const STAFF_SNAP_DATA = {
         { fileName: "IMG_5533", alt: "Staff Snap 03" },
         { fileName: "IMG_5534", alt: "Staff Snap 04" },
         { fileName: "IMG_5535", alt: "Staff Snap 05" }
-        //{ fileName: "test-C-S-01", alt: "Staff Snap 06" },
-        //{ fileName: "test-C-S-02", alt: "Staff Snap 07" },
-        //{ fileName: "test-C-S-03", alt: "Staff Snap 08" },
-        //{ fileName: "test-C-S-04", alt: "Staff Snap 09" },
-        //{ fileName: "test-C-S-05", alt: "Staff Snap 10" },
-        //{ fileName: "test-A-S-01", alt: "Staff Snap 11" },
-        //{ fileName: "test-A-S-02", alt: "Staff Snap 12" },
-        //{ fileName: "test-A-S-03", alt: "Staff Snap 13" },
-        //{ fileName: "test-A-S-04", alt: "Staff Snap 14" },
-        //{ fileName: "test-A-S-05", alt: "Staff Snap 15" },
-        //{ fileName: "test-D-S-01", alt: "Staff Snap 16" },
-        //{ fileName: "test-D-S-02", alt: "Staff Snap 17" },
-        //{ fileName: "test-D-S-03", alt: "Staff Snap 18" },
-        //{ fileName: "test-D-S-04", alt: "Staff Snap 19" },
-        //{ fileName: "test-D-S-05", alt: "Staff Snap 20" }
+        //{ fileName: "", alt: "Staff Snap 06" },
+        //{ fileName: "", alt: "Staff Snap 07" },
+        //{ fileName: "", alt: "Staff Snap 08" },
+        //{ fileName: "", alt: "Staff Snap 09" },
+        //{ fileName: "", alt: "Staff Snap 10" },
+        //{ fileName: "", alt: "Staff Snap 11" },
+        //{ fileName: "", alt: "Staff Snap 12" },
+        //{ fileName: "", alt: "Staff Snap 13" },
+        //{ fileName: "", alt: "Staff Snap 14" },
+        //{ fileName: "", alt: "Staff Snap 15" },
+        //{ fileName: "", alt: "Staff Snap 16" },
+        //{ fileName: "", alt: "Staff Snap 17" },
+        //{ fileName: "", alt: "Staff Snap 18" },
+        //{ fileName: "", alt: "Staff Snap 19" },
+        //{ fileName: "", alt: "Staff Snap 20" }
     ]
 };
 
