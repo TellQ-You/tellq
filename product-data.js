@@ -122,7 +122,7 @@ const PRODUCT_DATA = [
         photoNotes: {},
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
         variants: [
-            { key: "ivory", label: "IVORY", displayName: "IVORY", status: "available", color: "#f8f4e6", imagePrefix: "knit-accessories-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], baseUrl: "" }
+            { key: "ivory", label: "IVORY", displayName: "IVORY", status: "available", color: "#f8f4e6", imagePrefix: "knit-accessories-", imageExtension: "JPG", photoNumbers: [1, 2, 3, 6, 7, 8, 9, 10], baseUrl: "" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
