@@ -109,7 +109,7 @@ const PRODUCT_DATA = [
         photoCount: 10, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         number: "アクセサリー1種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
-        status: "available",
+        status: "soldout",
         // 商品詳細欄に表示する販売予定の説明文。
         upcomingText: "11月中旬に販売予定。",
         // MORE ITEMSのCOMING SOONの下に表示する文言。商品ごとに編集できます。
