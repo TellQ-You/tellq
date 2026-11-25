@@ -22,7 +22,7 @@ const PRODUCT_DATA = [
     {
         imagePrefix: "Patchwork-Scarf-",
         imageExtension: "JPG", // 商品画像の拡張子：jpg / png / webp など
-        photoCount: 36, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
+        photoCount: 48, // メイン写真の枚数：ここを変更すると表示枚数を調整できます
         number: "パッチワークマフラー3種",
         // status: "upcoming"（販売予定） / "available"（販売中） / "soldout"（売り切れ）
         status: "available",
@@ -37,55 +37,67 @@ const PRODUCT_DATA = [
         // カラー別：black: { 5: "BLACKの5枚目だけ別の注意" }（defaultより優先）
         photoNotes: {
             brown: {
-                1: "brown(パターンA)",
-                2: "brown(パターンA)",
-                3: "brown(パターンA)",
-                4: "brown(パターンA)",
-                5: "brown(パターンB)",
-                6: "brown(パターンB)",
-                7: "brown(パターンB)",
-                8: "brown(パターンB)"
+                1: "brown(パターンC)",
+                2: "brown(パターンC)",
+                3: "brown(パターンC)",
+                4: "brown(パターンC)",
+                5: "brown(パターンA)",
+                6: "brown(パターンA)",
+                7: "brown(パターンA)",
+                8: "brown(パターンA)",
+                9: "brown(パターンB)",
+                10: "brown(パターンB)",
+                11: "brown(パターンB)",
+                12: "brown(パターンB)"
 
             },
             white: {
-                1: "white(パターンA)",
-                2: "white(パターンA)",
-                3: "white(パターンA)",
-                4: "white(パターンA)",
-                5: "white(パターンB)",
-                6: "white(パターンB)",
-                7: "white(パターンB)",
-                8: "white(パターンB)",
-                9: "white(パターンC)",
-                10: "white(パターンC)",
-                11: "white(パターンC)",
-                12: "white(パターンC)",
-                13: "white(パターンD)",
-                14: "white(パターンD)",
-                15: "white(パターンD)",
-                16: "white(パターンD)"
+                1: "white(パターンE)",
+                2: "white(パターンE)",
+                3: "white(パターンE)",
+                4: "white(パターンE)",
+                5: "white(パターンA)",
+                6: "white(パターンA)",
+                7: "white(パターンA)",
+                8: "white(パターンA)",
+                9: "white(パターンB)",
+                10: "white(パターンB)",
+                11: "white(パターンB)",
+                12: "white(パターンB)",
+                13: "white(パターンC)",
+                14: "white(パターンC)",
+                15: "white(パターンC)",
+                16: "white(パターンC)",
+                17: "white(パターンD)",
+                18: "white(パターンD)",
+                19: "white(パターンD)",
+                20: "white(パターンD)"
 
             },
             black: {
-                1: "black(パターンA)",
-                2: "black(パターンA)",
-                3: "black(パターンA)",
-                4: "black(パターンA)",
-                5: "black(パターンB)",
-                6: "black(パターンB)",
-                7: "black(パターンB)",
-                8: "black(パターンB)",
-                9: "black(パターンC)",
-                10: "black(パターンC)",
-                11: "black(パターンC)",
-                12: "black(パターンC)"
+                1: "black(パターンD)",
+                2: "black(パターンD)",
+                3: "black(パターンD)",
+                4: "black(パターンD)",
+                5: "black(パターンA)",
+                6: "black(パターンA)",
+                7: "black(パターンA)",
+                8: "black(パターンA)",
+                9: "black(パターンB)",
+                10: "black(パターンB)",
+                11: "black(パターンB)",
+                12: "black(パターンB)",
+                13: "black(パターンC)",
+                14: "black(パターンC)",
+                15: "black(パターンC)",
+                16: "black(パターンC)"
             }
         },
         // 販売予定商品のカラー別設定。画像追加後に photoNumbers を編集します。
         variants: [
-            { key: "brown", label: "BROWN", displayName: "BROWN", status: "available", color: "#79543a", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [3, 1, 2, 4, 7, 5, 6, 8], baseUrl: "https://tellqyou.base.shop/" },
-            { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [9, 11, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], baseUrl: "https://tellqyou.base.shop/" },
-            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], baseUrl: "https://tellqyou.base.shop/" }
+            { key: "brown", label: "BROWN", displayName: "BROWN", status: "available", color: "#79543a", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [37, 38, 39, 40, 3, 1, 2, 4, 7, 5, 6, 8], baseUrl: "https://tellqyou.base.shop/" },
+            { key: "white", label: "WHITE", displayName: "WHITE", status: "available", color: "#f8f5ef", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [41, 42, 43, 44, 9, 11, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], baseUrl: "https://tellqyou.base.shop/" },
+            { key: "black", label: "BLACK", displayName: "BLACK", status: "available", color: "#171717", imagePrefix: "Patchwork-Scarf-", imageExtension: "JPG", photoNumbers: [45, 46, 47, 48, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], baseUrl: "https://tellqyou.base.shop/" }
         ],
 
         category: "TELLQ / UPCYCLED COLLECTION",
